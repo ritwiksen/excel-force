@@ -246,6 +246,12 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.DI\ExcelForce.Foundation.DI.csproj">
+      <Project>{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}</Project>
+      <Name>ExcelForce.Foundation.DI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
