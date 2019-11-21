@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce", "ExcelForce\ExcelForce.csproj", "{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{F6C18539-25E5-4CFE-835A-D0BFD6735624}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Foundation", "Foundation", "{3FE335C7-050F-4F91-AAFD-A390377D8052}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.UserProfile", "ExcelForce.Foundation.UserProfile\ExcelForce.Foundation.UserProfile.csproj", "{DECE7652-720A-42A8-8515-0A397CBCDD0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.DI", "ExcelForce.Foundation.DI\ExcelForce.Foundation.DI.csproj", "{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.CoreServices", "ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj", "{D0FE245F-44CB-4D30-A93A-97EC891C2251}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,27 @@ Global
 		{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5} = {F6C18539-25E5-4CFE-835A-D0BFD6735624}
+		{DECE7652-720A-42A8-8515-0A397CBCDD0E} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
+		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
+		{D0FE245F-44CB-4D30-A93A-97EC891C2251} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F258FD4F-E49D-429D-B63D-EC6BD9A81187}
