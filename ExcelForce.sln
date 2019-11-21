@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.DI", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.CoreServices", "ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj", "{D0FE245F-44CB-4D30-A93A-97EC891C2251}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{6850B2E4-B30C-44D3-8E4C-F7ED197754E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Business.Login", "EscelForce.Business.Login\ExcelForce.Business.Login.csproj", "{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,10 @@ Global
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +54,7 @@ Global
 		{DECE7652-720A-42A8-8515-0A397CBCDD0E} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251} = {3FE335C7-050F-4F91-AAFD-A390377D8052}
+		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85} = {6850B2E4-B30C-44D3-8E4C-F7ED197754E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F258FD4F-E49D-429D-B63D-EC6BD9A81187}
