@@ -1,0 +1,20 @@
+Evolution #2
+____________________________________________________________
+
+changes need to be made
+in our login system, we need 3 different keys
+	consumer key
+	secret key
+	security token
+this key info needs to be prompted from a different form, saved and used in 
+the subsequent login process.
+
+also changes need to be made for the Login form itself
+	the form should appear in the center
+	no resizing should be allowed
+	add a little bit of style element, refer to the salesforce log in style
+
+Questions
+	how to add items in the splitbutton
+	why don't we also store the url and username
+	how to save and retireve

@@ -4,21 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Net.Http;
 using Microsoft.Office.Tools.Ribbon;
-using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Data;
-using Newtonsoft.Json;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
-using System.IO;
-using ExcelDataReader;
-using Microsoft.Office.Tools.Excel;
-using System.Web;
 
 namespace ExcelForce
 {
-    
+
     public partial class ExcelForce
     {
 
@@ -37,25 +30,25 @@ namespace ExcelForce
         {
 
         }
-        
+
 
 
         private void Button1_Click(object sender, RibbonControlEventArgs e)
         {
-            Form2 f = new Form2(this);
+            Form1 f = new Form1(this);
             f.Show();
         }
 
         private void DropDown1_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
         }
-        
+
 
         private void dropDown2_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
-            
 
-            
+
+
         }
         public HttpResponseMessage Query(string reqUrl)
         {
@@ -75,11 +68,12 @@ namespace ExcelForce
 
         private void button4_Click(object sender, RibbonControlEventArgs e)
         {
-            if(dropDown1.SelectedItem != null)
+            if (dropDown1.SelectedItem != null)
                 objectSelected = dropDown1.SelectedItem.Label;
-            if(dropDown2.SelectedItem != null)
+            if (dropDown2.SelectedItem != null)
                 operationSelected = dropDown2.SelectedItem.Label;
-            if (operationSelected == "Select") {
+            if (operationSelected == "Select")
+            {
 
                 List<String> sObjFieldLst = new List<string>();
                 using (var client = new HttpClient())
@@ -92,7 +86,7 @@ namespace ExcelForce
                     var response = client.SendAsync(request).Result;
                     var requestresponse = response.Content.ReadAsStringAsync().Result;
                     if (((int)response.StatusCode) >= 200 && ((int)response.StatusCode) < 300)
-                     {
+                    {
                         JObject sObjJObj = JObject.Parse(requestresponse);
                         JToken tokens = sObjJObj["fields"];
                         if (tokens.Children().Count() > 0)
@@ -149,12 +143,14 @@ namespace ExcelForce
                             ExceptionResponse(requestresponse);
                         }
                     }
-                    else {
-                        ExceptionResponse(requestresponse);  
+                    else
+                    {
+                        ExceptionResponse(requestresponse);
                     }
                 }
 
-            } else if (operationSelected == "Insert")
+            }
+            else if (operationSelected == "Insert")
             {
                 var JsonData = Globals.ThisAddIn.ToInsertJSON(Globals.ThisAddIn.GetValuesRange(), objectSelected);
                 MessageBox.Show(JsonData);
@@ -174,7 +170,8 @@ namespace ExcelForce
                     {
                         ExceptionResponse(message);
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("Inserted Records Successfully");
                     }
 
@@ -200,7 +197,8 @@ namespace ExcelForce
                     {
                         ExceptionResponse(message);
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("Updated Records Successfully");
                     }
 
@@ -225,7 +223,8 @@ namespace ExcelForce
                     {
                         ExceptionResponse(message);
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("Deleted Records Successfully");
                     }
                 }
@@ -272,10 +271,78 @@ namespace ExcelForce
                 operationSelected = "";
                 MessageBox.Show("Logged out successfully");
             }
-            else {
+            else
+            {
                 MessageBox.Show("Something went wrong");
             }
 
         }
-    }  
+
+        private void button3_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+
+        private void button9_Click(object sender, RibbonControlEventArgs e)
+        {
+            Form1 f = new Form1(this);
+            f.Show();
+        }
+
+        private void button10_Click(object sender, RibbonControlEventArgs e)
+        {
+            HttpClient LogoutCall = new HttpClient();
+            String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
+            var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
+            request.Headers.Add("Authorization", "Bearer " + authToken);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            request.Headers.Add("X-PrettyPrint", "1");
+            var response = LogoutCall.SendAsync(request).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                dropDown1.SelectedItemIndex = -1;
+                dropDown1.Items.Clear();
+                objectSelected = "";
+                operationSelected = "";
+                MessageBox.Show("Logged out successfully");
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong");
+            }
+
+            button9.Visible = true;
+            button10.Visible = false;
+            button6.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+        }
+
+        private void button8_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void dropDown3_SelectionChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+        private void button11_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void splitButton1_Click(object sender, RibbonControlEventArgs e)
+        {
+            Form1 f = new Form1(this);
+            f.Show();
+        }
+    }
 }

@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
 using System.Data.OleDb;
-using ExcelForce.Foundation.DI;
 
 namespace ExcelForce
 {
@@ -230,10 +229,8 @@ namespace ExcelForce
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.WorkbookBeforeSave +=
-                new Excel.AppEvents_WorkbookBeforeSaveEventHandler
+                new Microsoft.Office.Interop.Excel.AppEvents_WorkbookBeforeSaveEventHandler
                     (Application_WorkbookBeforeSave);
-
-            UnityIntializer.Initialize();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

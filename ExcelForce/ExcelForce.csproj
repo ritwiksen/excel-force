@@ -202,7 +202,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ExcelForce_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -210,11 +209,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -239,18 +233,17 @@
     <Content Include="Images\Populate.jpg" />
     <Content Include="Images\Settings.jpg" />
     <Content Include="Images\Submit.jpg" />
+    <None Include="Resources\LogOut1.JPG" />
+    <None Include="Resources\Login1.JPG" />
+    <None Include="Resources\UpdateExtractionMap.JPG" />
+    <None Include="Resources\Extract Data.JPG" />
+    <None Include="Resources\CreateExtractionMap.JPG" />
     <None Include="Resources\Populate.jpg" />
     <None Include="Resources\Submit.jpg" />
     <None Include="Resources\Settings.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ExcelForce.Foundation.DI\ExcelForce.Foundation.DI.csproj">
-      <Project>{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}</Project>
-      <Name>ExcelForce.Foundation.DI</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

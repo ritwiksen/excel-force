@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net.Http;
 using Microsoft.Office.Tools.Ribbon;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
-using System.Data;
-using Newtonsoft.Json;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
-using System.IO;
-using ExcelDataReader;
-using Microsoft.Office.Tools.Excel;
 
 namespace ExcelForce
 {
     public partial class Form2 : Form
     {
         ExcelForce ex1;
-        public Form2(ExcelForce ex)
-        {
-            ex1 = ex;
-            InitializeComponent();
-        }
         String authToken = "";
         String ServiceURL = "https://login.salesforce.com";
-       // String ServiceURL = "https://test.salesforce.com";
-        String sfdcConsumerKey = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
-       // String sfdcConsumerKey = "3MVG9LzKxa43zqdKPikPxc3sMUZ7jacalJD.HFa3LG_TyBmyZuISofWytdsXwn3ZomqLbdsIdyMUqBBMKgZyN";
+        // String ServiceURL = "https://test.salesforce.com";
+        String sfdcConsumerKey = "";// = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
+        // String sfdcConsumerKey = "3MVG9LzKxa43zqdKPikPxc3sMUZ7jacalJD.HFa3LG_TyBmyZuISofWytdsXwn3ZomqLbdsIdyMUqBBMKgZyN";
         //String sfdcCounsumerSecret = "AA2E6E9F9DC6843FCD673542E0A4AF727D7FF59333E002017472E6D2E9D3D15E";
-        String sfdcCounsumerSecret = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
+        String sfdcCounsumerSecret = "";// = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
+        String callbackUrl = "";
+
+        public Form2(ExcelForce ex, String conKey, String secKey, Boolean prod)
+        {
+            ex1 = ex;
+            sfdcConsumerKey = conKey;
+            sfdcCounsumerSecret = secKey;
+            callbackUrl = (prod == true) ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
+            InitializeComponent();
+        }
+        
         public String[] columnName;
 
         private void label1_Click(object sender, EventArgs e)
@@ -45,10 +44,11 @@ namespace ExcelForce
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce";
             //String sfdcPassword = "Excelforce@1234";
             String sfdcUserName = textBox1.Text;
-            string sfdcPassword = textBox2.Text;
+            String sfdcPassword = textBox2.Text;
+            String sfdcSecurityToken = textBox3.Text;
             // String sfdcSecurityToken = "DgvAbALBLgDSNJOPWzHP3318";
-            String sfdcSecurityToken = "9mItEpwZzSVXl1gP9tdQPWBJU";
-             String callbackUrl = "https://login.salesforce.com/services/oauth2/token";
+            // String sfdcSecurityToken = "9mItEpwZzSVXl1gP9tdQPWBJU";
+            // String callbackUrl = "https://login.salesforce.com/services/oauth2/token";
             //String callbackUrl = "https://test.salesforce.com/services/oauth2/token";
 
             String SfdcloginPassword = sfdcPassword + sfdcSecurityToken;
@@ -90,10 +90,8 @@ namespace ExcelForce
                 List<String> sObjLst = new List<string>();
                 if (apiCallResponse.IsSuccessStatusCode)
                 {
-                    ex1.button1.Enabled = false;
-                    ex1.button2.Enabled = true;
                     this.Close();
-                    MessageBox.Show("Connection Established");
+                    MessageBox.Show("Connection Established.");
                     JObject sObjJObj = JObject.Parse(requestresponse);
                     JToken tokens = sObjJObj["sobjects"];
                     if (tokens.Children().Count() > 0)
@@ -115,12 +113,27 @@ namespace ExcelForce
                     ex1.authToken = this.authToken;
                     ex1.ServiceURL = this.ServiceURL;
 
+                    ex1.button10.Visible = true;
+                    ex1.button9.Visible = false;
+                    ex1.button6.Enabled = true;
+                    ex1.button7.Enabled = true;
+                    ex1.button8.Enabled = true;
+
                 }
                 else {
+                    MessageBox.Show("Connection NOT Established.");
                     ex1.ExceptionResponse(requestresponse);
                 }
 
             }
+            else
+            {
+                textBox2.Text = "";
+                textBox3.Text = "";
+                label4.Visible = true;
+               // MessageBox.Show("Please check your username and password.");
+            }
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
