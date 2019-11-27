@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManagement\Interfaces\FileContentManager.cs" />
+    <Compile Include="FileManagement\Interfaces\IContentStreamManager.cs" />
     <Compile Include="Models\ApiResonse.cs" />
     <Compile Include="Models\Enums\HttpVerb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,9 +55,7 @@
     <Compile Include="ServiceCallWrapper\ServiceCallWrapper.cs" />
     <Compile Include="ServiceCallWrapper\WebApiHttpClient.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FileManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
