@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ExcelForce.Foundation.CoreServices.FileManagement.Interfaces;
+using System;
 using System.IO;
 
-namespace ExcelForce.Foundation.CoreServices.FileManagement.Interfaces
+namespace ExcelForce.Foundation.CoreServices.FileManagement
 {
     public class FileContentManager : IContentStreamManager
     {
