@@ -9,6 +9,8 @@
 //------------------------------------------------------------------------------
 
 #pragma warning disable 414
+using Microsoft.Office.Tools.Ribbon;
+
 namespace ExcelForce {
     
     
@@ -228,8 +230,7 @@ namespace ExcelForce {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "15.0.0.0")]
     internal sealed partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonCollectionBase {
-        
-        /// 
+
         internal ThisRibbonCollection(global::Microsoft.Office.Tools.Ribbon.RibbonFactory factory) : 
                 base(factory) {
         }

@@ -14,7 +14,7 @@ namespace ExcelForce
 
     public partial class ExcelForce
     {
-
+        public int MyProperty = 123;
         public String operationSelected = "";
         public String objectSelected = "";
         public String[] columnName;

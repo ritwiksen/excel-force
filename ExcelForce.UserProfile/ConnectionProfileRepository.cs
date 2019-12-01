@@ -16,7 +16,7 @@ namespace ExcelForce.UserProfile
 
         private readonly IContentStreamManager _contentStreamManager;
 
-        private string _fileName;
+        private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExcelForce.txt";
 
         public ConnectionProfileRepository()
         {
@@ -27,7 +27,8 @@ namespace ExcelForce.UserProfile
 
         public bool AddRecord(ConnectionProfile model)
         {
-            var records = GetRecords()?.ToList();
+            var records = GetRecords()?.ToList()
+                ?? new List<ConnectionProfile>();
 
             records?.Add(model);
 
@@ -38,16 +39,19 @@ namespace ExcelForce.UserProfile
         {
             var records = GetRecords()?.ToList();
 
-            records.RemoveAll(
+            records?.RemoveAll(
                 x => string.Equals(x.Name, key, StringComparison.InvariantCultureIgnoreCase));
 
             return WriteContent(records);
         }
 
+        //TODO:(Ritwik):: Modify this to fetch only distinct records
         public IEnumerable<ConnectionProfile> GetRecords()
         {
+            CreateFileIfAbsent();
+
             var fileContent =
-                _contentStreamManager.ReadContent(_fileName);
+                _contentStreamManager.ReadContent(_filePath);
 
             return
                 _contentSerializationManager.Deserialize<List<ConnectionProfile>>(fileContent);
@@ -70,7 +74,19 @@ namespace ExcelForce.UserProfile
         {
             var serializedContent = _contentSerializationManager.Serialize(records);
 
-            return _contentStreamManager.WriteContent(serializedContent, _fileName);
+            CreateFileIfAbsent();
+
+            return _contentStreamManager.WriteContent(_filePath, serializedContent);
+        }
+
+        private bool CreateFileIfAbsent()
+        {
+            var fileExists = _contentStreamManager.ContentLocationExists(_filePath);
+
+            if (!fileExists)
+                _contentStreamManager.CreateContentLocation(_filePath);
+
+            return true;
         }
     }
 }

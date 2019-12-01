@@ -15,5 +15,19 @@
         /// <param name="resourceName"></param>
         /// <returns></returns>
         bool WriteContent(string resourceName, string content);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <returns></returns>
+        bool ContentLocationExists(string resourceName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <returns></returns>
+        bool CreateContentLocation(string resourceName);
     }
 }

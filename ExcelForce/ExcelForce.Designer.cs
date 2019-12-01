@@ -45,17 +45,17 @@
             this.dropDown1 = this.Factory.CreateRibbonDropDown();
             this.dropDown2 = this.Factory.CreateRibbonDropDown();
             this.group3 = this.Factory.CreateRibbonGroup();
-            this.group5 = this.Factory.CreateRibbonGroup();
-            this.group6 = this.Factory.CreateRibbonGroup();
-            this.separator1 = this.Factory.CreateRibbonSeparator();
-            this.separator2 = this.Factory.CreateRibbonSeparator();
             this.button3 = this.Factory.CreateRibbonButton();
             this.button4 = this.Factory.CreateRibbonButton();
+            this.group5 = this.Factory.CreateRibbonGroup();
             this.button9 = this.Factory.CreateRibbonButton();
             this.button10 = this.Factory.CreateRibbonButton();
             this.splitButton1 = this.Factory.CreateRibbonSplitButton();
+            this.group6 = this.Factory.CreateRibbonGroup();
             this.button6 = this.Factory.CreateRibbonButton();
+            this.separator1 = this.Factory.CreateRibbonSeparator();
             this.button7 = this.Factory.CreateRibbonButton();
+            this.separator2 = this.Factory.CreateRibbonSeparator();
             this.button8 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -111,32 +111,6 @@
             this.group3.Name = "group3";
             this.group3.Visible = false;
             // 
-            // group5
-            // 
-            this.group5.Items.Add(this.button9);
-            this.group5.Items.Add(this.button10);
-            this.group5.Items.Add(this.splitButton1);
-            this.group5.Label = "Log In / Log Out";
-            this.group5.Name = "group5";
-            // 
-            // group6
-            // 
-            this.group6.Items.Add(this.button6);
-            this.group6.Items.Add(this.separator1);
-            this.group6.Items.Add(this.button7);
-            this.group6.Items.Add(this.separator2);
-            this.group6.Items.Add(this.button8);
-            this.group6.Label = "Extract and Save (CRUD)";
-            this.group6.Name = "group6";
-            // 
-            // separator1
-            // 
-            this.separator1.Name = "separator1";
-            // 
-            // separator2
-            // 
-            this.separator2.Name = "separator2";
-            // 
             // button3
             // 
             this.button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -154,6 +128,14 @@
             this.button4.Name = "button4";
             this.button4.ShowImage = true;
             this.button4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button4_Click);
+            // 
+            // group5
+            // 
+            this.group5.Items.Add(this.button9);
+            this.group5.Items.Add(this.button10);
+            this.group5.Items.Add(this.splitButton1);
+            this.group5.Label = "Log In / Log Out";
+            this.group5.Name = "group5";
             // 
             // button9
             // 
@@ -182,6 +164,16 @@
             this.splitButton1.Name = "splitButton1";
             this.splitButton1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton1_Click);
             // 
+            // group6
+            // 
+            this.group6.Items.Add(this.button6);
+            this.group6.Items.Add(this.separator1);
+            this.group6.Items.Add(this.button7);
+            this.group6.Items.Add(this.separator2);
+            this.group6.Items.Add(this.button8);
+            this.group6.Label = "Extract and Save (CRUD)";
+            this.group6.Name = "group6";
+            // 
             // button6
             // 
             this.button6.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -191,6 +183,10 @@
             this.button6.Name = "button6";
             this.button6.ShowImage = true;
             // 
+            // separator1
+            // 
+            this.separator1.Name = "separator1";
+            // 
             // button7
             // 
             this.button7.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -199,6 +195,10 @@
             this.button7.Label = "Update Existing Map";
             this.button7.Name = "button7";
             this.button7.ShowImage = true;
+            // 
+            // separator2
+            // 
+            this.separator2.Name = "separator2";
             // 
             // button8
             // 

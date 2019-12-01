@@ -245,6 +245,16 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
+      <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
+      <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Business.ProfileManagement.csproj">
+      <Project>{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}</Project>
+      <Name>ExcelForce.Business.ProfileManagement</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Windows.Forms;
-using System.Data.OleDb;
 
 namespace ExcelForce
 {
