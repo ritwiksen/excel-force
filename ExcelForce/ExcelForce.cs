@@ -10,7 +10,7 @@ using System.Data;
 using System.Windows.Forms;
 using ExcelForce.Forms;
 using ExcelForce.Foundation.ProfileManagement;
-using ExcelForce.Business;
+using ExcelForce.Business.Interfaces;
 
 namespace ExcelForce
 {
@@ -24,7 +24,7 @@ namespace ExcelForce
         public String authToken;
         public String ServiceURL;
 
-        private readonly IRibbonBaseService _ribbonBaseService;
+        private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
         private void MenuItems_Load(object sender, RibbonUIEventArgs e)
         {
@@ -296,10 +296,11 @@ namespace ExcelForce
 
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
-            if (_ribbonBaseService.LoadConnectionProfilePopup())
+            //  connectionProfileSplitButton_OnLoad();
+            if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
             {
                 var connectionInfoForm = new ConnectionInformationForm(this);
-                
+
                 connectionInfoForm.Show();
             }
             else

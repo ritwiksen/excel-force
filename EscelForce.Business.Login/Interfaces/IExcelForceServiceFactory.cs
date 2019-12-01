@@ -3,5 +3,7 @@
     public interface IExcelForceServiceFactory
     {
         IRibbonBaseService GetRibbonBaseService();
+
+        IConfigurationInformationService GetConnectionProfileService();
     }
 }

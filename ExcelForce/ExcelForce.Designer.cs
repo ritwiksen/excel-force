@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business;
+using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Foundation.ProfileManagement;
 
 namespace ExcelForce
@@ -16,7 +17,7 @@ namespace ExcelForce
             InitializeComponent();
 
             //TODO:(Ritwik):: To refactor this from Factory classes
-            _ribbonBaseService = new RibbonBaseService(new ConnectionProfileRepository());
+            _excelForceServiceFactory = new ExcelForceServiceFactory();
         }
 
         /// <summary> 
@@ -118,7 +119,7 @@ namespace ExcelForce
             this.groupActions.Visible = false;
             // 
             // button3
-            // 
+            //
             this.button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
             this.button3.Label = "Populate Data";

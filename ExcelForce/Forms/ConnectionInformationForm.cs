@@ -1,5 +1,5 @@
-﻿using ExcelForce.Foundation.CoreServices.Repository;
-using ExcelForce.Foundation.ProfileManagement;
+﻿using ExcelForce.Business.Interfaces;
+using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
 using System.Windows.Forms;
@@ -8,11 +8,11 @@ namespace ExcelForce.Forms
 {
     public partial class ConnectionInformationForm : Form
     {
-        private readonly IExcelForceRepository<ConnectionProfile, string> _connectionProfileRepository;
+        private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
         public ConnectionInformationForm(ExcelForce ex)
         {
-            _connectionProfileRepository = new ConnectionProfileRepository();
+            _excelForceServiceFactory = new ExcelForceServiceFactory();
 
             InitializeComponent();
         }
@@ -23,7 +23,7 @@ namespace ExcelForce.Forms
                 && !string.IsNullOrWhiteSpace(textBox2.Text.Trim())
                 && !string.IsNullOrWhiteSpace(textBox3.Text.Trim()))
             {
-                var connectionObject = new ConnectionProfile
+                var profile = new ConnectionProfile
                 {
                     ClientSecret = textBox3.Text.Trim(),
                     Name = textBox1.Text.Trim(),
@@ -31,11 +31,15 @@ namespace ExcelForce.Forms
                     IsProduction = checkBox1.Checked
                 };
 
-                _connectionProfileRepository.AddRecord(connectionObject);
+                var profileService = _excelForceServiceFactory.GetConnectionProfileService();
 
-                var f2 = new LoginForm(textBox2.Text, textBox3.Text, checkBox1.Checked);
+                var result = profileService.PerformConnectionSubmitActions(profile);
+
+                var loginForm = new LoginForm(textBox2.Text, textBox3.Text, checkBox1.Checked);
+
                 this.Close();
-                f2.Show();
+
+                loginForm.Show();
             }
             else
             {
