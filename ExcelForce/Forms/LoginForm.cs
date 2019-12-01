@@ -8,9 +8,9 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
 
-namespace ExcelForce
+namespace ExcelForce.Forms
 {
-    public partial class Form2 : Form
+    public partial class LoginForm : Form
     {
         ExcelForce ex1;
         String authToken = "";
@@ -22,7 +22,7 @@ namespace ExcelForce
         String sfdcCounsumerSecret = "";// = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
         String callbackUrl = "";
 
-        public Form2(ExcelForce ex, String conKey, String secKey, Boolean prod)
+        public LoginForm(ExcelForce ex, String conKey, String secKey, Boolean prod)
         {
             ex1 = ex;
             sfdcConsumerKey = conKey;

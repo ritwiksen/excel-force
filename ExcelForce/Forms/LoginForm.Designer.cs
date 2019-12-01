@@ -1,6 +1,6 @@
-﻿namespace ExcelForce
+﻿namespace ExcelForce.Forms
 {
-    partial class Form2
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.

@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Windows.Forms;
+using ExcelForce.Forms;
 
 namespace ExcelForce
 {
@@ -35,8 +36,8 @@ namespace ExcelForce
 
         private void Button1_Click(object sender, RibbonControlEventArgs e)
         {
-            Form1 f = new Form1(this);
-            f.Show();
+            var connectionInformationForm = new ConnectionInformationForm(this);
+            connectionInformationForm.Show();
         }
 
         private void DropDown1_SelectionChanged(object sender, RibbonControlEventArgs e)
@@ -291,7 +292,7 @@ namespace ExcelForce
 
         private void button9_Click(object sender, RibbonControlEventArgs e)
         {
-            Form1 f = new Form1(this);
+            ConnectionInformationForm f = new ConnectionInformationForm(this);
             f.Show();
         }
 
@@ -341,7 +342,7 @@ namespace ExcelForce
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
         {
-            Form1 f = new Form1(this);
+            ConnectionInformationForm f = new ConnectionInformationForm(this);
             f.Show();
         }
     }

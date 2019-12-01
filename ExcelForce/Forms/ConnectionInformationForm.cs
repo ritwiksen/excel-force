@@ -4,15 +4,15 @@ using ExcelForce.UserProfile.Models;
 using System;
 using System.Windows.Forms;
 
-namespace ExcelForce
+namespace ExcelForce.Forms
 {
-    public partial class Form1 : Form
+    public partial class ConnectionInformationForm : Form
     {
         ExcelForce ex1;
 
         private readonly IExcelForceRepository<ConnectionProfile, string> _connectionProfileRepository;
 
-        public Form1(ExcelForce ex)
+        public ConnectionInformationForm(ExcelForce ex)
         {
             ex1 = ex;
 
@@ -49,7 +49,7 @@ namespace ExcelForce
 
                 _connectionProfileRepository.AddRecord(connectionObject);
 
-                Form2 f2 = new Form2(ex1, textBox2.Text, textBox3.Text, checkBox1.Checked);
+                var f2 = new LoginForm(ex1, textBox2.Text, textBox3.Text, checkBox1.Checked);
                 this.Close();
                 f2.Show();
             }

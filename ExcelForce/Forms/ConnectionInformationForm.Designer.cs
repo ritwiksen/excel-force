@@ -1,6 +1,6 @@
-﻿namespace ExcelForce
+﻿namespace ExcelForce.Forms
 {
-    partial class Form1
+    partial class ConnectionInformationForm
     {
         /// <summary>
         /// Required designer variable.
