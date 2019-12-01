@@ -3,12 +3,12 @@ using ExcelForce.Foundation.CoreServices.FileManagement.Interfaces;
 using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.CoreServices.Serialization;
 using ExcelForce.Foundation.CoreServices.Serialization.Interfaces;
-using ExcelForce.UserProfile.Models;
+using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExcelForce.UserProfile
+namespace ExcelForce.Foundation.ProfileManagement
 {
     public class ConnectionProfileRepository : IExcelForceRepository<ConnectionProfile, string>
     {

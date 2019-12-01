@@ -9,7 +9,8 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Windows.Forms;
 using ExcelForce.Forms;
-using ExcelForce.UserProfile;
+using ExcelForce.Foundation.ProfileManagement;
+using ExcelForce.Business;
 
 namespace ExcelForce
 {
@@ -22,6 +23,8 @@ namespace ExcelForce
         public String[] columnName;
         public String authToken;
         public String ServiceURL;
+
+        private readonly IRibbonBaseService _ribbonBaseService;
 
         private void MenuItems_Load(object sender, RibbonUIEventArgs e)
         {
@@ -291,10 +294,20 @@ namespace ExcelForce
         }
 
 
-        private void button9_Click(object sender, RibbonControlEventArgs e)
+        private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
-            ConnectionInformationForm form = new ConnectionInformationForm(this);
-            form.Show();
+            if (_ribbonBaseService.LoadConnectionProfilePopup())
+            {
+                var connectionInfoForm = new ConnectionInformationForm(this);
+                
+                connectionInfoForm.Show();
+            }
+            else
+            {
+                var loginForm = new LoginForm();
+
+                loginForm.Show();
+            }
         }
 
 
@@ -331,7 +344,7 @@ namespace ExcelForce
                 MessageBox.Show("Something went wrong");
             }
 
-            button9.Visible = true;
+            btnLogin.Visible = true;
             button10.Visible = false;
             button6.Enabled = false;
             button7.Enabled = false;
@@ -356,6 +369,11 @@ namespace ExcelForce
         {
             ConnectionInformationForm f = new ConnectionInformationForm(this);
             f.Show();
+        }
+
+        private void button9_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }

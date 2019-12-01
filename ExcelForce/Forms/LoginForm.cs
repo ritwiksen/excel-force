@@ -12,7 +12,7 @@ namespace ExcelForce.Forms
 {
     public partial class LoginForm : Form
     {
-        ExcelForce ex1;
+        private ExcelForce _ribbonBase;
         String authToken = "";
         String ServiceURL = "https://login.salesforce.com";
         // String ServiceURL = "https://test.salesforce.com";
@@ -22,15 +22,20 @@ namespace ExcelForce.Forms
         String sfdcCounsumerSecret = "";// = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
         String callbackUrl = "";
 
-        public LoginForm(ExcelForce ex, String conKey, String secKey, Boolean prod)
+        public LoginForm(String conKey, String secKey, Boolean prod) : this()
         {
-            ex1 = ex;
             sfdcConsumerKey = conKey;
             sfdcCounsumerSecret = secKey;
             callbackUrl = (prod == true) ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
+        }
+
+        public LoginForm()
+        {
+            _ribbonBase= Globals.Ribbons.GetRibbon<ExcelForce>();
+
             InitializeComponent();
         }
-        
+
         public String[] columnName;
 
         private void label1_Click(object sender, EventArgs e)
@@ -104,25 +109,26 @@ namespace ExcelForce.Forms
                                 {
                                     RibbonDropDownItem item = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
                                     item.Label = jp.Value.ToString();
-                                    ex1.dropDown1.Items.Add(item);
+                                    _ribbonBase.dropDown1.Items.Add(item);
                                     //sObjLst.Add(jp.Value.ToString());
                                 }
                             }
                         }
                     }
-                    ex1.authToken = this.authToken;
-                    ex1.ServiceURL = this.ServiceURL;
+                    _ribbonBase.authToken = this.authToken;
+                    _ribbonBase.ServiceURL = this.ServiceURL;
 
-                    ex1.button10.Visible = true;
-                    ex1.button9.Visible = false;
-                    ex1.button6.Enabled = true;
-                    ex1.button7.Enabled = true;
-                    ex1.button8.Enabled = true;
+                    _ribbonBase.button10.Visible = true;
+                    _ribbonBase.btnLogin.Visible = false;
+                    _ribbonBase.button6.Enabled = true;
+                    _ribbonBase.button7.Enabled = true;
+                    _ribbonBase.button8.Enabled = true;
 
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Connection NOT Established.");
-                    ex1.ExceptionResponse(requestresponse);
+                    _ribbonBase.ExceptionResponse(requestresponse);
                 }
 
             }
@@ -131,9 +137,8 @@ namespace ExcelForce.Forms
                 textBox2.Text = "";
                 textBox3.Text = "";
                 label4.Visible = true;
-               // MessageBox.Show("Please check your username and password.");
+                // MessageBox.Show("Please check your username and password.");
             }
-            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

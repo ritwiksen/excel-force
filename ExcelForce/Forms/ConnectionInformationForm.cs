@@ -1,6 +1,6 @@
 ﻿using ExcelForce.Foundation.CoreServices.Repository;
-using ExcelForce.UserProfile;
-using ExcelForce.UserProfile.Models;
+using ExcelForce.Foundation.ProfileManagement;
+using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
 using System.Windows.Forms;
 
@@ -8,33 +8,17 @@ namespace ExcelForce.Forms
 {
     public partial class ConnectionInformationForm : Form
     {
-        ExcelForce ex1;
-
         private readonly IExcelForceRepository<ConnectionProfile, string> _connectionProfileRepository;
 
         public ConnectionInformationForm(ExcelForce ex)
         {
-            ex1 = ex;
-
             _connectionProfileRepository = new ConnectionProfileRepository();
 
             InitializeComponent();
         }
 
-        private void TextBox1_TextChanged(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var test = Globals.Ribbons.GetRibbon<ExcelForce>();
-            var testValue = test.MyProperty;
             if (!string.IsNullOrWhiteSpace(textBox1.Text.Trim())
                 && !string.IsNullOrWhiteSpace(textBox2.Text.Trim())
                 && !string.IsNullOrWhiteSpace(textBox3.Text.Trim()))
@@ -49,7 +33,7 @@ namespace ExcelForce.Forms
 
                 _connectionProfileRepository.AddRecord(connectionObject);
 
-                var f2 = new LoginForm(ex1, textBox2.Text, textBox3.Text, checkBox1.Checked);
+                var f2 = new LoginForm(textBox2.Text, textBox3.Text, checkBox1.Checked);
                 this.Close();
                 f2.Show();
             }
@@ -57,11 +41,6 @@ namespace ExcelForce.Forms
             {
                 label6.Visible = true;
             }
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EscelForce.Business.Login</RootNamespace>
-    <AssemblyName>EscelForce.Business.Login</AssemblyName>
+    <RootNamespace>ExcelForce.Business</RootNamespace>
+    <AssemblyName>ExcelForce.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,7 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IExcelForceServiceFactory.cs" />
+    <Compile Include="Interfaces\IRibbonBaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
+    <Compile Include="Services\RibbonBase\RibbonBaseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
+      <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
+      <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Foundation.ProfileManagement.csproj">
+      <Project>{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}</Project>
+      <Name>ExcelForce.Foundation.ProfileManagement</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\ConfigurationInfo\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

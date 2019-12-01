@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace ExcelForce.UserProfile.Models
+namespace ExcelForce.Foundation.ProfileManagement.Models
 {
     [Serializable]
     public class ConnectionProfile : IExcelForceModel

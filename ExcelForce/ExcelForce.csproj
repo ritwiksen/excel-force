@@ -246,13 +246,17 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EscelForce.Business.Login\ExcelForce.Business.csproj">
+      <Project>{03B5358E-CD65-4FB5-A5FC-A44A87B93B85}</Project>
+      <Name>ExcelForce.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
       <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
       <Name>ExcelForce.Foundation.CoreServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Business.ProfileManagement.csproj">
+    <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Foundation.ProfileManagement.csproj">
       <Project>{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}</Project>
-      <Name>ExcelForce.Business.ProfileManagement</Name>
+      <Name>ExcelForce.Foundation.ProfileManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,7 @@
-﻿namespace ExcelForce
+﻿using ExcelForce.Business;
+using ExcelForce.Foundation.ProfileManagement;
+
+namespace ExcelForce
 {
     partial class ExcelForce : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
@@ -11,6 +14,9 @@
             : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
+
+            //TODO:(Ritwik):: To refactor this from Factory classes
+            _ribbonBaseService = new RibbonBaseService(new ConnectionProfileRepository());
         }
 
         /// <summary> 
@@ -48,7 +54,7 @@
             this.button3 = this.Factory.CreateRibbonButton();
             this.button4 = this.Factory.CreateRibbonButton();
             this.groupAuthentication = this.Factory.CreateRibbonGroup();
-            this.button9 = this.Factory.CreateRibbonButton();
+            this.btnLogin = this.Factory.CreateRibbonButton();
             this.button10 = this.Factory.CreateRibbonButton();
             this.connectionProfileSplitButton = this.Factory.CreateRibbonSplitButton();
             this.groupCrud = this.Factory.CreateRibbonGroup();
@@ -131,20 +137,20 @@
             // 
             // groupAuthentication
             // 
-            this.groupAuthentication.Items.Add(this.button9);
+            this.groupAuthentication.Items.Add(this.btnLogin);
             this.groupAuthentication.Items.Add(this.button10);
             this.groupAuthentication.Items.Add(this.connectionProfileSplitButton);
             this.groupAuthentication.Label = "Log In / Log Out";
             this.groupAuthentication.Name = "groupAuthentication";
             // 
-            // button9
+            // btnLogin
             // 
-            this.button9.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
-            this.button9.Label = "Login";
-            this.button9.Name = "button9";
-            this.button9.ShowImage = true;
-            this.button9.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button9_Click);
+            this.btnLogin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnLogin.Image = ((System.Drawing.Image)(resources.GetObject("btnLogin.Image")));
+            this.btnLogin.Label = "Login";
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.ShowImage = true;
+            this.btnLogin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLogin_Click);
             // 
             // button10
             // 
@@ -246,7 +252,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button7;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button8;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button9;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLogin;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button10;
         internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton connectionProfileSplitButton;
     }
