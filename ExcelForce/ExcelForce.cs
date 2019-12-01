@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Windows.Forms;
 using ExcelForce.Forms;
+using ExcelForce.UserProfile;
 
 namespace ExcelForce
 {
@@ -292,8 +293,19 @@ namespace ExcelForce
 
         private void button9_Click(object sender, RibbonControlEventArgs e)
         {
-            ConnectionInformationForm f = new ConnectionInformationForm(this);
-            f.Show();
+            ConnectionInformationForm form = new ConnectionInformationForm(this);
+            form.Show();
+        }
+
+
+        private void connectionProfileSplitButton_OnLoad()
+        {
+            var connectionProfileRepository = new ConnectionProfileRepository();
+
+            RibbonControl button = Globals.Factory.GetRibbonFactory().CreateRibbonButton();
+            button.Name = "Test";
+
+            connectionProfileSplitButton.Items.Add(button);
         }
 
         private void button10_Click(object sender, RibbonControlEventArgs e)

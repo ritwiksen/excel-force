@@ -5,6 +5,7 @@ using Microsoft.Office.Tools.Excel;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ExcelForce.UserProfile;
 
 namespace ExcelForce
 {
@@ -14,23 +15,24 @@ namespace ExcelForce
         Worksheet worksheet;
         internal void BindDatatoExcel(JArray trgArray)
         {
-            
+
             DataTable tester = JsonConvert.DeserializeObject<DataTable>(trgArray.ToString());
             worksheet = Globals.Factory.GetVstoObject(
                    this.Application.ActiveWorkbook.ActiveSheet);
 
-                worksheet.Controls.Remove("list1");
-                //Excel.Range selection = Globals.ThisAddIn.Application.Selection as Excel.Range;
-                list1 = worksheet.Controls.AddListObject(worksheet.Range["A1"], "list1");
-            
-                // Bind the list object to the table.
-            
-                list1.AutoSetDataBoundColumnHeaders = true;
-                list1.SetDataBinding(tester);
+            worksheet.Controls.Remove("list1");
+            //Excel.Range selection = Globals.ThisAddIn.Application.Selection as Excel.Range;
+            list1 = worksheet.Controls.AddListObject(worksheet.Range["A1"], "list1");
+
+            // Bind the list object to the table.
+
+            list1.AutoSetDataBoundColumnHeaders = true;
+            list1.SetDataBinding(tester);
 
         }
 
-        public JArray AddingRowsToArray(JArray trgArray, string json) {
+        public JArray AddingRowsToArray(JArray trgArray, string json)
+        {
             var jsonLinq = JObject.Parse(json);
             // Find the first array using Linq
             var srcArray = jsonLinq.Descendants().Where(d => d is JArray).First();
@@ -87,18 +89,18 @@ namespace ExcelForce
             int ColumnsToCount = 5;
             Worksheet workSheet = Globals.Factory.GetVstoObject(
                    this.Application.ActiveWorkbook.ActiveSheet);
-           // Excel.Range localRange = worksheet.UsedRange;
-           // var totalcolumn = localRange.Columns.Count;
-           // var totalrow = localRange.Rows.Count;
+            // Excel.Range localRange = worksheet.UsedRange;
+            // var totalcolumn = localRange.Columns.Count;
+            // var totalrow = localRange.Rows.Count;
 
-            
+
 
             do
             {
                 do
                 {
                     var cellValue = workSheet.Cells[RowCounter, ColumnCounter].Value2;
-                    
+
                     if (!String.IsNullOrWhiteSpace(cellValue))
                     {
                         UsedRows = RowCounter;
@@ -124,21 +126,23 @@ namespace ExcelForce
             var workSheetRange = workSheet.Range["a1", workSheet.Cells[UsedRows, UsedColumns].Address];
             return workSheetRange;
         }
-        public String ToInsertJSON(Excel.Range RangeToParse,String ObjectName)
+        public String ToInsertJSON(Excel.Range RangeToParse, String ObjectName)
         {
             int RowCounter;
             int ColumnCounter;
             String RecordsString = "{\"" + "records" + "\"" + ":";
             String AttributeString = "\"" + "attributes" + "\"" +
-                                     ":{"+"\""+"type"+"\""+":"+"\""+ ObjectName+"\""+","+
-                                     "\""+ "referenceId" +"\""+":"+"\""+ "ref";
+                                     ":{" + "\"" + "type" + "\"" + ":" + "\"" + ObjectName + "\"" + "," +
+                                     "\"" + "referenceId" + "\"" + ":" + "\"" + "ref";
             String ParsedData = RecordsString + "[";
             String temp;
 
-            for (RowCounter = 2; RowCounter <= RangeToParse.Rows.Count; RowCounter++) {
+            for (RowCounter = 2; RowCounter <= RangeToParse.Rows.Count; RowCounter++)
+            {
                 temp = "";
-                for (ColumnCounter = 1; ColumnCounter <= RangeToParse.Columns.Count; ColumnCounter++)  {
-                    temp = temp + "\"" + RangeToParse.Cells[1,ColumnCounter].Value2+ "\"" + ":"+"\"" + RangeToParse.Cells[RowCounter, ColumnCounter].Value2 + "\""+",";
+                for (ColumnCounter = 1; ColumnCounter <= RangeToParse.Columns.Count; ColumnCounter++)
+                {
+                    temp = temp + "\"" + RangeToParse.Cells[1, ColumnCounter].Value2 + "\"" + ":" + "\"" + RangeToParse.Cells[RowCounter, ColumnCounter].Value2 + "\"" + ",";
                 }
                 temp = "{" + AttributeString + RowCounter + "\"" + "}," + temp.Substring(0, temp.Length - 1) + "},";
                 ParsedData = ParsedData + temp;
@@ -153,7 +157,7 @@ namespace ExcelForce
             int ColumnCounter;
             String batchRequestsString = "{\"" + "batchRequests" + "\"" + ":";
             String methodString = "\"" + "method" + "\"" + ":" + "\"" + "PATCH" + "\"" + ",";
-            String urlString = "\"" + "url" + "\"" + ":" + "\"" + "v45.0/sobjects/" + ObjectName+"/";
+            String urlString = "\"" + "url" + "\"" + ":" + "\"" + "v45.0/sobjects/" + ObjectName + "/";
             String richInputString = "\"" + "richInput" + "\"" + ":" + "{";
             String ParsedData = batchRequestsString + "[";
             String temp;
@@ -167,7 +171,7 @@ namespace ExcelForce
                 {
                     if (RangeToParse.Cells[1, ColumnCounter].Value2 == "Id" || RangeToParse.Cells[1, ColumnCounter].Value2 == "ID")
                     {
-                        tempUrlString = tempUrlString + RangeToParse.Cells[RowCounter, ColumnCounter].Value2 +"\""+ ",";
+                        tempUrlString = tempUrlString + RangeToParse.Cells[RowCounter, ColumnCounter].Value2 + "\"" + ",";
                     }
                     else
                     {
@@ -180,7 +184,8 @@ namespace ExcelForce
             ParsedData = ParsedData.Substring(0, ParsedData.Length - 1) + "]}";
             return ParsedData;
         }
-        public String ToDeleteJson(Excel.Range RangeToParse) {
+        public String ToDeleteJson(Excel.Range RangeToParse)
+        {
             int RowCounter;
             int ColumnCounter;
             String temp = "";
@@ -194,7 +199,7 @@ namespace ExcelForce
                         temp = temp + RangeToParse.Cells[RowCounter, ColumnCounter].Value2 + ",";
                     }
                 }
-                
+
             }
             temp = temp.Substring(0, temp.Length - 1) + "&allOrNone=false";
             return temp;
@@ -223,12 +228,18 @@ namespace ExcelForce
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             this.Application.WorkbookBeforeSave +=
-                new Microsoft.Office.Interop.Excel.AppEvents_WorkbookBeforeSaveEventHandler
+                new Excel.AppEvents_WorkbookBeforeSaveEventHandler
                     (Application_WorkbookBeforeSave);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+        }
+
+        private void SplitButton_OnLoad()
+        {
+         
+
         }
 
         #region VSTO generated code
@@ -243,7 +254,7 @@ namespace ExcelForce
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
 
-       
+
     }
 
     #endregion
