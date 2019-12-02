@@ -296,35 +296,19 @@ namespace ExcelForce
 
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
-              connectionProfileSplitButton_OnLoad();
-            //if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
-            //{
-            //    var connectionInfoForm = new ConnectionInformationForm(this);
+             // connectionProfileSplitButton_OnLoad();
+            if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
+            {
+                var connectionInfoForm = new ConnectionInformationForm(this);
 
-            //    connectionInfoForm.Show();
-            //}
-            //else
-            //{
-            //    var loginForm = new LoginForm();
+                connectionInfoForm.Show();
+            }
+            else
+            {
+                var loginForm = new LoginForm();
 
-            //    loginForm.Show();
-            //}
-        }
-
-
-        private void connectionProfileSplitButton_OnLoad()
-        {
-            var connectionProfileRepository = new ConnectionProfileRepository();
-
-            //var button = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
-            //button.Label = "1";
-
-            //dropDown3.Items.Add(button);
-
-            //var button1 = Globals.Factory.GetRibbonFactory().CreateRibbonSplitButton();
-            //button1.Label = "1";
-
-            //connectionProfileSplitButton.Items.Add(button1);
+                loginForm.Show();
+            }
         }
 
         private void button10_Click(object sender, RibbonControlEventArgs e)
