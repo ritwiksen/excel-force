@@ -14,7 +14,6 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
     {
         private readonly IWebApiHttpClient _webApiHttpClient;
 
-
         private string _endpoint;
 
         public ServiceCallWrapper(IWebApiHttpClient webApiHttpClient)
@@ -22,9 +21,9 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
             _webApiHttpClient = webApiHttpClient;
         }
 
-        public async Task<ApiResponse<TModel, TErrorModel>> Post<T>(string endpoint, T model) where T : IHeader
+        public async Task<ApiResponse<TModel, TErrorModel>> Post<T>(string endpoint, T model) where T : IHeader, IPostData
         {
-            return await ProcessRequest(endpoint, model, HttpVerb.Post, HandleDefaultResponse).ConfigureAwait(false);
+            return await ProcessRequest(endpoint, model, HttpVerb.Post, HandleDefaultResponse, model.FormEncodedPostData).ConfigureAwait(false);
         }
 
         private async Task<ApiResponse<TModel, TErrorModel>> ProcessRequest<T>(

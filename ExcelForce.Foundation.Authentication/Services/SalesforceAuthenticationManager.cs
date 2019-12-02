@@ -31,7 +31,7 @@ namespace ExcelForce.Foundation.Authentication.Services
 
             var apiRequest = new AuthenticationApiRequest()
             {
-                Headers = payload
+                FormEncodedPostData = payload
             };
 
             var url = "https://login.salesforce.com/services/oauth2/token";

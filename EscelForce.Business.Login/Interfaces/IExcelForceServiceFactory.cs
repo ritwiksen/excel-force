@@ -5,5 +5,7 @@
         IRibbonBaseService GetRibbonBaseService();
 
         IConfigurationInformationService GetConnectionProfileService();
+
+        IUserAuthenticationService GetUserAuthenticationService();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ExcelForce.Foundation.CoreServices.Authentication;
-using System.Collections.Generic;
 
 namespace ExcelForce.Foundation.Authentication.Models
 {

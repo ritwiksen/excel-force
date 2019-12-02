@@ -10,18 +10,13 @@ namespace ExcelForce.Business.Services.UserAuthentication
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
-        private readonly IUserAuthenticationService _userAuthenticationService;
-
         private readonly IAuthenticationManager<AuthenticationRequest, AuthenticationResponse> _authenticationManager;
 
         private readonly IExcelForceRepository<ConnectionProfile, string> _connectionProfileRepository;
 
-        public UserAuthenticationService(IUserAuthenticationService userAuthenticationService,
-            IAuthenticationManager<AuthenticationRequest, AuthenticationResponse> authenticationManager,
+        public UserAuthenticationService(IAuthenticationManager<AuthenticationRequest, AuthenticationResponse> authenticationManager,
             IExcelForceRepository<ConnectionProfile, string> connectionProfileRepository)
         {
-            _userAuthenticationService = userAuthenticationService;
-
             _authenticationManager = authenticationManager;
 
             _connectionProfileRepository = connectionProfileRepository;
