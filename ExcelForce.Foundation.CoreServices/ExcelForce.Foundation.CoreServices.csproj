@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\IAuthenticationManager.cs" />
+    <Compile Include="Authentication\IAuthenticationRequest.cs" />
+    <Compile Include="Authentication\IAuthenticationResponse.cs" />
     <Compile Include="FileManagement\FileContentManager.cs" />
     <Compile Include="FileManagement\Interfaces\IContentStreamManager.cs" />
     <Compile Include="Models\ApiResonse.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="Serialization\Interfaces\IContentSerializationManager.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="ServiceCallWrapper\Interfaces\IHeader.cs" />
+    <Compile Include="ServiceCallWrapper\Interfaces\IPostData.cs" />
     <Compile Include="ServiceCallWrapper\Interfaces\IServiceCallWrapper.cs" />
     <Compile Include="ServiceCallWrapper\Interfaces\IWebApiHttpClient.cs" />
     <Compile Include="ServiceCallWrapper\ServiceCallWrapper.cs" />

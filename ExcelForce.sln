@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.DI", "ExcelForce.Foundation.DI\ExcelForce.Foundation.DI.csproj", "{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.UserProfile", "ExcelForce.Foundation.UserProfile\ExcelForce.Foundation.UserProfile.csproj", "{DECE7652-720A-42A8-8515-0A397CBCDD0E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.ProfileManagement", "ExcelForce.UserProfile\ExcelForce.Foundation.ProfileManagement.csproj", "{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.Authentication", "ExcelForce.Foundation.Authentication\ExcelForce.Foundation.Authentication.csproj", "{A21C035D-CE32-40B9-ADD1-51458C2F0530}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +41,14 @@ Global
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DECE7652-720A-42A8-8515-0A397CBCDD0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A21C035D-CE32-40B9-ADD1-51458C2F0530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A21C035D-CE32-40B9-ADD1-51458C2F0530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A21C035D-CE32-40B9-ADD1-51458C2F0530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A21C035D-CE32-40B9-ADD1-51458C2F0530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,8 +57,8 @@ Global
 		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85} = {37319F7C-7569-4755-9E3D-2872564CF47D}
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
-		{DECE7652-720A-42A8-8515-0A397CBCDD0E} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 		{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
+		{A21C035D-CE32-40B9-ADD1-51458C2F0530} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F258FD4F-E49D-429D-B63D-EC6BD9A81187}

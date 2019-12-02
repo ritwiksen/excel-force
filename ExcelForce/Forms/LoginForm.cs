@@ -38,19 +38,13 @@ namespace ExcelForce.Forms
 
         public String[] columnName;
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce";
             //String sfdcPassword = "Excelforce@1234";
-            String sfdcUserName = textBox1.Text;
-            String sfdcPassword = textBox2.Text;
-            String sfdcSecurityToken = textBox3.Text;
+            String sfdcUserName = txtUserName.Text;
+            String sfdcPassword = txtPassword.Text;
+            String sfdcSecurityToken = txtSecurityToken.Text;
             // String sfdcSecurityToken = "DgvAbALBLgDSNJOPWzHP3318";
             // String sfdcSecurityToken = "9mItEpwZzSVXl1gP9tdQPWBJU";
             // String callbackUrl = "https://login.salesforce.com/services/oauth2/token";
@@ -134,8 +128,8 @@ namespace ExcelForce.Forms
             }
             else
             {
-                textBox2.Text = "";
-                textBox3.Text = "";
+                txtPassword.Text = "";
+                txtSecurityToken.Text = "";
                 label4.Visible = true;
                 // MessageBox.Show("Please check your username and password.");
             }
