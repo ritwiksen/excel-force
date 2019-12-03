@@ -32,12 +32,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtConnectionName = new System.Windows.Forms.TextBox();
+            this.txtConsumerKey = new System.Windows.Forms.TextBox();
+            this.txtSecretKey = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkIsProduction = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -80,35 +80,35 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Connection Name";
             // 
-            // textBox1
+            // txtConnectionName
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(25, 102);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(815, 30);
-            this.textBox1.TabIndex = 5;
+            this.txtConnectionName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConnectionName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConnectionName.Location = new System.Drawing.Point(25, 102);
+            this.txtConnectionName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtConnectionName.Name = "txtConnectionName";
+            this.txtConnectionName.Size = new System.Drawing.Size(815, 30);
+            this.txtConnectionName.TabIndex = 5;
             // 
-            // textBox2
+            // txtConsumerKey
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(25, 194);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(815, 30);
-            this.textBox2.TabIndex = 6;
+            this.txtConsumerKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConsumerKey.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsumerKey.Location = new System.Drawing.Point(25, 194);
+            this.txtConsumerKey.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtConsumerKey.Name = "txtConsumerKey";
+            this.txtConsumerKey.Size = new System.Drawing.Size(815, 30);
+            this.txtConsumerKey.TabIndex = 6;
             // 
-            // textBox3
+            // txtSecretKey
             // 
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(25, 291);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(815, 30);
-            this.textBox3.TabIndex = 7;
+            this.txtSecretKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSecretKey.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSecretKey.Location = new System.Drawing.Point(25, 291);
+            this.txtSecretKey.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSecretKey.Name = "txtSecretKey";
+            this.txtSecretKey.Size = new System.Drawing.Size(815, 30);
+            this.txtSecretKey.TabIndex = 7;
             // 
             // btnSave
             // 
@@ -135,17 +135,17 @@
             this.label6.Text = "Please fill out all the details.";
             this.label6.Visible = false;
             // 
-            // checkBox1
+            // chkIsProduction
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(25, 362);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(142, 27);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Is Production?";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkIsProduction.AutoSize = true;
+            this.chkIsProduction.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkIsProduction.Location = new System.Drawing.Point(25, 362);
+            this.chkIsProduction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkIsProduction.Name = "chkIsProduction";
+            this.chkIsProduction.Size = new System.Drawing.Size(142, 27);
+            this.chkIsProduction.TabIndex = 11;
+            this.chkIsProduction.Text = "Is Production?";
+            this.chkIsProduction.UseVisualStyleBackColor = true;
             // 
             // ConnectionInformationForm
             // 
@@ -155,12 +155,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(868, 496);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chkIsProduction);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtSecretKey);
+            this.Controls.Add(this.txtConsumerKey);
+            this.Controls.Add(this.txtConnectionName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -184,11 +184,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtConnectionName;
+        private System.Windows.Forms.TextBox txtConsumerKey;
+        private System.Windows.Forms.TextBox txtSecretKey;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkIsProduction;
     }
 }

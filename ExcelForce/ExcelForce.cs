@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.ServiceFactory;
+using ExcelForce.Models;
 
 namespace ExcelForce
 {
@@ -364,9 +365,12 @@ namespace ExcelForce
             var connectionProfiles = profileService
                 ?.GetSavedConnectionProfiles()
                 ?.Select(x => new
-            {
-                x.Name
-            });
+                {
+                    x.Name
+                });
+
+            if (connectionProfiles == null)
+                return;
 
             foreach (var profile in connectionProfiles)
             {
@@ -384,7 +388,10 @@ namespace ExcelForce
 
         private void btnConnectionProfile_OnClick(object sender, RibbonControlEventArgs e)
         {
-            var connectionContextName = e.Control.Tag;
+            var button = sender as RibbonButton;
+
+            Reusables.Instance.ConnectionProfile 
+                = Convert.ToString(button.Tag);
 
             var loginForm = new LoginForm();
 

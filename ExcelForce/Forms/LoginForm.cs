@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
+using ExcelForce.Models;
 
 namespace ExcelForce.Forms
 {
@@ -40,6 +41,7 @@ namespace ExcelForce.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            var connectionProfile = Reusables.Instance.ConnectionProfile;
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce";
             //String sfdcPassword = "Excelforce@1234";
             String sfdcUserName = txtUserName.Text;

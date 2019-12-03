@@ -1,6 +1,7 @@
 ﻿using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Foundation.ProfileManagement.Models;
+using ExcelForce.Models;
 using System;
 using System.Windows.Forms;
 
@@ -19,25 +20,27 @@ namespace ExcelForce.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(textBox1.Text.Trim())
-                && !string.IsNullOrWhiteSpace(textBox2.Text.Trim())
-                && !string.IsNullOrWhiteSpace(textBox3.Text.Trim()))
+            if (!string.IsNullOrWhiteSpace(txtConnectionName.Text.Trim())
+                && !string.IsNullOrWhiteSpace(txtConsumerKey.Text.Trim())
+                && !string.IsNullOrWhiteSpace(txtSecretKey.Text.Trim()))
             {
                 var profile = new ConnectionProfile
                 {
-                    ClientSecret = textBox3.Text.Trim(),
-                    Name = textBox1.Text.Trim(),
-                    ConsumerKey = textBox2.Text.Trim(),
-                    IsProduction = checkBox1.Checked
+                    ClientSecret = txtSecretKey.Text.Trim(),
+                    Name = txtConnectionName.Text.Trim(),
+                    ConsumerKey = txtConsumerKey.Text.Trim(),
+                    IsProduction = chkIsProduction.Checked
                 };
 
                 var profileService = _excelForceServiceFactory.GetConnectionProfileService();
 
                 var result = profileService.PerformConnectionSubmitActions(profile);
 
-                var loginForm = new LoginForm(textBox2.Text, textBox3.Text, checkBox1.Checked);
+                var loginForm = new LoginForm(txtConsumerKey.Text, txtSecretKey.Text, chkIsProduction.Checked);
 
                 this.Close();
+
+                Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
 
                 loginForm.Show();
             }
