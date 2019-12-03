@@ -12,10 +12,12 @@ namespace ExcelForce
         public ExcelForce()
             : base(Globals.Factory.GetRibbonFactory())
         {
-            InitializeComponent();
-
             //TODO:(Ritwik):: To refactor this from Factory classes
             _excelForceServiceFactory = new ExcelForceServiceFactory();
+
+            InitializeComponent();
+
+            LoadConnectionProfiles();
         }
 
         /// <summary> 
@@ -167,6 +169,7 @@ namespace ExcelForce
             this.connectionProfileSplitButton.Image = ((System.Drawing.Image)(resources.GetObject("connectionProfileSplitButton.Image")));
             this.connectionProfileSplitButton.Label = "Connection Profiles";
             this.connectionProfileSplitButton.Name = "connectionProfileSplitButton";
+            this.connectionProfileSplitButton.Tag = "";
             this.connectionProfileSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton1_Click);
             // 
             // groupCrud
@@ -220,7 +223,6 @@ namespace ExcelForce
             this.Name = "ExcelForce";
             this.RibbonType = "Microsoft.Excel.Workbook";
             this.Tabs.Add(this.tab1);
-            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.MenuItems_Load);
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
             this.group2.ResumeLayout(false);

@@ -9,8 +9,8 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Windows.Forms;
 using ExcelForce.Forms;
-using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Business.Interfaces;
+using ExcelForce.Business.ServiceFactory;
 
 namespace ExcelForce
 {
@@ -26,10 +26,6 @@ namespace ExcelForce
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
-        private void MenuItems_Load(object sender, RibbonUIEventArgs e)
-        {
-
-        }
 
         private void Button5_Click(object sender, RibbonControlEventArgs e)
         {
@@ -288,15 +284,9 @@ namespace ExcelForce
 
         }
 
-        private void button6_Click(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
-
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
-             // connectionProfileSplitButton_OnLoad();
+            // connectionProfileSplitButton_OnLoad();
             if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
             {
                 var connectionInfoForm = new ConnectionInformationForm(this);
@@ -357,13 +347,48 @@ namespace ExcelForce
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
         {
-            ConnectionInformationForm f = new ConnectionInformationForm(this);
-            f.Show();
+            var connectionProfileForm = new ConnectionInformationForm(this);
+
+            connectionProfileForm.Show();
         }
 
         private void button9_Click(object sender, RibbonControlEventArgs e)
         {
 
+        }
+
+        private void LoadConnectionProfiles()
+        {
+            var profileService = _excelForceServiceFactory.GetConnectionProfileService();
+
+            var connectionProfiles = profileService
+                ?.GetSavedConnectionProfiles()
+                ?.Select(x => new
+            {
+                x.Name
+            });
+
+            foreach (var profile in connectionProfiles)
+            {
+                var button = Factory.CreateRibbonButton();
+
+                button.Label = profile.Name;
+
+                button.Tag = profile.Name;
+
+                button.Click += btnConnectionProfile_OnClick;
+
+                connectionProfileSplitButton.Items.Add(button);
+            }
+        }
+
+        private void btnConnectionProfile_OnClick(object sender, RibbonControlEventArgs e)
+        {
+            var connectionContextName = e.Control.Tag;
+
+            var loginForm = new LoginForm();
+
+            loginForm.Show();
         }
     }
 }
