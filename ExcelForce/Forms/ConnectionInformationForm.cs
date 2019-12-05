@@ -37,10 +37,10 @@ namespace ExcelForce.Forms
                 var result = profileService.PerformConnectionSubmitActions(profile);
 
                 var loginForm = new LoginForm(txtConsumerKey.Text, txtSecretKey.Text, chkIsProduction.Checked);
+                
+                Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
 
                 this.Close();
-
-                Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
 
                 loginForm.Show();
             }

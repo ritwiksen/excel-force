@@ -43,7 +43,9 @@ namespace ExcelForce.Foundation.Authentication.Services
 
         private AuthenticationResponse MapApiResponseToLoginResponse(AuthenticationApiRequest response)
         {
-            throw new NotImplementedException();
+            var result = response;
+
+            return null;
         }
     }
 

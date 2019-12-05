@@ -34,7 +34,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
                 Password = password,
                 ConsumerKey = profileRecord?.ConsumerKey,
                 SecretKey = profileRecord?.ClientSecret,
-                SecurityToken = string.Empty
+                SecurityToken = "DgvAbALBLgDSNJOPWzHP3318"
             };
 
 
