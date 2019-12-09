@@ -44,6 +44,8 @@
     <Compile Include="Interfaces\ISfField.cs" />
     <Compile Include="Models\Conditionals\Conditions.cs" />
     <Compile Include="Models\Conditionals\SearchExpression.cs" />
+    <Compile Include="Models\Expressions\Expression.cs" />
+    <Compile Include="Models\Expressions\ExpressionConditions.cs" />
     <Compile Include="Models\SfEntities\SfField.cs" />
     <Compile Include="Models\SfEntities\SfObject.cs" />
     <Compile Include="Models\SortEntities\SortByModel.cs" />

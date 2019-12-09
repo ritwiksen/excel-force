@@ -2,12 +2,17 @@
 
 namespace ExcelForce.Foundation.EntityManagement.Models.Conditionals
 {
-    public class SearchExpression<T>
+    public class SearchExpression<T> : ISearchExpression
     {
         public SfField<T> Field { get; set; }
 
         public Conditions Condition { get; set; }
 
         public T Value { get; set; }
+    }
+
+    public interface ISearchExpression
+    {
+
     }
 }
