@@ -5,15 +5,13 @@ using ExcelForce.Business.Services.UserAuthentication;
 using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.Authentication.Services;
 using ExcelForce.Foundation.CoreServices.Authentication;
-using ExcelForce.Foundation.CoreServices.Persitence;
 using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
-using System.Collections.Generic;
+using ExcelForce.Foundation.Persistence.Persitence;
 
 namespace ExcelForce.Business.ServiceFactory
 {
@@ -35,7 +33,9 @@ namespace ExcelForce.Business.ServiceFactory
 
         private IUserAuthenticationService _userAuthenticationService;
 
-        public ExcelForceServiceFactory(IPersistenceManager<IEnumerable<SfField>> attributeManager)
+        private IPersistenceContainer _persistenceContainer;
+
+        public ExcelForceServiceFactory(IPersistenceContainer persistenceContainer)
         {
             _excelForceRepository
                 = new Lazy<IExcelForceRepository<ConnectionProfile, string>>(() => new ConnectionProfileRepository());
@@ -50,6 +50,8 @@ namespace ExcelForce.Business.ServiceFactory
             _authenticationManager
               = new Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>>(
                   () => new SalesforceAuthenticationManager(_authenticationApiWrapper.Value));
+
+            _persistenceContainer = persistenceContainer;
         }
 
         public IConfigurationInformationService GetConnectionProfileService()
@@ -63,7 +65,11 @@ namespace ExcelForce.Business.ServiceFactory
         public IExtractMapService GetExtractMapService()
         {
             if (_extractMapService == null)
-                _extractMapService = new ExtractMapService();
+                _extractMapService = new ExtractMapService(
+                    null,
+                    null,
+                    _persistenceContainer.SfObjectsManager,
+                    _persistenceContainer.SfAttributesManager);
 
             return _extractMapService;
         }

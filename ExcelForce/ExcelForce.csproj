@@ -169,7 +169,9 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="DataPersitence\AttributeDataPersitence.cs" />
+    <Compile Include="DataPersistence\AttributeDataPersitence.cs" />
+    <Compile Include="DataPersistence\FieldDataPersitence.cs" />
+    <Compile Include="DataPersistence\ExcelForcePersistenceContainer.cs" />
     <Compile Include="ExcelForce.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -259,6 +261,10 @@
     <ProjectReference Include="..\ExcelForce.Foundation.EntityManagement\ExcelForce.Foundation.EntityManagement.csproj">
       <Project>{713C7659-54FC-4E1E-B0D6-B92D491E0D83}</Project>
       <Name>ExcelForce.Foundation.EntityManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.Persistence\ExcelForce.Foundation.Persistence.csproj">
+      <Project>{F7451E8F-5ED8-4F43-B321-05BC371CB54C}</Project>
+      <Name>ExcelForce.Foundation.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Foundation.ProfileManagement.csproj">
       <Project>{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}</Project>

@@ -1,12 +1,11 @@
-﻿using ExcelForce.Foundation.CoreServices.Persitence;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Foundation.Persitence;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 
 namespace ExcelForce.DataPersitence
 {
-    public class AttributeDataPersitence : IPersistenceManager<IEnumerable<string>>
+    public class FieldDataPersitence : IPersistenceManager<IEnumerable<string>>
     {
         public bool Clear()
         {
@@ -15,14 +14,14 @@ namespace ExcelForce.DataPersitence
 
         public IEnumerable<string> Get()
         {
-            return Reusables.Instance.FieldsForSearch;
+            return Reusables.Instance.SfObjects;
         }
 
         public bool Set(IEnumerable<string> persitenceObject)
         {
             try
             {
-                Reusables.Instance.FieldsForSearch = persitenceObject;
+                Reusables.Instance.SfObjects = persitenceObject;
 
                 return true;
             }

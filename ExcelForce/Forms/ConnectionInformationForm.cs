@@ -1,5 +1,4 @@
 ﻿using ExcelForce.Business.Interfaces;
-using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Foundation.ProfileManagement.Models;
 using ExcelForce.Models;
 using System;
@@ -13,7 +12,7 @@ namespace ExcelForce.Forms
 
         public ConnectionInformationForm(ExcelForce ex)
         {
-            _excelForceServiceFactory = new ExcelForceServiceFactory();
+            _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             InitializeComponent();
         }
@@ -37,7 +36,7 @@ namespace ExcelForce.Forms
                 var result = profileService.PerformConnectionSubmitActions(profile);
 
                 var loginForm = new LoginForm(txtConsumerKey.Text, txtSecretKey.Text, chkIsProduction.Checked);
-                
+
                 Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
 
                 this.Close();

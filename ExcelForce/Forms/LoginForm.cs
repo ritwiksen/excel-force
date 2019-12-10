@@ -5,7 +5,6 @@ using System.Net;
 using System.Windows.Forms;
 using ExcelForce.Models;
 using ExcelForce.Business.Interfaces;
-using ExcelForce.Business.ServiceFactory;
 
 namespace ExcelForce.Forms
 {
@@ -36,7 +35,7 @@ namespace ExcelForce.Forms
         {
             _ribbonBase = Globals.Ribbons.GetRibbon<ExcelForce>();
 
-            _excelForceServiceFactory = new ExcelForceServiceFactory();
+            _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             InitializeComponent();
         }
@@ -63,11 +62,11 @@ namespace ExcelForce.Forms
                                                                                        // isProduction = true
 
 
-            //  var test = profileService.Login(sfdcUserName, sfdcPassword, connectionProfile);
+            var test = profileService.Login(sfdcUserName, sfdcPassword, connectionProfile);
 
             String SfdcloginPassword = $"{sfdcPassword}{sfdcSecurityToken}";
 
-             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
             //    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 

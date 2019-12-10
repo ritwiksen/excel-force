@@ -1,4 +1,4 @@
-﻿using ExcelForce.Business.ServiceFactory;
+﻿using ExcelForce.Models;
 
 namespace ExcelForce
 {
@@ -12,8 +12,7 @@ namespace ExcelForce
         public ExcelForce()
             : base(Globals.Factory.GetRibbonFactory())
         {
-            //TODO:(Ritwik):: To refactor this from Factory classes
-            _excelForceServiceFactory = new ExcelForceServiceFactory();
+            _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             InitializeComponent();
 

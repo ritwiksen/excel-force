@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExcelForce.Business.Interfaces;
-using ExcelForce.Foundation.CoreServices.Persitence;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.Persitence;
 
 namespace ExcelForce.Business.Services.MapExtraction
 {
@@ -28,6 +28,8 @@ namespace ExcelForce.Business.Services.MapExtraction
             _objectPersistenceManager = objectPersistenceManager;
 
             _fieldPersistenceManager = fieldPersistenceManager;
+
+            _objectService = objectService;
         }
 
         public IEnumerable<string> GetObjectsByName(string name)
