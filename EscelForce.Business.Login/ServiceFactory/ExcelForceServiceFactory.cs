@@ -19,7 +19,7 @@ namespace ExcelForce.Business.ServiceFactory
 
         private Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>> _authenticationManager;
 
-        private Lazy<IServiceCallWrapper<AuthenticationApiRequest, ErrorModel>> _authenticationApiWrapper;
+        private Lazy<IServiceCallWrapper<AuthenticationApiResponse, ErrorModel>> _authenticationApiWrapper;
 
         private Lazy<IWebApiHttpClient> _webApiHttpClient;
 
@@ -38,8 +38,8 @@ namespace ExcelForce.Business.ServiceFactory
                 = new Lazy<IWebApiHttpClient>(() => new WebApiHttpClient());
 
             _authenticationApiWrapper
-                = new Lazy<IServiceCallWrapper<AuthenticationApiRequest, ErrorModel>>(
-                    () => new ServiceCallWrapper<AuthenticationApiRequest, ErrorModel>(_webApiHttpClient.Value));
+                = new Lazy<IServiceCallWrapper<AuthenticationApiResponse, ErrorModel>>(
+                    () => new ServiceCallWrapper<AuthenticationApiResponse, ErrorModel>(_webApiHttpClient.Value));
 
             _authenticationManager
               = new Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>>(

@@ -8,9 +8,9 @@ namespace ExcelForce.Foundation.Authentication.Services
 {
     public class SalesforceAuthenticationManager : IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>
     {
-        private readonly IServiceCallWrapper<AuthenticationApiRequest, ErrorModel> _loginServiceCallWrapper;
+        private readonly IServiceCallWrapper<AuthenticationApiResponse, ErrorModel> _loginServiceCallWrapper;
 
-        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationApiRequest, ErrorModel> loginServiceCallWrapper)
+        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationApiResponse, ErrorModel> loginServiceCallWrapper)
         {
             _loginServiceCallWrapper = loginServiceCallWrapper;
         }
@@ -42,11 +42,12 @@ namespace ExcelForce.Foundation.Authentication.Services
             return MapApiResponseToLoginResponse(response);
         }
 
-        private AuthenticationResponse MapApiResponseToLoginResponse(AuthenticationApiRequest response)
+        private AuthenticationResponse MapApiResponseToLoginResponse(AuthenticationApiResponse response)
         {
-            var result = response;
-
-            return null;
+            return new AuthenticationResponse
+            {
+                AccessToken = response?.AccessToken
+            };
         }
     }
 

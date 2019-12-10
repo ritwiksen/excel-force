@@ -4,5 +4,6 @@ namespace ExcelForce.Foundation.Authentication.Models
 {
     public class AuthenticationResponse : IAuthenticationResponse
     {
+        public string AccessToken { get; set; }
     }
 }

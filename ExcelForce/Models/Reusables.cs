@@ -6,6 +6,8 @@
 
         public string ConnectionProfile { get; set; }
 
+        public string AccessToken { get; set; }
+
         private Reusables() { }
 
         public static Reusables Instance
