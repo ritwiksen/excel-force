@@ -1,15 +1,19 @@
 ﻿using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.Services.ConfigurationInformation;
+using ExcelForce.Business.Services.MapExtraction;
 using ExcelForce.Business.Services.UserAuthentication;
 using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.Authentication.Services;
 using ExcelForce.Foundation.CoreServices.Authentication;
+using ExcelForce.Foundation.CoreServices.Persitence;
 using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
+using System.Collections.Generic;
 
 namespace ExcelForce.Business.ServiceFactory
 {
@@ -23,13 +27,15 @@ namespace ExcelForce.Business.ServiceFactory
 
         private Lazy<IWebApiHttpClient> _webApiHttpClient;
 
+        private IExtractMapService _extractMapService;
+
         private IRibbonBaseService _ribbonBaseService;
 
         private IConfigurationInformationService _configurationInformationService;
 
         private IUserAuthenticationService _userAuthenticationService;
 
-        public ExcelForceServiceFactory()
+        public ExcelForceServiceFactory(IPersistenceManager<IEnumerable<SfField>> attributeManager)
         {
             _excelForceRepository
                 = new Lazy<IExcelForceRepository<ConnectionProfile, string>>(() => new ConnectionProfileRepository());
@@ -52,6 +58,14 @@ namespace ExcelForce.Business.ServiceFactory
                 _configurationInformationService = new ConfigurationInformationService(_excelForceRepository.Value);
 
             return _configurationInformationService;
+        }
+
+        public IExtractMapService GetExtractMapService()
+        {
+            if (_extractMapService == null)
+                _extractMapService = new ExtractMapService();
+
+            return _extractMapService;
         }
 
         public IRibbonBaseService GetRibbonBaseService()

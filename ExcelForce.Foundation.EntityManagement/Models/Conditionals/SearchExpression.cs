@@ -4,7 +4,7 @@ namespace ExcelForce.Foundation.EntityManagement.Models.Conditionals
 {
     public class SearchExpression<T> : ISearchExpression
     {
-        public SfField<T> Field { get; set; }
+        public SfField Field { get; set; }
 
         public Conditions Condition { get; set; }
 

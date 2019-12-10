@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ISfField.cs" />
+    <Compile Include="Interfaces\ServiceInterfaces\ISfAttributeService.cs" />
+    <Compile Include="Interfaces\ServiceInterfaces\ISfObjectService.cs" />
     <Compile Include="Models\Conditionals\Conditions.cs" />
     <Compile Include="Models\Conditionals\SearchExpression.cs" />
     <Compile Include="Models\Expressions\Expression.cs" />
@@ -50,6 +52,9 @@
     <Compile Include="Models\SfEntities\SfObject.cs" />
     <Compile Include="Models\SortEntities\SortByModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SfAttributeService.cs" />
+    <Compile Include="Services\SfObjectService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
