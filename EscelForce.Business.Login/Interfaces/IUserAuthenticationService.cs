@@ -4,6 +4,6 @@ namespace ExcelForce.Business.Interfaces
 {
     public interface IUserAuthenticationService
     {
-        bool Login(string userName, string password, string connectionProfile);
+        bool Login(string userName, string password, string securityToken, string connectionProfile);
     }
 }

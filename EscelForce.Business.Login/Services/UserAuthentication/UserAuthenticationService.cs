@@ -22,7 +22,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
             _connectionProfileRepository = connectionProfileRepository;
         }
 
-        public bool Login(string userName, string password, string connectionProfile)
+        public bool Login(string userName, string password, string securityToken, string connectionProfile)
         {
             var profileRecord = _connectionProfileRepository.GetRecords()?.FirstOrDefault(
                 x => string.Equals(x.Name, connectionProfile, StringComparison.InvariantCultureIgnoreCase));
@@ -34,9 +34,9 @@ namespace ExcelForce.Business.Services.UserAuthentication
                 Password = password,
                 ConsumerKey = profileRecord?.ConsumerKey,
                 SecretKey = profileRecord?.ClientSecret,
-                SecurityToken = "DgvAbALBLgDSNJOPWzHP3318"
+                SecurityToken = securityToken,
+                IsProduction = profileRecord.IsProduction
             };
-
 
             var authResponse = _authenticationManager.Login(request);
 
