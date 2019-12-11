@@ -16,7 +16,7 @@ namespace ExcelForce.Foundation.ProfileManagement
 
         private readonly IContentStreamManager _contentStreamManager;
 
-        private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExcelForce.txt";
+        private const string _filePath = "C:\\DD\\ExcelForce\\ExcelForce.txt";
 
         public ConnectionProfileRepository()
         {
@@ -48,7 +48,7 @@ namespace ExcelForce.Foundation.ProfileManagement
         //TODO:(Ritwik):: Modify this to fetch only distinct records
         public IEnumerable<ConnectionProfile> GetRecords()
         {
-            CreateFileIfAbsent();
+            _contentStreamManager.CreateFileIfAbsent(_filePath);
 
             var fileContent =
                 _contentStreamManager.ReadContent(_filePath);
@@ -74,19 +74,10 @@ namespace ExcelForce.Foundation.ProfileManagement
         {
             var serializedContent = _contentSerializationManager.Serialize(records);
 
-            CreateFileIfAbsent();
+            _contentStreamManager.CreateFileIfAbsent(_filePath);
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
         }
-
-        private bool CreateFileIfAbsent()
-        {
-            var fileExists = _contentStreamManager.ContentLocationExists(_filePath);
-
-            if (!fileExists)
-                _contentStreamManager.CreateContentLocation(_filePath);
-
-            return true;
-        }
+       
     }
 }

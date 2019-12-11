@@ -29,5 +29,7 @@
         /// <param name="resourceName"></param>
         /// <returns></returns>
         bool CreateContentLocation(string resourceName);
+
+        bool CreateFileIfAbsent(string filePath);
     }
 }
