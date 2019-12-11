@@ -169,6 +169,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="DataPersistence\ApiConfigurationDataPersistence.cs" />
     <Compile Include="DataPersistence\AttributeDataPersitence.cs" />
     <Compile Include="DataPersistence\FieldDataPersitence.cs" />
     <Compile Include="DataPersistence\ExcelForcePersistenceContainer.cs" />

@@ -2,6 +2,7 @@
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.Api.SfObject;
+using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace ExcelForce.Foundation.EntityManagement.Services
     {
         private readonly IServiceCallWrapper<SfObjectApiResponse, ApiError> _getSfObjectServiceCallWrapper;
 
-        public SfObjectService(IServiceCallWrapper<SfObjectApiResponse, ApiError> getSfObjectServiceCallWrapper)
+        private readonly IPersistenceContainer _persistenceContainer;
+
+        public SfObjectService(IServiceCallWrapper<SfObjectApiResponse, ApiError> getSfObjectServiceCallWrapper,
+            IPersistenceContainer persistenceContainer)
         {
             _getSfObjectServiceCallWrapper = getSfObjectServiceCallWrapper;
+
+            _persistenceContainer = persistenceContainer;
         }
 
         public IEnumerable<string> GetObjectNames(string bearerToken)
@@ -22,7 +28,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             if (string.IsNullOrWhiteSpace(bearerToken))
                 throw new ArgumentNullException(nameof(bearerToken));
 
-            var endpoint = "https://login.salesforce.com/services/oauth2/token/services/data/v43.0/sobjects";
+            var endpoint = _persistenceContainer?.ApiConfigurationManager?.Get()?.GetUrl();
 
             var response = _getSfObjectServiceCallWrapper.Get(endpoint, new SfObjectApiRequest())?.Result;
 
@@ -33,9 +39,5 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             throw new Exception("An error occurred while fetching salesforce object names");
         }
-    }
-
-    public class ErrorResponse
-    {
     }
 }

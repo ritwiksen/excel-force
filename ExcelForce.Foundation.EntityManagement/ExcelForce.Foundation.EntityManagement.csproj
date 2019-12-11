@@ -66,6 +66,10 @@
       <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
       <Name>ExcelForce.Foundation.CoreServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.Persistence\ExcelForce.Foundation.Persistence.csproj">
+      <Project>{F7451E8F-5ED8-4F43-B321-05BC371CB54C}</Project>
+      <Name>ExcelForce.Foundation.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

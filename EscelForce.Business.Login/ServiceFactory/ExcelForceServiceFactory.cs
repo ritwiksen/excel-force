@@ -47,6 +47,8 @@ namespace ExcelForce.Business.ServiceFactory
 
         public ExcelForceServiceFactory(IPersistenceContainer persistenceContainer)
         {
+            _persistenceContainer = persistenceContainer;
+
             _excelForceRepository
                 = new Lazy<IExcelForceRepository<ConnectionProfile, string>>(() => new ConnectionProfileRepository());
 
@@ -63,15 +65,14 @@ namespace ExcelForce.Business.ServiceFactory
 
             _authenticationManager
               = new Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>>(
-                  () => new SalesforceAuthenticationManager(_authenticationApiWrapper.Value));
+                  () => new SalesforceAuthenticationManager(_authenticationApiWrapper.Value, _persistenceContainer));
 
             _sfAttributeService
                 = new Lazy<ISfAttributeService>(() => new SfAttributeService());
 
             _sfObjectService
-                = new Lazy<ISfObjectService>(() => new SfObjectService(_sfObjectApiWrapper.Value));
+                = new Lazy<ISfObjectService>(() => new SfObjectService(_sfObjectApiWrapper.Value, _persistenceContainer));
 
-            _persistenceContainer = persistenceContainer;
         }
 
         public IConfigurationInformationService GetConnectionProfileService()
@@ -105,7 +106,7 @@ namespace ExcelForce.Business.ServiceFactory
         {
             if (_userAuthenticationService == null)
                 _userAuthenticationService = new UserAuthenticationService(
-                    _authenticationManager.Value, _excelForceRepository.Value);
+                    _authenticationManager.Value, _excelForceRepository.Value, _persistenceContainer);
 
             return _userAuthenticationService;
         }

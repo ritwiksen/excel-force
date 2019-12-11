@@ -2,6 +2,7 @@
 using ExcelForce.Foundation.CoreServices.Authentication;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
 
@@ -11,9 +12,14 @@ namespace ExcelForce.Foundation.Authentication.Services
     {
         private readonly IServiceCallWrapper<AuthenticationResponse, ApiError> _loginServiceCallWrapper;
 
-        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationResponse, ApiError> loginServiceCallWrapper)
+        private readonly IPersistenceContainer _persistenceContainer;
+
+        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationResponse, ApiError> loginServiceCallWrapper,
+            IPersistenceContainer persistenceContainer)
         {
             _loginServiceCallWrapper = loginServiceCallWrapper;
+
+            _persistenceContainer = persistenceContainer;
         }
 
         public AuthenticationResponse Login(AuthenticationRequest request)
@@ -36,7 +42,7 @@ namespace ExcelForce.Foundation.Authentication.Services
             };
 
             //TODO:(Ritwik):: Get these URL's from a configuration file
-            var url = request.IsProduction ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
+            var url = _persistenceContainer?.ApiConfigurationManager.Get()?.GetUrl();
 
             var response = _loginServiceCallWrapper.Post(url, apiRequest)?.Result;
 

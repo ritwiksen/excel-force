@@ -1,4 +1,5 @@
-﻿using ExcelForce.Foundation.Persitence;
+﻿using ExcelForce.Foundation.CoreServices.Models.Configuration;
+using ExcelForce.Foundation.Persitence;
 using System.Collections.Generic;
 
 namespace ExcelForce.Foundation.Persistence.Persitence
@@ -8,5 +9,7 @@ namespace ExcelForce.Foundation.Persistence.Persitence
         IPersistenceManager<IEnumerable<string>> SfObjectsManager { get; set; }
 
         IPersistenceManager<IEnumerable<string>> SfAttributesManager { get; set; }
+
+        IPersistenceManager<ApiConfiguration> ApiConfigurationManager { get; set; }
     }
 }

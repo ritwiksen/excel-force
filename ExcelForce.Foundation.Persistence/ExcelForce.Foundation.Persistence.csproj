@@ -45,5 +45,11 @@
     <Compile Include="Persitence\IPersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
+      <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
+      <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

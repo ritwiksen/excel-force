@@ -15,10 +15,14 @@ namespace ExcelForce
         public ExcelForce()
             : base(Globals.Factory.GetRibbonFactory())
         {
+            //TODO:(RItwik): The bootstrapping needs to be set via Unity
             var persitenceContainer = new ExcelForcePersistenceContainer
             {
                 SfAttributesManager = new AttributeDataPersitence(),
-                SfObjectsManager = new FieldDataPersitence()
+                SfObjectsManager = new FieldDataPersitence(),
+                ApiConfigurationManager = new ApiConfigurationDataPersistence(
+                    "https://login.salesforce.com/services/oauth2/token",
+                    "https://test.salesforce.com/services/oauth2/token")
             };
 
             Reusables.Instance.ExcelForceServiceFactory = new ExcelForceServiceFactory(persitenceContainer);

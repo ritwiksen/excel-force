@@ -31,10 +31,7 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
 
         public async Task<HttpResponseMessage> PostAsync(string endPoint, IDictionary<string, string> model, IDictionary<string, string> headers)
         {
-            var httpClient = new HttpClient(new HttpClientHandler
-            {
-                ClientCertificateOptions = ClientCertificateOption.Automatic
-            })
+            var httpClient = new HttpClient()
             {
                 BaseAddress = new Uri(endPoint),
             };
