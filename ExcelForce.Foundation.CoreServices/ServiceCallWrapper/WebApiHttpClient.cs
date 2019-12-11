@@ -9,6 +9,26 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
 {
     public class WebApiHttpClient : IWebApiHttpClient
     {
+        public async Task<HttpResponseMessage> GetResponse(string endPoint, IDictionary<string, string> headers)
+        {
+            var httpClient = new HttpClient(new HttpClientHandler
+            {
+                ClientCertificateOptions = ClientCertificateOption.Automatic
+            })
+            {
+                BaseAddress = new Uri(endPoint),
+            };
+
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+
+            using (httpClient)
+            {
+                return await httpClient
+                    .GetAsync(endPoint)
+                    .ConfigureAwait(false);
+            }
+        }
+
         public async Task<HttpResponseMessage> PostAsync(string endPoint, IDictionary<string, string> model, IDictionary<string, string> headers)
         {
             var httpClient = new HttpClient(new HttpClientHandler

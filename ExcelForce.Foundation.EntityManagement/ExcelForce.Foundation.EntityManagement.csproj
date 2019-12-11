@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +47,9 @@
     <Compile Include="Interfaces\ISfField.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\ISfAttributeService.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\ISfObjectService.cs" />
+    <Compile Include="Models\Api\SfObject\SfApiField.cs" />
+    <Compile Include="Models\Api\SfObject\SfObjectApiRequest.cs" />
+    <Compile Include="Models\Api\SfObject\SfObjectApiResponse.cs" />
     <Compile Include="Models\Conditionals\Conditions.cs" />
     <Compile Include="Models\Conditionals\SearchExpression.cs" />
     <Compile Include="Models\Expressions\Expression.cs" />
@@ -55,6 +61,14 @@
     <Compile Include="Services\SfAttributeService.cs" />
     <Compile Include="Services\SfObjectService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
+      <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
+      <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

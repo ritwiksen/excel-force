@@ -1,4 +1,7 @@
-﻿using ExcelForce.Models;
+﻿using ExcelForce.Business.ServiceFactory;
+using ExcelForce.DataPersistence;
+using ExcelForce.DataPersitence;
+using ExcelForce.Models;
 
 namespace ExcelForce
 {
@@ -12,6 +15,14 @@ namespace ExcelForce
         public ExcelForce()
             : base(Globals.Factory.GetRibbonFactory())
         {
+            var persitenceContainer = new ExcelForcePersistenceContainer
+            {
+                SfAttributesManager = new AttributeDataPersitence(),
+                SfObjectsManager = new FieldDataPersitence()
+            };
+
+            Reusables.Instance.ExcelForceServiceFactory = new ExcelForceServiceFactory(persitenceContainer);
+
             _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             InitializeComponent();

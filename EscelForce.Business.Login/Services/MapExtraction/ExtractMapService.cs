@@ -4,6 +4,7 @@ using System.Linq;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.Persistence.Persitence;
 using ExcelForce.Foundation.Persitence;
 
 namespace ExcelForce.Business.Services.MapExtraction
@@ -12,59 +13,55 @@ namespace ExcelForce.Business.Services.MapExtraction
     {
         private readonly ISfAttributeService _attributeService;
 
-        private readonly IPersistenceManager<IEnumerable<string>> _objectPersistenceManager;
-
-        private readonly IPersistenceManager<IEnumerable<string>> _fieldPersistenceManager;
+        private readonly IPersistenceContainer _persistenceContainer;
 
         private readonly ISfObjectService _objectService;
 
         public ExtractMapService(ISfAttributeService attributeService,
             ISfObjectService objectService,
-            IPersistenceManager<IEnumerable<string>> objectPersistenceManager,
-            IPersistenceManager<IEnumerable<string>> fieldPersistenceManager)
+            IPersistenceContainer persistenceContainer)
         {
             _attributeService = attributeService;
 
-            _objectPersistenceManager = objectPersistenceManager;
-
-            _fieldPersistenceManager = fieldPersistenceManager;
+            _persistenceContainer = persistenceContainer;
 
             _objectService = objectService;
         }
 
-        public IEnumerable<string> GetObjectsByName(string name)
+        public IEnumerable<string> GetObjectsByName(string name, string bearerToken)
         {
-            var objectNames = GetObjectNames();
+            var objectNames = GetObjectNames(bearerToken);
 
             objectNames = objectNames
                 ?.Where(x => !string.IsNullOrWhiteSpace(name)
                     ? string.Equals(x, name, StringComparison.InvariantCultureIgnoreCase)
-                    : true);         
+                    : true);
 
             return objectNames;
         }
 
         public IEnumerable<string> GetAttributesByName(string name, int pageSize, int pageNumber)
         {
-            if (pageSize < 0)
-                throw new InvalidOperationException("Page Size cannot be negative");
+            return null;
+            //if (pageSize < 0)
+            //    throw new InvalidOperationException("Page Size cannot be negative");
 
-            if (pageSize <= 0)
-                throw new InvalidOperationException("Page number cannot be negative or 0");
+            //if (pageSize <= 0)
+            //    throw new InvalidOperationException("Page number cannot be negative or 0");
 
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name));
+            //if (string.IsNullOrWhiteSpace(name))
+            //    throw new ArgumentNullException(nameof(name));
 
-            var attributes = _fieldPersistenceManager.Get();
+            //var attributes = _fieldPersistenceManager.Get();
 
-            if (attributes == null)
-            {
-                var values = GetObjectsByName(name);
+            //if (attributes == null)
+            //{
+            //    var values = GetObjectsByName(name);
 
-                attributes = values;
-            }
+            //    attributes = values;
+            //}
 
-            return attributes?.Skip((pageNumber * (pageSize - 1)))?.Take(pageSize);
+            //return attributes?.Skip((pageNumber * (pageSize - 1)))?.Take(pageSize);
         }
 
         public SfField GetAttributeData(string name)
@@ -72,13 +69,13 @@ namespace ExcelForce.Business.Services.MapExtraction
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> GetObjectNames()
+        public IEnumerable<string> GetObjectNames(string bearerToken)
         {
-            var objectNames = _objectService.GetObjectNames();
+            var objectNames = _objectService.GetObjectNames(bearerToken);
 
-            objectNames = objectNames ?? _objectService.GetObjectNames();
+            objectNames = objectNames ?? _objectService.GetObjectNames(bearerToken);
 
-            _objectPersistenceManager.Set(objectNames);
+            _persistenceContainer?.SfObjectsManager.Set(objectNames);
 
             return objectNames;
         }

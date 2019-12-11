@@ -49,7 +49,8 @@
     <Compile Include="Authentication\IAuthenticationResponse.cs" />
     <Compile Include="FileManagement\FileContentManager.cs" />
     <Compile Include="FileManagement\Interfaces\IContentStreamManager.cs" />
-    <Compile Include="Models\ApiResonse.cs" />
+    <Compile Include="Models\ApiError.cs" />
+    <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Enums\HttpVerb.cs" />
     <Compile Include="Models\Interfaces\IExcelForceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

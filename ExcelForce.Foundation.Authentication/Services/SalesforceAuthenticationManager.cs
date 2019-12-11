@@ -1,5 +1,6 @@
 ﻿using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.CoreServices.Authentication;
+using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace ExcelForce.Foundation.Authentication.Services
 {
     public class SalesforceAuthenticationManager : IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>
     {
-        private readonly IServiceCallWrapper<AuthenticationApiRequest, ErrorModel> _loginServiceCallWrapper;
+        private readonly IServiceCallWrapper<AuthenticationResponse, ApiError> _loginServiceCallWrapper;
 
-        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationApiRequest, ErrorModel> loginServiceCallWrapper)
+        public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationResponse, ApiError> loginServiceCallWrapper)
         {
             _loginServiceCallWrapper = loginServiceCallWrapper;
         }
@@ -37,21 +38,14 @@ namespace ExcelForce.Foundation.Authentication.Services
             //TODO:(Ritwik):: Get these URL's from a configuration file
             var url = request.IsProduction ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
 
-            var response = _loginServiceCallWrapper.Post(url, apiRequest)?.Result?.Model;
+            var response = _loginServiceCallWrapper.Post(url, apiRequest)?.Result;
 
-            return MapApiResponseToLoginResponse(response);
+            if (response?.Error != null)
+            {
+                return response?.Model;
+            }
+
+            throw new Exception("An error occurred while trying to authenticate the user");
         }
-
-        private AuthenticationResponse MapApiResponseToLoginResponse(AuthenticationApiRequest response)
-        {
-            var result = response;
-
-            return null;
-        }
-    }
-
-    public class ErrorModel
-    {
-
     }
 }

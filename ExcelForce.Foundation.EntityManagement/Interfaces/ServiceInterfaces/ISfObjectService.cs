@@ -4,6 +4,6 @@ namespace ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces
 {
     public interface ISfObjectService
     {
-        IEnumerable<string> GetObjectNames();
+        IEnumerable<string> GetObjectNames(string bearerToken);
     }
 }

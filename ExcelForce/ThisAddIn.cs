@@ -5,10 +5,6 @@ using Microsoft.Office.Tools.Excel;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ExcelForce.Models;
-using ExcelForce.Business.ServiceFactory;
-using ExcelForce.DataPersistence;
-using ExcelForce.DataPersitence;
 
 namespace ExcelForce
 {
@@ -230,14 +226,6 @@ namespace ExcelForce
         }
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            var persitenceContainer = new ExcelForcePersistenceContainer
-            {
-                SfAttributesManager = new AttributeDataPersitence(),
-                SfObjectsManager = new FieldDataPersitence()
-            };
-
-            Reusables.Instance.ExcelForceServiceFactory = new ExcelForceServiceFactory(persitenceContainer);
-
             this.Application.WorkbookBeforeSave +=
                 new Excel.AppEvents_WorkbookBeforeSaveEventHandler
                     (Application_WorkbookBeforeSave);
@@ -247,11 +235,6 @@ namespace ExcelForce
         {
         }
 
-        private void SplitButton_OnLoad()
-        {
-
-
-        }
 
         #region VSTO generated code
 

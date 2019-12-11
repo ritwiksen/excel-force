@@ -12,6 +12,10 @@ using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Foundation.ProfileManagement.Models;
 using System;
 using ExcelForce.Foundation.Persistence.Persitence;
+using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+using ExcelForce.Foundation.EntityManagement.Services;
+using ExcelForce.Foundation.EntityManagement.Models.Api.SfObject;
 
 namespace ExcelForce.Business.ServiceFactory
 {
@@ -21,9 +25,15 @@ namespace ExcelForce.Business.ServiceFactory
 
         private Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>> _authenticationManager;
 
-        private Lazy<IServiceCallWrapper<AuthenticationApiRequest, ErrorModel>> _authenticationApiWrapper;
+        private Lazy<IServiceCallWrapper<AuthenticationResponse, ApiError>> _authenticationApiWrapper;
+
+        private Lazy<IServiceCallWrapper<SfObjectApiResponse, ApiError>> _sfObjectApiWrapper;
 
         private Lazy<IWebApiHttpClient> _webApiHttpClient;
+
+        private Lazy<ISfAttributeService> _sfAttributeService;
+
+        private Lazy<ISfObjectService> _sfObjectService;
 
         private IExtractMapService _extractMapService;
 
@@ -44,12 +54,22 @@ namespace ExcelForce.Business.ServiceFactory
                 = new Lazy<IWebApiHttpClient>(() => new WebApiHttpClient());
 
             _authenticationApiWrapper
-                = new Lazy<IServiceCallWrapper<AuthenticationApiRequest, ErrorModel>>(
-                    () => new ServiceCallWrapper<AuthenticationApiRequest, ErrorModel>(_webApiHttpClient.Value));
+                = new Lazy<IServiceCallWrapper<AuthenticationResponse, ApiError>>(
+                    () => new ServiceCallWrapper<AuthenticationResponse, ApiError>(_webApiHttpClient.Value));
+
+            _sfObjectApiWrapper
+                 = new Lazy<IServiceCallWrapper<SfObjectApiResponse, ApiError>>(
+                     () => new ServiceCallWrapper<SfObjectApiResponse, ApiError>(_webApiHttpClient.Value));
 
             _authenticationManager
               = new Lazy<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>>(
                   () => new SalesforceAuthenticationManager(_authenticationApiWrapper.Value));
+
+            _sfAttributeService
+                = new Lazy<ISfAttributeService>(() => new SfAttributeService());
+
+            _sfObjectService
+                = new Lazy<ISfObjectService>(() => new SfObjectService(_sfObjectApiWrapper.Value));
 
             _persistenceContainer = persistenceContainer;
         }
@@ -66,10 +86,9 @@ namespace ExcelForce.Business.ServiceFactory
         {
             if (_extractMapService == null)
                 _extractMapService = new ExtractMapService(
-                    null,
-                    null,
-                    _persistenceContainer.SfObjectsManager,
-                    _persistenceContainer.SfAttributesManager);
+                    _sfAttributeService.Value,
+                    _sfObjectService.Value,
+                    _persistenceContainer);
 
             return _extractMapService;
         }
