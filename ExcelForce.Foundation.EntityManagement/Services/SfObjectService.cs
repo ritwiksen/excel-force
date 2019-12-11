@@ -30,6 +30,8 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var endpoint = _persistenceContainer?.ApiConfigurationManager?.Get()?.GetUrl();
 
+            endpoint = $"{endpoint}/services/data/v43.0/sobjects";
+
             var response = _getSfObjectServiceCallWrapper.Get(endpoint, new SfObjectApiRequest())?.Result;
 
             if (response.Error != null)
