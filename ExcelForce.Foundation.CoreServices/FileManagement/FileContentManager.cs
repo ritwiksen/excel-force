@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Foundation.CoreServices.FileManagement.Interfaces;
+using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using System;
 using System.IO;
 
@@ -6,6 +7,12 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
 {
     public class FileContentManager : IContentStreamManager
     {
+        private readonly ILoggerManager loggerManager;
+
+        public FileContentManager()
+        {
+
+        }
         public bool ContentLocationExists(string resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName))
@@ -29,6 +36,15 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
                 Path.GetDirectoryName(resourceName));
 
             return WriteContent(resourceName, string.Empty);
+        }
+
+        public bool CreateContentIfAbsent(string filePath)
+        {
+             var fileExists = ContentLocationExists(filePath);
+                if (!fileExists)
+                    CreateContentLocation(filePath);
+
+                return true;            
         }
 
         public string ReadContent(string resourceName)
