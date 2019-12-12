@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="Interfaces\IConfigurationInformationService.cs" />
     <Compile Include="Interfaces\IExcelForceServiceFactory.cs" />
+    <Compile Include="Interfaces\IExtractMapService.cs" />
     <Compile Include="Interfaces\IRibbonBaseService.cs" />
     <Compile Include="Interfaces\IUserAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
     <Compile Include="Services\ConfigurationInformation\ConfigurationInformationService.cs" />
+    <Compile Include="Services\MapExtraction\ExtractMapService.cs" />
     <Compile Include="Services\RibbonBase\RibbonBaseService.cs" />
     <Compile Include="Services\UserAuthentication\UserAuthenticationService.cs" />
   </ItemGroup>
@@ -59,6 +61,14 @@
     <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
       <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
       <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.EntityManagement\ExcelForce.Foundation.EntityManagement.csproj">
+      <Project>{713C7659-54FC-4E1E-B0D6-B92D491E0D83}</Project>
+      <Name>ExcelForce.Foundation.EntityManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.Persistence\ExcelForce.Foundation.Persistence.csproj">
+      <Project>{F7451E8F-5ED8-4F43-B321-05BC371CB54C}</Project>
+      <Name>ExcelForce.Foundation.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExcelForce.UserProfile\ExcelForce.Foundation.ProfileManagement.csproj">
       <Project>{6DAEB12C-447E-4ADA-B2D9-432E81F3C39D}</Project>

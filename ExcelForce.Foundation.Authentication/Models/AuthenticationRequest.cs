@@ -13,7 +13,5 @@ namespace ExcelForce.Foundation.Authentication.Models
         public string ConsumerKey { get; set; }
 
         public string SecretKey { get; set; }
-
-        public bool IsProduction { get; set; }
     }
 }

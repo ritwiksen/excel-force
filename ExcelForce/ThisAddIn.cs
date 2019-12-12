@@ -235,11 +235,6 @@ namespace ExcelForce
         {
         }
 
-        private void SplitButton_OnLoad()
-        {
-         
-
-        }
 
         #region VSTO generated code
 
