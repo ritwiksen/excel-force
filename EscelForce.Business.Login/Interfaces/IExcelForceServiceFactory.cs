@@ -7,5 +7,7 @@
         IConfigurationInformationService GetConnectionProfileService();
 
         IUserAuthenticationService GetUserAuthenticationService();
+
+        IExtractMapService GetExtractMapService();
     }
 }

@@ -26,6 +26,11 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
             return await ProcessRequest(endpoint, model, HttpVerb.Post, HandleDefaultResponse, model.FormEncodedPostData).ConfigureAwait(false);
         }
 
+        public async Task<ApiResponse<TModel, TErrorModel>> Get<T>(string endpoint, T model) where T : IHeader
+        {
+            return await ProcessRequest(endpoint, model, HttpVerb.Get, HandleDefaultResponse).ConfigureAwait(false);
+        }
+
         private async Task<ApiResponse<TModel, TErrorModel>> ProcessRequest<T>(
           string endpoint,
           T model,
@@ -41,6 +46,9 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
                 switch (verb)
                 {
                     case HttpVerb.Get:
+                        response = await _webApiHttpClient
+                                .GetResponse(endpoint, model.Headers)
+                                .ConfigureAwait(false);
                         break;
                     case HttpVerb.Post:
                         response = await _webApiHttpClient
