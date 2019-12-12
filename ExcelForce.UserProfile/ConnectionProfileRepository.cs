@@ -48,7 +48,7 @@ namespace ExcelForce.Foundation.ProfileManagement
         //TODO:(Ritwik):: Modify this to fetch only distinct records
         public IEnumerable<ConnectionProfile> GetRecords()
         {
-            _contentStreamManager.CreateFileIfAbsent(_filePath);
+            _contentStreamManager.CreateContentIfAbsent(_filePath);
 
             var fileContent =
                 _contentStreamManager.ReadContent(_filePath);
@@ -74,7 +74,7 @@ namespace ExcelForce.Foundation.ProfileManagement
         {
             var serializedContent = _contentSerializationManager.Serialize(records);
 
-            _contentStreamManager.CreateFileIfAbsent(_filePath);
+            _contentStreamManager.CreateContentIfAbsent(_filePath);
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
         }
