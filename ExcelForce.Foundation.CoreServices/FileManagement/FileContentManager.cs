@@ -38,7 +38,7 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
             return WriteContent(resourceName, string.Empty);
         }
 
-        public bool CreateFileIfAbsent(string filePath)
+        public bool CreateContentIfAbsent(string filePath)
         {
              var fileExists = ContentLocationExists(filePath);
                 if (!fileExists)

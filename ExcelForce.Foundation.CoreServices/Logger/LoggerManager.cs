@@ -18,21 +18,21 @@ namespace ExcelForce.Foundation.CoreServices.Logger
         public void LogInfo(string message)
         {
             string modifiedMessage = "INFO : " + DateTime.Now + " : " + message;
-            _contentStreamManager.CreateFileIfAbsent(_filePath);
+            _contentStreamManager.CreateContentIfAbsent(_filePath);
 
              _contentStreamManager.WriteContent(_filePath, modifiedMessage);
         }
         public void LogError(string message)
         {
             string modifiedMessage = "ERROR : " + DateTime.Now + " : " + message;
-            _contentStreamManager.CreateFileIfAbsent(_filePath);
+            _contentStreamManager.CreateContentIfAbsent(_filePath);
 
              _contentStreamManager.WriteContent(_filePath, modifiedMessage);
         }
         public void LogWarn(string message)
         {
             string modifiedMessage = "WARN : " + DateTime.Now + " : " + message;
-            _contentStreamManager.CreateFileIfAbsent(_filePath);
+            _contentStreamManager.CreateContentIfAbsent(_filePath);
 
              _contentStreamManager.WriteContent(_filePath, modifiedMessage);
         }

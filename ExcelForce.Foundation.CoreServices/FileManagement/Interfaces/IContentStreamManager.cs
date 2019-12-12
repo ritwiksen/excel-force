@@ -30,6 +30,6 @@
         /// <returns></returns>
         bool CreateContentLocation(string resourceName);
 
-        bool CreateFileIfAbsent(string filePath);
+        bool CreateContentIfAbsent(string filePath);
     }
 }
