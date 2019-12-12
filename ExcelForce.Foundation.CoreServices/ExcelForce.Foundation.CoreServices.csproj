@@ -51,7 +51,6 @@
     <Compile Include="FileManagement\Interfaces\IContentStreamManager.cs" />
     <Compile Include="Logger\Interfaces\ILoggerManager.cs" />
     <Compile Include="Logger\LoggerManager.cs" />
-    <Compile Include="Models\ApiResonse.cs" />
     <Compile Include="Models\ApiError.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Configuration\ApiConfiguration.cs" />
