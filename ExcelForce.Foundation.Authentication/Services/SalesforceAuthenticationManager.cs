@@ -29,11 +29,11 @@ namespace ExcelForce.Foundation.Authentication.Services
 
             var payload = new Dictionary<string, string>
             {
-                {"grant_type",request.Password},
+                {"grant_type","password"},
                 {"client_id",request.ConsumerKey},
                 {"client_secret",request.SecretKey},
                 {"username",request.Username},
-                {"password",request.SecurityToken }
+                {"password",$"{request.Password}{request.SecurityToken}" }
             };
 
             var apiRequest = new AuthenticationApiRequest()
