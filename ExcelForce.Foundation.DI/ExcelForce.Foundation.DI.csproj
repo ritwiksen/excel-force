@@ -62,5 +62,23 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelForce.Foundation.Authentication\ExcelForce.Foundation.Authentication.csproj">
+      <Project>{A21C035D-CE32-40B9-ADD1-51458C2F0530}</Project>
+      <Name>ExcelForce.Foundation.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.CoreServices\ExcelForce.Foundation.CoreServices.csproj">
+      <Project>{D0FE245F-44CB-4D30-A93A-97EC891C2251}</Project>
+      <Name>ExcelForce.Foundation.CoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce.Foundation.Persistence\ExcelForce.Foundation.Persistence.csproj">
+      <Project>{F7451E8F-5ED8-4F43-B321-05BC371CB54C}</Project>
+      <Name>ExcelForce.Foundation.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelForce\ExcelForce.csproj">
+      <Project>{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5}</Project>
+      <Name>ExcelForce</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

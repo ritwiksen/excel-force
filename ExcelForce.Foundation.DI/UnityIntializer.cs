@@ -1,5 +1,11 @@
-﻿using Unity;
-using Unity.RegistrationByConvention;
+﻿using ExcelForce.Foundation.Authentication.Models;
+using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.CoreServices.ServiceCallWrapper;
+using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.Persistence.Persitence;
+using ExcelForce.Infrastructure.DataPersistence;
+using ExcelForce.Models;
+using Unity;
 
 namespace ExcelForce.Foundation.DI
 {
@@ -9,9 +15,13 @@ namespace ExcelForce.Foundation.DI
         {
             IUnityContainer container = new UnityContainer();
 
-            container.RegisterTypes(
-                AllClasses.FromAssembliesInBasePath(),
-                (c) => WithMappings.FromMatchingInterface(c));
+            container.RegisterType<IServiceCallWrapper<AuthenticationResponse, ApiError>
+                , ServiceCallWrapper<AuthenticationResponse, ApiError>>();
+
+            container.RegisterType<IPersistenceContainer
+                , ExcelForcePersistenceContainer>();
+
+
         }
     }
 }

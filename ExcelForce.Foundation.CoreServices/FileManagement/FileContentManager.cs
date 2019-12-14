@@ -13,6 +13,7 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
         {
 
         }
+
         public bool ContentLocationExists(string resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName))

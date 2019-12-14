@@ -12,6 +12,8 @@ namespace ExcelForce.Forms
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
+        private const string _loginErrorMessage = "An error occurred while logging in";
+
         public LoginForm()
         {
             _ribbonBase = Globals.Ribbons.GetRibbon<ExcelForce>();
@@ -49,11 +51,26 @@ namespace ExcelForce.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var connectionProfile = Reusables.Instance.ConnectionProfile;
+            try
+            {
+                lblErrorMessage.ResetText();
 
-            var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
+                var connectionProfile = Reusables.Instance.ConnectionProfile;
 
-            var test = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+                var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
+
+                var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+
+                if (!response)
+                {
+                    lblErrorMessage.Text = _loginErrorMessage;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                lblErrorMessage.Text = _loginErrorMessage;
+            }
 
             //Right set of values
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce"; //--c

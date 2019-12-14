@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblErrorMessage = new System.Windows.Forms.Label();
             this.txtSecurityToken = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lblConnectionProfiles = new System.Windows.Forms.Label();
@@ -105,17 +105,16 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Login";
             // 
-            // label4
+            // lblErrorMessage
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Crimson;
-            this.label4.Location = new System.Drawing.Point(13, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(346, 23);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Please check your username and password.";
-            this.label4.Visible = false;
+            this.lblErrorMessage.AutoSize = true;
+            this.lblErrorMessage.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.Crimson;
+            this.lblErrorMessage.Location = new System.Drawing.Point(13, 51);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(0, 23);
+            this.lblErrorMessage.TabIndex = 7;
+            this.lblErrorMessage.Visible = false;
             // 
             // txtSecurityToken
             // 
@@ -169,7 +168,7 @@
             this.Controls.Add(this.lblConnectionProfiles);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtSecurityToken);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblErrorMessage);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.label2);
@@ -200,7 +199,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblErrorMessage;
         private System.Windows.Forms.TextBox txtSecurityToken;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblConnectionProfiles;

@@ -4,6 +4,26 @@ using System.Collections.Generic;
 
 namespace ExcelForce.Models
 {
+    public interface IInterface
+    {
+        string Test { get; set; }
+    }
+
+    public class Class : IInterface
+    {
+        public string Test { get; set; }
+    }
+
+    public class Service
+    {
+        public Service(IInterface test)
+        {
+            var object1 = test;
+        }
+    }
+
+
+
     public class Reusables
     {
         private static Reusables instance;

@@ -277,13 +277,13 @@ namespace ExcelForce
         {
             if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
             {
-                var connectionInfoForm = FormGenerator.GetForm<ConnectionInformationForm>();
+                var connectionInfoForm = new ConnectionInformationForm();
 
                 connectionInfoForm.Show();
             }
             else
             {
-                var loginForm = FormGenerator.GetForm<LoginForm>();
+                var loginForm = new LoginForm();
 
                 loginForm.Show();
             }
@@ -366,7 +366,7 @@ namespace ExcelForce
             Reusables.Instance.ConnectionProfile
                 = Convert.ToString(button.Tag);
 
-            var loginForm = FormGenerator.GetForm<LoginForm>();
+            var loginForm = new LoginForm();
 
             loginForm.Show();
         }
