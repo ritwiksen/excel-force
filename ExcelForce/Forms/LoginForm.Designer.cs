@@ -37,13 +37,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtSecurityToken = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.lblConnectionProfiles = new System.Windows.Forms.Label();
+            this.ddlConnectionProfiles = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtUserName
             // 
             this.txtUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUserName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(17, 102);
+            this.txtUserName.Location = new System.Drawing.Point(17, 158);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(439, 30);
@@ -54,7 +56,7 @@
             // 
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(17, 175);
+            this.txtPassword.Location = new System.Drawing.Point(17, 231);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -66,7 +68,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 76);
+            this.label1.Location = new System.Drawing.Point(13, 132);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 23);
             this.label1.TabIndex = 2;
@@ -76,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 147);
+            this.label2.Location = new System.Drawing.Point(13, 203);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 23);
             this.label2.TabIndex = 3;
@@ -86,7 +88,7 @@
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(17, 323);
+            this.btnLogin.Location = new System.Drawing.Point(17, 379);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(439, 46);
@@ -121,7 +123,7 @@
             // 
             this.txtSecurityToken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSecurityToken.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSecurityToken.Location = new System.Drawing.Point(17, 255);
+            this.txtSecurityToken.Location = new System.Drawing.Point(17, 311);
             this.txtSecurityToken.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSecurityToken.Name = "txtSecurityToken";
             this.txtSecurityToken.PasswordChar = '*';
@@ -132,11 +134,29 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 224);
+            this.label5.Location = new System.Drawing.Point(13, 280);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(118, 23);
             this.label5.TabIndex = 9;
             this.label5.Text = "Security Token";
+            // 
+            // lblConnectionProfiles
+            // 
+            this.lblConnectionProfiles.AutoSize = true;
+            this.lblConnectionProfiles.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConnectionProfiles.Location = new System.Drawing.Point(13, 74);
+            this.lblConnectionProfiles.Name = "lblConnectionProfiles";
+            this.lblConnectionProfiles.Size = new System.Drawing.Size(158, 23);
+            this.lblConnectionProfiles.TabIndex = 11;
+            this.lblConnectionProfiles.Text = "Connection Profiles";
+            // 
+            // ddlConnectionProfiles
+            // 
+            this.ddlConnectionProfiles.FormattingEnabled = true;
+            this.ddlConnectionProfiles.Location = new System.Drawing.Point(17, 101);
+            this.ddlConnectionProfiles.Name = "ddlConnectionProfiles";
+            this.ddlConnectionProfiles.Size = new System.Drawing.Size(438, 24);
+            this.ddlConnectionProfiles.TabIndex = 12;
             // 
             // LoginForm
             // 
@@ -146,7 +166,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(476, 383);
+            this.ClientSize = new System.Drawing.Size(476, 436);
+            this.Controls.Add(this.ddlConnectionProfiles);
+            this.Controls.Add(this.lblConnectionProfiles);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtSecurityToken);
             this.Controls.Add(this.label4);
@@ -165,7 +187,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Load += new System.EventHandler(this.LoginForm_OnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,5 +204,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSecurityToken;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblConnectionProfiles;
+        private System.Windows.Forms.ComboBox ddlConnectionProfiles;
     }
 }

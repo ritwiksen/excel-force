@@ -37,7 +37,7 @@ namespace ExcelForce
 
         private void Button1_Click(object sender, RibbonControlEventArgs e)
         {
-            var connectionInformationForm = new ConnectionInformationForm(this);
+            var connectionInformationForm = new ConnectionInformationForm();
             connectionInformationForm.Show();
         }
 
@@ -287,10 +287,9 @@ namespace ExcelForce
 
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
-            // connectionProfileSplitButton_OnLoad();
             if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
             {
-                var connectionInfoForm = new ConnectionInformationForm(this);
+                var connectionInfoForm = new ConnectionInformationForm();
 
                 connectionInfoForm.Show();
             }
@@ -348,7 +347,7 @@ namespace ExcelForce
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
         {
-            var connectionProfileForm = new ConnectionInformationForm(this);
+            var connectionProfileForm = new ConnectionInformationForm();
 
             connectionProfileForm.Show();
         }
@@ -390,7 +389,7 @@ namespace ExcelForce
         {
             var button = sender as RibbonButton;
 
-            Reusables.Instance.ConnectionProfile 
+            Reusables.Instance.ConnectionProfile
                 = Convert.ToString(button.Tag);
 
             var loginForm = new LoginForm();

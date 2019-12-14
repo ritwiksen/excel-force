@@ -1,35 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net;
 using System.Windows.Forms;
 using ExcelForce.Models;
 using ExcelForce.Business.Interfaces;
+using System.Linq;
 
 namespace ExcelForce.Forms
 {
     public partial class LoginForm : Form
     {
         private ExcelForce _ribbonBase;
-        String authToken = "";
-        String ServiceURL = "https://login.salesforce.com";
-        // String ServiceURL = "https://test.salesforce.com";
-        String sfdcConsumerKey = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
-        //  String sfdcConsumerKey = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
-        //   String sfdcConsumerKey = "3MVG9LzKxa43zqdKPikPxc3sMUZ7jacalJD.HFa3LG_TyBmyZuISofWytdsXwn3ZomqLbdsIdyMUqBBMKgZyN";
-        String sfdcCounsumerSecret = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
-        // String sfdcCounsumerSecret = "AA2E6E9F9DC6843FCD673542E0A4AF727D7FF59333E002017472E6D2E9D3D15E";
-        //   String sfdcCounsumerSecret = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
-        String callbackUrl = "";
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
-
-        public LoginForm(String conKey, String secKey, Boolean prod) : this()
-        {
-            //  sfdcConsumerKey = conKey;
-            //  sfdcCounsumerSecret = secKey;
-            // callbackUrl = (prod == true) ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
-        }
 
         public LoginForm()
         {
@@ -40,7 +21,31 @@ namespace ExcelForce.Forms
             InitializeComponent();
         }
 
-        public String[] columnName;
+        private void LoginForm_OnLoad(object sender, EventArgs e)
+        {
+            LoadConnectionProfileDropDown();
+        }
+
+        private void LoadConnectionProfileDropDown()
+        {
+            var connectionProfiles =
+                _excelForceServiceFactory?.GetConnectionProfileService()?.GetSavedConnectionProfiles();
+
+            var ribbonFactory = Globals.Factory.GetRibbonFactory();
+
+            ddlConnectionProfiles.DataSource = connectionProfiles
+                ?.Select(x =>
+            {
+                var dropDownItem = ribbonFactory.CreateRibbonDropDownItem();
+
+                dropDownItem.Label = x.Name;
+
+                dropDownItem.Tag = x.Name;
+
+                return dropDownItem;
+            })
+            ?.ToList();
+        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {

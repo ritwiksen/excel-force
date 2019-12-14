@@ -30,5 +30,14 @@ namespace ExcelForce.Business.Services.ConfigurationInformation
         {
             return _connectionProfileRepository.AddRecord(profile);
         }
+
+        public bool ShowLoginFormFromConnectionInformation()
+        {
+            var existingProfiles = _connectionProfileRepository.GetRecords();
+
+            return (existingProfiles?.Any() ?? false)
+                ? false
+                : true;
+        }
     }
 }

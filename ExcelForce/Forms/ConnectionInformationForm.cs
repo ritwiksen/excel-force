@@ -10,7 +10,7 @@ namespace ExcelForce.Forms
     {
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
-        public ConnectionInformationForm(ExcelForce ex)
+        public ConnectionInformationForm()
         {
             _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
@@ -35,13 +35,16 @@ namespace ExcelForce.Forms
 
                 var result = profileService.PerformConnectionSubmitActions(profile);
 
-                var loginForm = new LoginForm(txtConsumerKey.Text, txtSecretKey.Text, chkIsProduction.Checked);
-
-                Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
-
                 this.Close();
 
-                loginForm.Show();
+                if (profileService.ShowLoginFormFromConnectionInformation())
+                {
+                    var loginForm = new LoginForm();
+
+                    Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
+
+                    loginForm.Show();
+                }
             }
             else
             {
