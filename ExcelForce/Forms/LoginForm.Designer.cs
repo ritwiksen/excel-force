@@ -50,7 +50,6 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(439, 30);
             this.txtUserName.TabIndex = 0;
-            this.txtUserName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // txtPassword
             // 
@@ -62,7 +61,6 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(439, 30);
             this.txtPassword.TabIndex = 1;
-            this.txtPassword.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label1
             // 
@@ -187,6 +185,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             this.Load += new System.EventHandler(this.LoginForm_OnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();

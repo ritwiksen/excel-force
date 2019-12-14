@@ -1,6 +1,6 @@
 ﻿using ExcelForce.Business.ServiceFactory;
-using ExcelForce.DataPersistence;
-using ExcelForce.DataPersitence;
+using ExcelForce.Infrastructure.DataPersistence;
+using ExcelForce.Infrastructure.DataPersitence;
 using ExcelForce.Models;
 
 namespace ExcelForce

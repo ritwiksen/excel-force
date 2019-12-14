@@ -169,10 +169,10 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="DataPersistence\ApiConfigurationDataPersistence.cs" />
-    <Compile Include="DataPersistence\AttributeDataPersitence.cs" />
-    <Compile Include="DataPersistence\FieldDataPersitence.cs" />
-    <Compile Include="DataPersistence\ExcelForcePersistenceContainer.cs" />
+    <Compile Include="Infrastructure\DataPersistence\ApiConfigurationDataPersistence.cs" />
+    <Compile Include="Infrastructure\DataPersistence\AttributeDataPersitence.cs" />
+    <Compile Include="Infrastructure\DataPersistence\FieldDataPersitence.cs" />
+    <Compile Include="Infrastructure\DataPersistence\ExcelForcePersistenceContainer.cs" />
     <Compile Include="ExcelForce.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -191,6 +191,7 @@
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\FormResources\FormGenerator.cs" />
     <Compile Include="Models\Reusables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

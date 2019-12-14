@@ -35,6 +35,12 @@ namespace ExcelForce.Forms
 
                 var result = profileService.PerformConnectionSubmitActions(profile);
 
+                if (!result)
+                {
+                    //TODO:(Ritwik)
+                    //Perform tasks on submit action failed
+                }
+
                 this.Close();
 
                 if (profileService.ShowLoginFormFromConnectionInformation())
@@ -50,6 +56,17 @@ namespace ExcelForce.Forms
             {
                 label6.Visible = true;
             }
+        }
+
+        private void ConnectionInformationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            txtConnectionName.Text = string.Empty;
+
+            txtConsumerKey.Text = string.Empty;
+
+            txtSecretKey.Text = string.Empty;
+
+            chkIsProduction.Checked = true;
         }
     }
 }

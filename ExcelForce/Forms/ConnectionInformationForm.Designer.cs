@@ -88,7 +88,7 @@
             this.txtConnectionName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtConnectionName.Name = "txtConnectionName";
             this.txtConnectionName.Size = new System.Drawing.Size(815, 30);
-            this.txtConnectionName.TabIndex = 5;    
+            this.txtConnectionName.TabIndex = 5;
             // 
             // txtConsumerKey
             // 
@@ -173,6 +173,7 @@
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConnectionInformationForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

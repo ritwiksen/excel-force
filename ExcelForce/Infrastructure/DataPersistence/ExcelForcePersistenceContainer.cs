@@ -3,7 +3,7 @@ using ExcelForce.Foundation.Persistence.Persitence;
 using ExcelForce.Foundation.Persitence;
 using System.Collections.Generic;
 
-namespace ExcelForce.DataPersistence
+namespace ExcelForce.Infrastructure.DataPersistence
 {
     public class ExcelForcePersistenceContainer : IPersistenceContainer
     {

@@ -12,6 +12,7 @@ using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Models;
+using ExcelForce.Infrastructure.FormResources;
 
 namespace ExcelForce
 {
@@ -27,20 +28,6 @@ namespace ExcelForce
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
-
-        private void Button5_Click(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
-
-
-        private void Button1_Click(object sender, RibbonControlEventArgs e)
-        {
-            var connectionInformationForm = new ConnectionInformationForm();
-            connectionInformationForm.Show();
-        }
-
         private void DropDown1_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
         }
@@ -52,6 +39,7 @@ namespace ExcelForce
 
 
         }
+
         public HttpResponseMessage Query(string reqUrl)
         {
             using (var client = new HttpClient())
@@ -289,13 +277,13 @@ namespace ExcelForce
         {
             if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
             {
-                var connectionInfoForm = new ConnectionInformationForm();
+                var connectionInfoForm = FormGenerator.GetForm<ConnectionInformationForm>();
 
                 connectionInfoForm.Show();
             }
             else
             {
-                var loginForm = new LoginForm();
+                var loginForm = FormGenerator.GetForm<LoginForm>();
 
                 loginForm.Show();
             }
@@ -336,25 +324,11 @@ namespace ExcelForce
 
         }
 
-        private void dropDown3_SelectionChanged(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-        private void button11_Click(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
         {
             var connectionProfileForm = new ConnectionInformationForm();
 
             connectionProfileForm.Show();
-        }
-
-        private void button9_Click(object sender, RibbonControlEventArgs e)
-        {
-
         }
 
         private void LoadConnectionProfiles()
@@ -392,7 +366,7 @@ namespace ExcelForce
             Reusables.Instance.ConnectionProfile
                 = Convert.ToString(button.Tag);
 
-            var loginForm = new LoginForm();
+            var loginForm = FormGenerator.GetForm<LoginForm>();
 
             loginForm.Show();
         }

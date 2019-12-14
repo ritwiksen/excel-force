@@ -159,19 +159,13 @@ namespace ExcelForce.Forms
             ////}
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            txtUserName.Text = string.Empty;
 
-        }
+            txtPassword.Text = string.Empty;
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
+            txtSecurityToken.Text = string.Empty;
         }
     }
 }

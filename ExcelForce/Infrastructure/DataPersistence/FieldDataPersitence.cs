@@ -3,7 +3,7 @@ using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 
-namespace ExcelForce.DataPersitence
+namespace ExcelForce.Infrastructure.DataPersitence
 {
     public class FieldDataPersitence : IPersistenceManager<IEnumerable<string>>
     {
