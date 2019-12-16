@@ -35,7 +35,7 @@ namespace ExcelForce.Business.Services.ConfigurationInformation
         {
             var existingProfiles = _connectionProfileRepository.GetRecords();
 
-            return (existingProfiles?.Any() ?? false)
+            return ((existingProfiles?.Count() ?? 0) > 1 )
                 ? false
                 : true;
         }
