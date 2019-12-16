@@ -18,11 +18,12 @@ namespace ExcelForce.Foundation.ProfileManagement
 
         private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExcelForce.txt";
 
-        public ConnectionProfileRepository()
+        public ConnectionProfileRepository(IContentSerializationManager contentSerializationManager,
+            IContentStreamManager contentStreamManager)
         {
-            _contentSerializationManager = new JsonSerializer();
+            _contentSerializationManager = contentSerializationManager;
 
-            _contentStreamManager = new FileContentManager();
+            _contentStreamManager = contentStreamManager;
         }
 
         public bool AddRecord(ConnectionProfile model)

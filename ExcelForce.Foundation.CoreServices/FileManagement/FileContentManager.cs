@@ -7,8 +7,6 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
 {
     public class FileContentManager : IContentStreamManager
     {
-        private readonly ILoggerManager loggerManager;
-
         public FileContentManager()
         {
 
