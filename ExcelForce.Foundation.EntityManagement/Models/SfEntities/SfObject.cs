@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 {
@@ -6,8 +7,16 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string Name { get; set; }
 
-        IEnumerable<SfField> SystemFields { get; set; }
+        IEnumerable<SfField> Fields { get; set; }
 
-        IEnumerable<SfField> CustomFields { get; set; }
+        public IList<SfFilterExpression> FilterExpressions { get; set; }
+
+        public IList<SfSortExpression> SortExpressions { get; set; }
+
+        public bool IsPrimary { get; set; }
+
+        public IEnumerable<SfField> GetSystemFields() => Fields?.Where(x => !x.IsCustom);
+
+        public IEnumerable<SfField> GetCustomFields() => Fields?.Where(x => x.IsCustom);
     }
 }

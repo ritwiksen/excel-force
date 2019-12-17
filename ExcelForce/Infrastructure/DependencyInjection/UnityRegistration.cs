@@ -19,6 +19,9 @@ using ExcelForce.Foundation.CoreServices.ServiceCallWrapper;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.Api.SfObject;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.EntityManagement.Repository;
 using ExcelForce.Foundation.EntityManagement.Services;
 using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Foundation.ProfileManagement.Models;
@@ -63,6 +66,9 @@ namespace ExcelForce.Infrastructure.DependencyInjection
             container.RegisterType<IExcelForceRepository<ConnectionProfile, string>
                 , ConnectionProfileRepository>();
 
+            container.RegisterType<IExcelForceRepository<ExtractMap, string>
+                , ExtractMapRepository>();
+
             container.RegisterType<IAuthenticationManager<AuthenticationRequest, AuthenticationResponse>
                 , SalesforceAuthenticationManager>();
 
@@ -100,6 +106,9 @@ namespace ExcelForce.Infrastructure.DependencyInjection
 
         private static IUnityContainer RegisterCoreServiceContainers(IUnityContainer container)
         {
+            container.RegisterType<ISfQueryService
+                , SfQueryService>();
+
             container.RegisterType<IContentStreamManager
                 , FileContentManager>();
 

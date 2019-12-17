@@ -12,5 +12,7 @@ namespace ExcelForce.Business.Interfaces
         IEnumerable<string> GetAttributesByName(string name, int pageSize, int pageNumber);
 
         SfField GetAttributeData(string name);
+
+        bool SubmitQuery(SfQuery query);
     }
 }

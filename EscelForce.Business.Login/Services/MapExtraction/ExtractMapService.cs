@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExcelForce.Business.Interfaces;
+using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.Persistence.Persitence;
-using ExcelForce.Foundation.Persitence;
 
 namespace ExcelForce.Business.Services.MapExtraction
 {
@@ -17,15 +18,22 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfObjectService _objectService;
 
+        private readonly ISfQueryService _sfQueryService;
+
+        private readonly IExcelForceRepository<ExtractMap, string> _extractMapRepository;
+
         public ExtractMapService(ISfAttributeService attributeService,
             ISfObjectService objectService,
-            IPersistenceContainer persistenceContainer)
+            IPersistenceContainer persistenceContainer,
+            ISfQueryService queryService)
         {
             _attributeService = attributeService;
 
             _persistenceContainer = persistenceContainer;
 
             _objectService = objectService;
+
+            _sfQueryService = queryService;
         }
 
         public IEnumerable<string> GetObjectsByName(string name, string bearerToken)
@@ -78,6 +86,26 @@ namespace ExcelForce.Business.Services.MapExtraction
             _persistenceContainer?.SfObjectsManager.Set(objectNames);
 
             return objectNames;
+        }
+
+        public bool SubmitQuery(SfQuery query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+            var isValidQuery = _sfQueryService.IsValidQuery(query);
+
+            var stringifiedQuery = _sfQueryService.GetStringifiedQuery(query);
+
+            var addExtractMapResponse = _extractMapRepository.AddRecord(new ExtractMap
+            {
+                Name = query.Name,
+                Query = _sfQueryService.GetStringifiedQuery(query)
+            });
+
+            return addExtractMapResponse;
         }
     }
 }
