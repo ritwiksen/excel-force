@@ -9,9 +9,9 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 
         IEnumerable<SfField> Fields { get; set; }
 
-        public IList<SfFilterExpression> FilterExpressions { get; set; }
+        public string FilterExpressions { get; set; }
 
-        public IList<SfSortExpression> SortExpressions { get; set; }
+        public string SortExpressions { get; set; }
 
         public bool IsPrimary { get; set; }
 
