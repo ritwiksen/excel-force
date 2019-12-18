@@ -64,7 +64,8 @@ namespace ExcelForce.Business.Services.UserAuthentication
 
                 var authResponse = _authenticationManager.Login(request);
 
-                if (string.IsNullOrWhiteSpace(authResponse?.ErrorMessage))
+                if (string.IsNullOrWhiteSpace(authResponse?.ErrorMessage) &&
+                    authResponse ?.AccessToken != null)
                 {
                     response = true;
                 }

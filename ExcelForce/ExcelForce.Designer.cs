@@ -72,7 +72,7 @@ namespace ExcelForce
             this.button4 = this.Factory.CreateRibbonButton();
             this.groupAuthentication = this.Factory.CreateRibbonGroup();
             this.btnLogin = this.Factory.CreateRibbonButton();
-            this.button10 = this.Factory.CreateRibbonButton();
+            this.btnLogout = this.Factory.CreateRibbonButton();
             this.connectionProfileSplitButton = this.Factory.CreateRibbonSplitButton();
             this.groupMap = this.Factory.CreateRibbonGroup();
             this.button6 = this.Factory.CreateRibbonButton();
@@ -163,7 +163,7 @@ namespace ExcelForce
             // groupAuthentication
             // 
             this.groupAuthentication.Items.Add(this.btnLogin);
-            this.groupAuthentication.Items.Add(this.button10);
+            this.groupAuthentication.Items.Add(this.btnLogout);
             this.groupAuthentication.Items.Add(this.connectionProfileSplitButton);
             this.groupAuthentication.Label = "Log In / Log Out";
             this.groupAuthentication.Name = "groupAuthentication";
@@ -177,15 +177,15 @@ namespace ExcelForce
             this.btnLogin.ShowImage = true;
             this.btnLogin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLogin_Click);
             // 
-            // button10
+            // btnLogout
             // 
-            this.button10.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button10.Image = ((System.Drawing.Image)(resources.GetObject("button10.Image")));
-            this.button10.Label = "Logout";
-            this.button10.Name = "button10";
-            this.button10.ShowImage = true;
-            this.button10.Visible = false;
-            this.button10.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button10_Click);
+            this.btnLogout.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
+            this.btnLogout.Label = "Logout";
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.ShowImage = true;
+            this.btnLogout.Visible = false;
+            this.btnLogout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLogout_Click);
             // 
             // connectionProfileSplitButton
             // 
@@ -325,7 +325,7 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button8;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLogin;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button10;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLogout;
         internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton connectionProfileSplitButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupCRUD;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnInsert;

@@ -49,12 +49,7 @@ namespace ExcelForce.Foundation.Authentication.Services
 
             var response = _loginServiceCallWrapper.Post(url, apiRequest)?.Result;
 
-            if (response?.Error != null)
-            {
-                return response?.Model;
-            }
-
-            throw new Exception("An error occurred while trying to authenticate the user");
+            return response?.Model;
         }
     }
 }

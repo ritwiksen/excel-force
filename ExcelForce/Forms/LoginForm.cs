@@ -61,7 +61,16 @@ namespace ExcelForce.Forms
 
                 var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
 
-                if (response.Messages.Any())
+                if (response.Model) {
+                    _ribbonBase.btnLogin.Visible = false;
+                    _ribbonBase.btnLogout.Visible = true;
+                    _ribbonBase.connectionProfileSplitButton.Visible = false;
+                    _ribbonBase.button6.Enabled = true;
+                    _ribbonBase.button7.Enabled = true;
+                    _ribbonBase.button8.Enabled = true;
+                    this.Close();
+                }
+                else if (response.Messages.Any())
                 {
                     lblErrorMessage.Text = string.Join(",", response.Messages);
                 }
