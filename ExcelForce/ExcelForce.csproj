@@ -181,6 +181,18 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Forms\ExtractionMapFieldsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMapFieldsForm.Designer.cs">
+      <DependentUpon>ExtractionMapFieldsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExtractionMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMapForm.Designer.cs">
+      <DependentUpon>ExtractionMapForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\DataPersistence\ApiConfigurationDataPersistence.cs" />
     <Compile Include="Infrastructure\DataPersistence\ExcelForcePersistenceContainer.cs" />
     <Compile Include="ExcelForce.cs">
@@ -213,8 +225,17 @@
     <EmbeddedResource Include="Forms\ConnectionInformationForm.resx">
       <DependentUpon>ConnectionInformationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMapFieldsForm.resx">
+      <DependentUpon>ExtractionMapFieldsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMapForm.resx">
+      <DependentUpon>ExtractionMapForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchSortExpressionForm.resx">
+      <DependentUpon>SearchSortExpressionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -230,6 +251,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Forms\SearchSortExpressionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchSortExpressionForm.Designer.cs">
+      <DependentUpon>SearchSortExpressionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="TemplateConfig.cs" />

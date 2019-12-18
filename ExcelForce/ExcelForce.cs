@@ -370,5 +370,22 @@ namespace ExcelForce
 
             loginForm.Show();
         }
+
+        private void button6_Click(object sender, RibbonControlEventArgs e)
+        {
+            /*
+            ExtractionMapForm f1 = new ExtractionMapForm();
+            List<String> objNames = new List<string>();
+            objNames.Add("Account");
+            objNames.Add("Asphalt");
+            objNames.Add("Contact");
+            AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
+            auto.Add("Accoutn");
+            auto.Add("GobbleWobble");
+            f1.txtPrimaryObjName.AutoCompleteCustomSource = auto;
+            f1.Show();
+            */
+
+        }
     }
 }
