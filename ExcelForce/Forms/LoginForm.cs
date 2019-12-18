@@ -61,9 +61,9 @@ namespace ExcelForce.Forms
 
                 var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
 
-                if (!response)
+                if (response.Messages.Any())
                 {
-                    lblErrorMessage.Text = _loginErrorMessage;
+                    lblErrorMessage.Text = string.Join(",", response.Messages);
                 }
             }
             catch (Exception ex)
