@@ -78,17 +78,24 @@ namespace ExcelForce
             this.btnLogin = this.Factory.CreateRibbonButton();
             this.button10 = this.Factory.CreateRibbonButton();
             this.connectionProfileSplitButton = this.Factory.CreateRibbonSplitButton();
-            this.groupCrud = this.Factory.CreateRibbonGroup();
+            this.groupMap = this.Factory.CreateRibbonGroup();
             this.button6 = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
             this.button7 = this.Factory.CreateRibbonButton();
             this.separator2 = this.Factory.CreateRibbonSeparator();
             this.button8 = this.Factory.CreateRibbonButton();
+            this.groupCRUD = this.Factory.CreateRibbonGroup();
+            this.btnInsert = this.Factory.CreateRibbonButton();
+            this.separator3 = this.Factory.CreateRibbonSeparator();
+            this.btnUpdate = this.Factory.CreateRibbonButton();
+            this.separator4 = this.Factory.CreateRibbonSeparator();
+            this.btnDelete = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group2.SuspendLayout();
             this.groupActions.SuspendLayout();
             this.groupAuthentication.SuspendLayout();
-            this.groupCrud.SuspendLayout();
+            this.groupMap.SuspendLayout();
+            this.groupCRUD.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -96,7 +103,8 @@ namespace ExcelForce
             this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.groupActions);
             this.tab1.Groups.Add(this.groupAuthentication);
-            this.tab1.Groups.Add(this.groupCrud);
+            this.tab1.Groups.Add(this.groupMap);
+            this.tab1.Groups.Add(this.groupCRUD);
             this.tab1.Label = "ExcelForce";
             this.tab1.Name = "tab1";
             // 
@@ -192,24 +200,24 @@ namespace ExcelForce
             this.connectionProfileSplitButton.Tag = "";
             this.connectionProfileSplitButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.splitButton1_Click);
             // 
-            // groupCrud
+            // groupMap
             // 
-            this.groupCrud.Items.Add(this.button6);
-            this.groupCrud.Items.Add(this.separator1);
-            this.groupCrud.Items.Add(this.button7);
-            this.groupCrud.Items.Add(this.separator2);
-            this.groupCrud.Items.Add(this.button8);
-            this.groupCrud.Label = "Extract and Save (CRUD)";
-            this.groupCrud.Name = "groupCrud";
+            this.groupMap.Items.Add(this.button6);
+            this.groupMap.Items.Add(this.separator1);
+            this.groupMap.Items.Add(this.button7);
+            this.groupMap.Items.Add(this.separator2);
+            this.groupMap.Items.Add(this.button8);
+            this.groupMap.Label = "Extract and Save";
+            this.groupMap.Name = "groupMap";
             // 
             // button6
             // 
             this.button6.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button6.Enabled = false;
             this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
             this.button6.Label = "Create Extraction Map";
             this.button6.Name = "button6";
             this.button6.ShowImage = true;
+            this.button6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button6_Click);
             // 
             // separator1
             // 
@@ -238,6 +246,51 @@ namespace ExcelForce
             this.button8.ShowImage = true;
             this.button8.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button8_Click);
             // 
+            // groupCRUD
+            // 
+            this.groupCRUD.Items.Add(this.btnInsert);
+            this.groupCRUD.Items.Add(this.separator3);
+            this.groupCRUD.Items.Add(this.btnUpdate);
+            this.groupCRUD.Items.Add(this.separator4);
+            this.groupCRUD.Items.Add(this.btnDelete);
+            this.groupCRUD.Label = "DML Operations (CRUD)";
+            this.groupCRUD.Name = "groupCRUD";
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnInsert.Enabled = false;
+            this.btnInsert.Image = ((System.Drawing.Image)(resources.GetObject("btnInsert.Image")));
+            this.btnInsert.Label = "Insert";
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.ShowImage = true;
+            // 
+            // separator3
+            // 
+            this.separator3.Name = "separator3";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnUpdate.Enabled = false;
+            this.btnUpdate.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdate.Image")));
+            this.btnUpdate.Label = "Update";
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.ShowImage = true;
+            // 
+            // separator4
+            // 
+            this.separator4.Name = "separator4";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
+            this.btnDelete.Label = "Delete";
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ShowImage = true;
+            // 
             // ExcelForce
             // 
             this.Name = "ExcelForce";
@@ -251,8 +304,10 @@ namespace ExcelForce
             this.groupActions.PerformLayout();
             this.groupAuthentication.ResumeLayout(false);
             this.groupAuthentication.PerformLayout();
-            this.groupCrud.ResumeLayout(false);
-            this.groupCrud.PerformLayout();
+            this.groupMap.ResumeLayout(false);
+            this.groupMap.PerformLayout();
+            this.groupCRUD.ResumeLayout(false);
+            this.groupCRUD.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -267,7 +322,7 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button4;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown dropDown1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupAuthentication;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupCrud;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupMap;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button6;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button7;
@@ -276,6 +331,12 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLogin;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button10;
         internal Microsoft.Office.Tools.Ribbon.RibbonSplitButton connectionProfileSplitButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupCRUD;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnInsert;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpdate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDelete;
     }
 
     partial class ThisRibbonCollection
