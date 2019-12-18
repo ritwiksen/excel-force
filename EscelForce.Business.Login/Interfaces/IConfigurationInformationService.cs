@@ -8,5 +8,7 @@ namespace ExcelForce.Business.Interfaces
         bool PerformConnectionSubmitActions(ConnectionProfile profile);
 
         IEnumerable<ConnectionProfile> GetSavedConnectionProfiles();
+
+        bool ShowLoginFormFromConnectionInformation();
     }
 }

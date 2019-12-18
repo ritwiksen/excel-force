@@ -1,35 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net;
 using System.Windows.Forms;
 using ExcelForce.Models;
 using ExcelForce.Business.Interfaces;
+using System.Linq;
 
 namespace ExcelForce.Forms
 {
     public partial class LoginForm : Form
     {
         private ExcelForce _ribbonBase;
-        String authToken = "";
-        String ServiceURL = "https://login.salesforce.com";
-        // String ServiceURL = "https://test.salesforce.com";
-        String sfdcConsumerKey = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
-        //  String sfdcConsumerKey = "3MVG9G9pzCUSkzZt2nVdX1o9BZwzYyltwWBP5irkgbk71BDmc41ujJIiVm5C_IlVfZ7jP92JYIS9zfXKmiVVq";
-        //   String sfdcConsumerKey = "3MVG9LzKxa43zqdKPikPxc3sMUZ7jacalJD.HFa3LG_TyBmyZuISofWytdsXwn3ZomqLbdsIdyMUqBBMKgZyN";
-        String sfdcCounsumerSecret = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
-        // String sfdcCounsumerSecret = "AA2E6E9F9DC6843FCD673542E0A4AF727D7FF59333E002017472E6D2E9D3D15E";
-        //   String sfdcCounsumerSecret = "786F7BEB38D66411EFD6E7E5D8CAE56F4F9237EAB405E1EF5C40ED792096DEB2";
-        String callbackUrl = "";
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
-        public LoginForm(String conKey, String secKey, Boolean prod) : this()
-        {
-            //  sfdcConsumerKey = conKey;
-            //  sfdcCounsumerSecret = secKey;
-            // callbackUrl = (prod == true) ? "https://login.salesforce.com/services/oauth2/token" : "https://test.salesforce.com/services/oauth2/token";
-        }
+        private const string _loginErrorMessage = "An error occurred while logging in";
 
         public LoginForm()
         {
@@ -40,15 +23,54 @@ namespace ExcelForce.Forms
             InitializeComponent();
         }
 
-        public String[] columnName;
+        private void LoginForm_OnLoad(object sender, EventArgs e)
+        {
+            LoadConnectionProfileDropDown();
+        }
+
+        private void LoadConnectionProfileDropDown()
+        {
+            var connectionProfiles =
+                _excelForceServiceFactory?.GetConnectionProfileService()?.GetSavedConnectionProfiles();
+
+            var ribbonFactory = Globals.Factory.GetRibbonFactory();
+
+            ddlConnectionProfiles.DataSource = connectionProfiles
+                ?.Select(x =>
+            {
+                var dropDownItem = ribbonFactory.CreateRibbonDropDownItem();
+
+                dropDownItem.Label = x.Name;
+
+                dropDownItem.Tag = x.Name;
+
+                return dropDownItem;
+            })
+            ?.ToList();
+        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var connectionProfile = Reusables.Instance.ConnectionProfile;
+            try
+            {
+                lblErrorMessage.ResetText();
 
-            var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
+                var connectionProfile = Reusables.Instance.ConnectionProfile;
 
-            var test = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+                var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
+
+                var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+
+                if (response.Messages.Any())
+                {
+                    lblErrorMessage.Text = string.Join(",", response.Messages);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                lblErrorMessage.Text = _loginErrorMessage;
+            }
 
             //Right set of values
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce"; //--c
@@ -154,19 +176,13 @@ namespace ExcelForce.Forms
             ////}
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            txtUserName.Text = string.Empty;
 
-        }
+            txtPassword.Text = string.Empty;
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
+            txtSecurityToken.Text = string.Empty;
         }
     }
 }

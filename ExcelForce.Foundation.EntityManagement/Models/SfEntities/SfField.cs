@@ -9,6 +9,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 
         public bool IsRequired { get; set; }
 
+        public bool IsCustom { get; set; }
+
         public Type Type { get; set; }
     }
 }

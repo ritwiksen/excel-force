@@ -1,6 +1,7 @@
-﻿using ExcelForce.Business.ServiceFactory;
-using ExcelForce.DataPersistence;
-using ExcelForce.DataPersitence;
+﻿using ExcelForce.Business.Interfaces;
+using ExcelForce.Foundation.Persistence.Persitence;
+using ExcelForce.Infrastructure.DataPersistence;
+using ExcelForce.Infrastructure.DependencyInjection;
 using ExcelForce.Models;
 
 namespace ExcelForce
@@ -15,17 +16,18 @@ namespace ExcelForce
         public ExcelForce()
             : base(Globals.Factory.GetRibbonFactory())
         {
-            //TODO:(RItwik): The bootstrapping needs to be set via Unity
+            UnityManager.Initialize();
+
             var persitenceContainer = new ExcelForcePersistenceContainer
             {
-                SfAttributesManager = new AttributeDataPersitence(),
-                SfObjectsManager = new FieldDataPersitence(),
                 ApiConfigurationManager = new ApiConfigurationDataPersistence(
-                    "https://login.salesforce.com/services/oauth2/token",
-                    "https://test.salesforce.com/services/oauth2/token")
+                  "https://login.salesforce.com/services/oauth2/token",
+                  "https://test.salesforce.com/services/oauth2/token")
             };
 
-            Reusables.Instance.ExcelForceServiceFactory = new ExcelForceServiceFactory(persitenceContainer);
+            UnityManager.RegisterAdditionalDependencies<IPersistenceContainer>(persitenceContainer);
+
+            Reusables.Instance.ExcelForceServiceFactory = UnityManager.GetInstance<IExcelForceServiceFactory>();
 
             _excelForceServiceFactory = Reusables.Instance.ExcelForceServiceFactory;
 

@@ -14,6 +14,9 @@ namespace ExcelForce.Foundation.Authentication.Services
 
         private readonly IPersistenceContainer _persistenceContainer;
 
+        private const string _salesforcePassword = "password";
+
+
         public SalesforceAuthenticationManager(IServiceCallWrapper<AuthenticationResponse, ApiError> loginServiceCallWrapper,
             IPersistenceContainer persistenceContainer)
         {
@@ -29,11 +32,11 @@ namespace ExcelForce.Foundation.Authentication.Services
 
             var payload = new Dictionary<string, string>
             {
-                {"grant_type",request.Password},
+                {"grant_type",_salesforcePassword},
                 {"client_id",request.ConsumerKey},
                 {"client_secret",request.SecretKey},
                 {"username",request.Username},
-                {"password",request.SecurityToken }
+                {"password",$"{request.Password}{request.SecurityToken}" }
             };
 
             var apiRequest = new AuthenticationApiRequest()

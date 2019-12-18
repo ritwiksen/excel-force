@@ -7,5 +7,7 @@ namespace ExcelForce.Foundation.Authentication.Models
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

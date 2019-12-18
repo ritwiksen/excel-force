@@ -3,7 +3,7 @@ using ExcelForce.Foundation.Persitence;
 using ExcelForce.Models;
 using System;
 
-namespace ExcelForce.DataPersistence
+namespace ExcelForce.Infrastructure.DataPersistence
 {
     public class ApiConfigurationDataPersistence : IPersistenceManager<ApiConfiguration>
     {

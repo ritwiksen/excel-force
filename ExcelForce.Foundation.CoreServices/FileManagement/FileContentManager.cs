@@ -7,12 +7,11 @@ namespace ExcelForce.Foundation.CoreServices.FileManagement
 {
     public class FileContentManager : IContentStreamManager
     {
-        private readonly ILoggerManager loggerManager;
-
         public FileContentManager()
         {
 
         }
+
         public bool ContentLocationExists(string resourceName)
         {
             if (string.IsNullOrWhiteSpace(resourceName))

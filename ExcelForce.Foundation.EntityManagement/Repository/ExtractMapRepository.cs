@@ -1,24 +1,23 @@
-﻿using ExcelForce.Foundation.CoreServices.FileManagement;
-using ExcelForce.Foundation.CoreServices.FileManagement.Interfaces;
-using ExcelForce.Foundation.CoreServices.Repository;
-using ExcelForce.Foundation.CoreServices.Serialization;
-using ExcelForce.Foundation.CoreServices.Serialization.Interfaces;
-using ExcelForce.Foundation.ProfileManagement.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExcelForce.Foundation.CoreServices.FileManagement.Interfaces;
+using ExcelForce.Foundation.CoreServices.Repository;
+using ExcelForce.Foundation.CoreServices.Serialization.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 
-namespace ExcelForce.Foundation.ProfileManagement
+namespace ExcelForce.Foundation.EntityManagement.Repository
 {
-    public class ConnectionProfileRepository : IExcelForceRepository<ConnectionProfile, string>
+    public class ExtractMapRepository : IExcelForceRepository<ExtractMap, string>
     {
         private readonly IContentSerializationManager _contentSerializationManager;
 
         private readonly IContentStreamManager _contentStreamManager;
 
-        private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExcelForce.txt";
+        private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExtractMaps.txt";
 
-        public ConnectionProfileRepository(IContentSerializationManager contentSerializationManager,
+
+        public ExtractMapRepository(IContentSerializationManager contentSerializationManager,
             IContentStreamManager contentStreamManager)
         {
             _contentSerializationManager = contentSerializationManager;
@@ -26,10 +25,10 @@ namespace ExcelForce.Foundation.ProfileManagement
             _contentStreamManager = contentStreamManager;
         }
 
-        public bool AddRecord(ConnectionProfile model)
+        public bool AddRecord(ExtractMap model)
         {
             var records = GetRecords()?.ToList()
-                ?? new List<ConnectionProfile>();
+              ?? new List<ExtractMap>();
 
             records?.Add(model);
 
@@ -46,8 +45,7 @@ namespace ExcelForce.Foundation.ProfileManagement
             return WriteContent(records);
         }
 
-        //TODO:(Ritwik):: Modify this to fetch only distinct records
-        public IEnumerable<ConnectionProfile> GetRecords()
+        public IEnumerable<ExtractMap> GetRecords()
         {
             _contentStreamManager.CreateContentIfAbsent(_filePath);
 
@@ -55,10 +53,10 @@ namespace ExcelForce.Foundation.ProfileManagement
                 _contentStreamManager.ReadContent(_filePath);
 
             return
-                _contentSerializationManager.Deserialize<List<ConnectionProfile>>(fileContent);
+                _contentSerializationManager.Deserialize<List<ExtractMap>>(fileContent);
         }
 
-        public bool UpdateRecord(string key, ConnectionProfile model)
+        public bool UpdateRecord(string key, ExtractMap model)
         {
             var records = GetRecords();
 
@@ -71,7 +69,7 @@ namespace ExcelForce.Foundation.ProfileManagement
             return WriteContent(records);
         }
 
-        private bool WriteContent(IEnumerable<ConnectionProfile> records)
+        private bool WriteContent(IEnumerable<ExtractMap> records)
         {
             var serializedContent = _contentSerializationManager.Serialize(records);
 
@@ -79,6 +77,5 @@ namespace ExcelForce.Foundation.ProfileManagement
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
         }
-       
     }
 }

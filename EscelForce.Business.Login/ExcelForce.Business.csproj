@@ -41,14 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\BusinessConstants.cs" />
     <Compile Include="Interfaces\IConfigurationInformationService.cs" />
+    <Compile Include="Interfaces\ICreateExtractionMapService.cs" />
     <Compile Include="Interfaces\IExcelForceServiceFactory.cs" />
     <Compile Include="Interfaces\IExtractMapService.cs" />
     <Compile Include="Interfaces\IRibbonBaseService.cs" />
     <Compile Include="Interfaces\IUserAuthenticationService.cs" />
+    <Compile Include="Models\ExtractionMap\FieldSelectionModel.cs" />
+    <Compile Include="Models\ExtractionMap\ParameterSelectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
     <Compile Include="Services\ConfigurationInformation\ConfigurationInformationService.cs" />
+    <Compile Include="Services\MapExtraction\CreateExtractionMapService.cs" />
     <Compile Include="Services\MapExtraction\ExtractMapService.cs" />
     <Compile Include="Services\RibbonBase\RibbonBaseService.cs" />
     <Compile Include="Services\UserAuthentication\UserAuthenticationService.cs" />

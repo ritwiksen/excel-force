@@ -9,7 +9,7 @@ namespace ExcelForce.Business.Interfaces
 
         IEnumerable<string> GetObjectsByName(string name, string bearerToken);
 
-        IEnumerable<string> GetAttributesByName(string name, int pageSize, int pageNumber);
+        IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber);
 
         SfField GetAttributeData(string name);
     }

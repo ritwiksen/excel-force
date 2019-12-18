@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExcelForce.Business.Constants;
 using ExcelForce.Business.Interfaces;
+using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.Persistence.Persitence;
-using ExcelForce.Foundation.Persitence;
 
 namespace ExcelForce.Business.Services.MapExtraction
 {
@@ -17,15 +19,20 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfObjectService _objectService;
 
+        private readonly ISfQueryService _sfQueryService;
+
         public ExtractMapService(ISfAttributeService attributeService,
             ISfObjectService objectService,
-            IPersistenceContainer persistenceContainer)
+            IPersistenceContainer persistenceContainer,
+            ISfQueryService queryService)
         {
             _attributeService = attributeService;
 
             _persistenceContainer = persistenceContainer;
 
             _objectService = objectService;
+
+            _sfQueryService = queryService;
         }
 
         public IEnumerable<string> GetObjectsByName(string name, string bearerToken)
@@ -40,7 +47,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             return objectNames;
         }
 
-        public IEnumerable<string> GetAttributesByName(string name, int pageSize, int pageNumber)
+        public IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber)
         {
             return null;
             //if (pageSize < 0)
@@ -71,11 +78,16 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         public IEnumerable<string> GetObjectNames(string bearerToken)
         {
+            var persistentObjectNames = 
+                _persistenceContainer.GetPersistence<IEnumerable<string>>(BusinessConstants.ObjectList);
+
+            if (persistentObjectNames != null)
+                return persistentObjectNames;
+
             var objectNames = _objectService.GetObjectNames(bearerToken);
 
-            objectNames = objectNames ?? _objectService.GetObjectNames(bearerToken);
-
-            _persistenceContainer?.SfObjectsManager.Set(objectNames);
+            _persistenceContainer?.SetPersistence(
+                BusinessConstants.ObjectList, objectNames);
 
             return objectNames;
         }
