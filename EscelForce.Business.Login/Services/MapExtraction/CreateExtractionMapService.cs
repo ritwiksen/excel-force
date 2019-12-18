@@ -77,8 +77,6 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                _persistenceContainer.GetPersistence<SfQuery>(_createMapKey);
-
                 var cufrrentObject = _persistenceContainer.GetPersistence<string>(_currentObject);
 
                 var listOfFields = new List<SfField>();
@@ -93,6 +91,32 @@ namespace ExcelForce.Business.Services.MapExtraction
             }
 
             return new ServiceResponseModel<FieldSelectionModel>
+            {
+                Messages = errorList,
+                Model = result
+            };
+        }
+
+        public ServiceResponseModel<bool> CancelCreateExtractionMap()
+        {
+            bool result = false;
+
+            List<string> errorList = null;
+
+            try
+            {
+                _persistenceContainer.SetPersistence<SfQuery>(_createMapKey, null);
+
+                _persistenceContainer.SetPersistence<string>(_currentObject, null);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError($"{ex.Message} {ex.StackTrace}");
+
+                errorList.Add("An error occurred while cancelling the Create extraction map process");
+            }
+
+            return new ServiceResponseModel<bool>
             {
                 Messages = errorList,
                 Model = result

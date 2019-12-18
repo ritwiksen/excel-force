@@ -1,6 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Foundation.CoreServices.Models;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 
 namespace ExcelForce.Business.Interfaces
 {
@@ -9,6 +8,8 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName, bool isPrimar);
 
         ServiceResponseModel<FieldSelectionModel> ActionsOnFieldListLoad();
+
+        ServiceResponseModel<bool> CancelCreateExtractionMap();
     }
 
     //public class UpdateExtraction
