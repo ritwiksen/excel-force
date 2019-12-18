@@ -7,7 +7,7 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string Name { get; set; }
 
-        IEnumerable<SfField> Fields { get; set; }
+        public IEnumerable<SfField> Fields { get; set; }
 
         public string FilterExpressions { get; set; }
 

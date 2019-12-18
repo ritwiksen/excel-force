@@ -5,7 +5,7 @@ namespace ExcelForce.Business.ServiceFactory
     //TODO:(Ritwik):: Should this Factory reside here or in the presentation layer
     public class ExcelForceServiceFactory : IExcelForceServiceFactory
     {
-        private readonly IExtractMapService _extractMapService;
+        private readonly ICreateExtractionMapService _createExtractionMapService;
 
         private readonly IRibbonBaseService _ribbonBaseService;
 
@@ -15,13 +15,13 @@ namespace ExcelForce.Business.ServiceFactory
 
         public ExcelForceServiceFactory(
             IConfigurationInformationService configurationInfoService,
-            IExtractMapService extractMapService,
+            ICreateExtractionMapService createExtractionMapService,
             IRibbonBaseService ribbonBaseService,
             IUserAuthenticationService userAuthenticationService)
         {
             _configurationInformationService = configurationInfoService;
 
-            _extractMapService = extractMapService;
+            _createExtractionMapService = createExtractionMapService;
 
             _ribbonBaseService = ribbonBaseService;
 
@@ -30,7 +30,7 @@ namespace ExcelForce.Business.ServiceFactory
 
         public IConfigurationInformationService GetConnectionProfileService() => _configurationInformationService;
 
-        public IExtractMapService GetExtractMapService() => _extractMapService;
+        public ICreateExtractionMapService GetCreateExtractMapService() => _createExtractionMapService;
 
         public IRibbonBaseService GetRibbonBaseService() => _ribbonBaseService;
 

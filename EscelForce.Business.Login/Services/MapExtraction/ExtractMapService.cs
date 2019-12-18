@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExcelForce.Business.Constants;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
@@ -19,8 +20,6 @@ namespace ExcelForce.Business.Services.MapExtraction
         private readonly ISfObjectService _objectService;
 
         private readonly ISfQueryService _sfQueryService;
-
-        private readonly IExcelForceRepository<ExtractMap, string> _extractMapRepository;
 
         public ExtractMapService(ISfAttributeService attributeService,
             ISfObjectService objectService,
@@ -79,33 +78,18 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         public IEnumerable<string> GetObjectNames(string bearerToken)
         {
+            var persistentObjectNames = 
+                _persistenceContainer.GetPersistence<IEnumerable<string>>(BusinessConstants.ObjectList);
+
+            if (persistentObjectNames != null)
+                return persistentObjectNames;
+
             var objectNames = _objectService.GetObjectNames(bearerToken);
 
-            objectNames = objectNames ?? _objectService.GetObjectNames(bearerToken);
-
-            _persistenceContainer?.SfObjectsManager.Set(objectNames);
+            _persistenceContainer?.SetPersistence(
+                BusinessConstants.ObjectList, objectNames);
 
             return objectNames;
-        }
-
-        public bool SubmitQuery(SfQuery query)
-        {
-            if (query == null)
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
-
-            var isValidQuery = _sfQueryService.IsValidQuery(query);
-
-            var stringifiedQuery = _sfQueryService.GetStringifiedQuery(query);
-
-            var addExtractMapResponse = _extractMapRepository.AddRecord(new ExtractMap
-            {
-                Name = query.Name,
-                Query = _sfQueryService.GetStringifiedQuery(query)
-            });
-
-            return addExtractMapResponse;
         }
     }
 }

@@ -30,10 +30,6 @@ namespace ExcelForce.Models
 
         public string ConnectionProfile { get; set; }
 
-        public IEnumerable<string> FieldsForSearch { get; set; }
-
-        public IEnumerable<string> SfObjects { get; set; }
-
         public ApiConfiguration ApiConfiguration { get; set; }
 
         public IExcelForceServiceFactory ExcelForceServiceFactory { get; set; }

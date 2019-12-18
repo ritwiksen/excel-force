@@ -8,10 +8,6 @@ namespace ExcelForce.Infrastructure.DataPersistence
 {
     public class ExcelForcePersistenceContainer : IPersistenceContainer
     {
-        public IPersistenceManager<IEnumerable<string>> SfObjectsManager { get; set; }
-
-        public IPersistenceManager<IEnumerable<string>> SfAttributesManager { get; set; }
-
         public IPersistenceManager<ApiConfiguration> ApiConfigurationManager { get; set; }
 
         private Dictionary<string, object> _containerValue;
@@ -20,7 +16,7 @@ namespace ExcelForce.Infrastructure.DataPersistence
         {
             _containerValue = _containerValue ?? new Dictionary<string, object>();
 
-            return _containerValue.ContainsKey(key) ? (T)_containerValue[key]: default(T);
+            return _containerValue.ContainsKey(key) ? (T)_containerValue[key] : default(T);
         }
 
         public bool SetPersistence<T>(string key, T value)

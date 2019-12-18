@@ -182,8 +182,6 @@
   -->
   <ItemGroup>
     <Compile Include="Infrastructure\DataPersistence\ApiConfigurationDataPersistence.cs" />
-    <Compile Include="Infrastructure\DataPersistence\AttributeDataPersitence.cs" />
-    <Compile Include="Infrastructure\DataPersistence\FieldDataPersitence.cs" />
     <Compile Include="Infrastructure\DataPersistence\ExcelForcePersistenceContainer.cs" />
     <Compile Include="ExcelForce.cs">
       <SubType>Component</SubType>
