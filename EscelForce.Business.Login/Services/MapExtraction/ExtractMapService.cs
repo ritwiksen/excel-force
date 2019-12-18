@@ -48,7 +48,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             return objectNames;
         }
 
-        public IEnumerable<string> GetAttributesByName(string name, int pageSize, int pageNumber)
+        public IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber)
         {
             return null;
             //if (pageSize < 0)

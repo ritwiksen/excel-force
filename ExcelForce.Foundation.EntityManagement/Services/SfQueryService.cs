@@ -79,7 +79,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             if (query.GetChildren()?.Any() ?? false)
             {
-                var childItemExpressions = string.Join("AND ", query.GetChildren().Select(x => x.FilterExpressions);
+                var childItemExpressions = string.Join("AND ", query.GetChildren().Select(x => x.FilterExpressions));
 
                 filterExpression = string.Concat(filterExpression, " AND", childItemExpressions);
             }

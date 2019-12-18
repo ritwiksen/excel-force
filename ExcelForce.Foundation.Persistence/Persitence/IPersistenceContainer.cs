@@ -11,5 +11,9 @@ namespace ExcelForce.Foundation.Persistence.Persitence
         IPersistenceManager<IEnumerable<string>> SfAttributesManager { get; set; }
 
         IPersistenceManager<ApiConfiguration> ApiConfigurationManager { get; set; }
+
+        T GetPersistence<T>(string key);
+
+        bool SetPersistence<T>(string key, T value);
     }
 }

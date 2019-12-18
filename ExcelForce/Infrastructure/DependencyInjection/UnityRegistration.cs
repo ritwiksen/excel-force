@@ -90,6 +90,9 @@ namespace ExcelForce.Infrastructure.DependencyInjection
             container.RegisterType<IUserAuthenticationService
                 , UserAuthenticationService>();
 
+            container.RegisterType<ICreateExtractionMapService
+                , CreateExtractionMapService>();
+
             return container;
         }
 
