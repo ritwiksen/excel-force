@@ -48,7 +48,27 @@ namespace ExcelForce.Forms
 
             var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
 
-            var test = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+            var isSuccess = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+
+            if (isSuccess == true)
+            {
+                _ribbonBase.btnLogin.Visible = false;
+                _ribbonBase.btnLogout.Visible = true;
+                _ribbonBase.connectionProfileSplitButton.Visible = false;
+                _ribbonBase.button6.Enabled = true;
+                _ribbonBase.button7.Enabled = true;
+               _ribbonBase.button8.Enabled = true;
+                this.Close();
+            }
+            /*else {
+                _ribbonBase.btnLogin.Visible = true;
+                _ribbonBase.btnLogout.Visible = false;
+                _ribbonBase.connectionProfileSplitButton.Visible = true;
+                _ribbonBase.button6.Enabled = false;
+                _ribbonBase.button7.Enabled = false;
+                _ribbonBase.button8.Enabled = false;
+
+            }*/
 
             //Right set of values
             //String sfdcUserName = "nissankulatejaswi@deloitte.com.excelforce"; //--c

@@ -50,7 +50,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
 
             var authResponse = _authenticationManager.Login(request);
 
-            return true;
+            return authResponse?.AccessToken != null ? true:false;
         }
     }
 }
