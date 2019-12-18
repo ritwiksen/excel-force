@@ -302,7 +302,7 @@ namespace ExcelForce
             }
         }
 
-        private void btnLogout_Click(object sender, RibbonControlEventArgs e)
+        private void button10_Click(object sender, RibbonControlEventArgs e)
         {
             HttpClient LogoutCall = new HttpClient();
             String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
@@ -326,7 +326,7 @@ namespace ExcelForce
             }
 
             btnLogin.Visible = true;
-            btnLogout.Visible = false;
+            button10.Visible = false;
             button6.Enabled = false;
             button7.Enabled = false;
             button8.Enabled = false;
