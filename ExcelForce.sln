@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.Entit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.Persistence", "ExcelForce.Foundation.Persistence\ExcelForce.Foundation.Persistence.csproj", "{F7451E8F-5ED8-4F43-B321-05BC371CB54C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B7659B03-5AFE-4449-AD3E-0D18F7586D47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{522F4329-1991-4BF8-BA48-D3FEE6D0C2E5} = {B7659B03-5AFE-4449-AD3E-0D18F7586D47}
 		{03B5358E-CD65-4FB5-A5FC-A44A87B93B85} = {37319F7C-7569-4755-9E3D-2872564CF47D}
 		{D0FE245F-44CB-4D30-A93A-97EC891C2251} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 		{3ECDA6FD-43BF-4B59-AC83-4D37A9AB7EEA} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
