@@ -1,4 +1,5 @@
-﻿using ExcelForce.Business.Interfaces;
+﻿using ExcelForce.Business.Constants;
+using ExcelForce.Business.Interfaces;
 using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.CoreServices.Authentication;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
@@ -65,9 +66,10 @@ namespace ExcelForce.Business.Services.UserAuthentication
                 var authResponse = _authenticationManager.Login(request);
 
                 if (string.IsNullOrWhiteSpace(authResponse?.ErrorMessage) &&
-                    authResponse ?.AccessToken != null)
+                    !string.IsNullOrWhiteSpace(authResponse?.AccessToken)
+                    && !string.IsNullOrWhiteSpace(authResponse?.InstanceUrl))
                 {
-                    _persistenceContainer.SetPersistence<string>("AccessToken", authResponse.AccessToken);
+                    _persistenceContainer.SetPersistence(BusinessConstants.AuthResponse, authResponse);
 
                     response = true;
                 }

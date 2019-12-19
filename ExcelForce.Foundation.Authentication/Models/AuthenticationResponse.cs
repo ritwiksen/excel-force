@@ -8,6 +8,9 @@ namespace ExcelForce.Foundation.Authentication.Models
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
 
+        [JsonProperty("instance_url")]
+        public string InstanceUrl { get; set; }
+
         public string ErrorMessage { get; set; }
     }
 }

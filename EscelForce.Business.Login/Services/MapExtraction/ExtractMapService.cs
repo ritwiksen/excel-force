@@ -4,6 +4,7 @@ using System.Linq;
 using ExcelForce.Business.Constants;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.ServiceFactory;
+using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.CoreServices.Exceptions;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
@@ -95,9 +96,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                 if (persistentObjectNames != null)
                     return ServiceResponseModelFactory.GetModel(persistentObjectNames);
 
-                var bearerToken = _persistenceContainer.GetPersistence<string>(BusinessConstants.AccessToken);
+                var authResponse = _persistenceContainer.GetPersistence<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
-                var objectNames = _objectService.GetObjectNames(bearerToken);
+                var objectNames = _objectService.GetObjectNames(authResponse?.InstanceUrl,authResponse?.AccessToken);
 
                 _persistenceContainer?.SetPersistence(
                     BusinessConstants.ObjectList, objectNames);

@@ -4,12 +4,12 @@
     {
         public const string BearerToken = "bearerToken";
 
-        public const string AccessToken = "AccessToken";
-
         public const string CreateMapKey = "createMap";
 
         public const string CurrentObject = "objectName";
 
         public const string ObjectList = "ObjectList";
+
+        public const string AuthResponse = "AuthResponse";
     }
 }

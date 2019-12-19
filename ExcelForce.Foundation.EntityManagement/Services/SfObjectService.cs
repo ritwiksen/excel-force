@@ -23,14 +23,15 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             _persistenceContainer = persistenceContainer;
         }
 
-        public IEnumerable<string> GetObjectNames(string bearerToken)
+        public IEnumerable<string> GetObjectNames(string instanceUrl, string bearerToken)
         {
             if (string.IsNullOrWhiteSpace(bearerToken))
                 throw new ArgumentNullException(nameof(bearerToken));
 
-            var endpoint = _persistenceContainer?.ApiConfigurationManager?.Get()?.GetUrl();
+            if (string.IsNullOrWhiteSpace(instanceUrl))
+                throw new ArgumentNullException(nameof(instanceUrl));
 
-            endpoint = $"{endpoint}services/data/v43.0/sobjects";
+            var endpoint = $"{instanceUrl}/services/data/v43.0/sobjects";
 
             var requestObject = new SfObjectApiRequest
             {
@@ -42,7 +43,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var response = _getSfObjectServiceCallWrapper.Get(endpoint, requestObject)?.Result;
 
-            if (response.Error != null)
+            if (response.Error == null)
             {
                 return response?.Model?.SalesforceObjects?.Select(x => x.Name)?.ToList();
             }
