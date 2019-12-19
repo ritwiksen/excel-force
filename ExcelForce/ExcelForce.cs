@@ -394,6 +394,10 @@ namespace ExcelForce
                 objectNames = response.Model?.ToList();
             }
 
+            if (objectNames == null)
+                return null;
+
+
             var stringCollection = new AutoCompleteStringCollection();
 
             stringCollection.AddRange(objectNames?.ToArray());
