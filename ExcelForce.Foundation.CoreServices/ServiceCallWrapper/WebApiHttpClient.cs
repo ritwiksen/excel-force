@@ -14,9 +14,22 @@ namespace ExcelForce.Foundation.CoreServices.ServiceCallWrapper
             var httpClient = new HttpClient()
             {
                 BaseAddress = new Uri(endPoint),
+
             };
 
             httpClient.DefaultRequestHeaders.Accept.Clear();
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+                    httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
+                }
+            }
 
             using (httpClient)
             {

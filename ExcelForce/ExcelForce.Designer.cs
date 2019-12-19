@@ -21,8 +21,8 @@ namespace ExcelForce
             var persitenceContainer = new ExcelForcePersistenceContainer
             {
                 ApiConfigurationManager = new ApiConfigurationDataPersistence(
-                  "https://login.salesforce.com/services/oauth2/token",
-                  "https://test.salesforce.com/services/oauth2/token")
+                  "https://login.salesforce.com/",
+                  "https://test.salesforce.com/")
             };
 
             UnityManager.RegisterAdditionalDependencies<IPersistenceContainer>(persitenceContainer);
@@ -75,7 +75,7 @@ namespace ExcelForce
             this.btnLogout = this.Factory.CreateRibbonButton();
             this.connectionProfileSplitButton = this.Factory.CreateRibbonSplitButton();
             this.groupMap = this.Factory.CreateRibbonGroup();
-            this.button6 = this.Factory.CreateRibbonButton();
+            this.btnCreateExtractionMap = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
             this.button7 = this.Factory.CreateRibbonButton();
             this.separator2 = this.Factory.CreateRibbonSeparator();
@@ -198,7 +198,7 @@ namespace ExcelForce
             // 
             // groupMap
             // 
-            this.groupMap.Items.Add(this.button6);
+            this.groupMap.Items.Add(this.btnCreateExtractionMap);
             this.groupMap.Items.Add(this.separator1);
             this.groupMap.Items.Add(this.button7);
             this.groupMap.Items.Add(this.separator2);
@@ -206,14 +206,14 @@ namespace ExcelForce
             this.groupMap.Label = "Extract and Save";
             this.groupMap.Name = "groupMap";
             // 
-            // button6
+            // btnCreateExtractionMap
             // 
-            this.button6.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
-            this.button6.Label = "Create Extraction Map";
-            this.button6.Name = "button6";
-            this.button6.ShowImage = true;
-            this.button6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button6_Click);
+            this.btnCreateExtractionMap.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnCreateExtractionMap.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateExtractionMap.Image")));
+            this.btnCreateExtractionMap.Label = "Create Extraction Map";
+            this.btnCreateExtractionMap.Name = "btnCreateExtractionMap";
+            this.btnCreateExtractionMap.ShowImage = true;
+            this.btnCreateExtractionMap.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnCreateExtractionMap_Click);
             // 
             // separator1
             // 
@@ -319,7 +319,7 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown dropDown1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupAuthentication;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupMap;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button6;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnCreateExtractionMap;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button7;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator2;

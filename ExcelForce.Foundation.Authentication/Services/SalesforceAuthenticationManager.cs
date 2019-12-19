@@ -45,7 +45,9 @@ namespace ExcelForce.Foundation.Authentication.Services
             };
 
             //TODO:(Ritwik):: Get these URL's from a configuration file
-            var url = _persistenceContainer?.ApiConfigurationManager.Get()?.GetUrl();
+            var host = _persistenceContainer?.ApiConfigurationManager.Get()?.GetUrl();
+
+            var url = $"{host}services/oauth2/token";
 
             var response = _loginServiceCallWrapper.Post(url, apiRequest)?.Result;
 

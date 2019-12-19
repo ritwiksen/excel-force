@@ -52,6 +52,7 @@
     <Compile Include="Models\ExtractionMap\ParameterSelectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
+    <Compile Include="ServiceFactory\ServiceResponseModelFactory.cs" />
     <Compile Include="Services\ConfigurationInformation\ConfigurationInformationService.cs" />
     <Compile Include="Services\MapExtraction\CreateExtractionMapService.cs" />
     <Compile Include="Services\MapExtraction\ExtractMapService.cs" />

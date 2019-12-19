@@ -30,9 +30,17 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var endpoint = _persistenceContainer?.ApiConfigurationManager?.Get()?.GetUrl();
 
-            endpoint = $"{endpoint}/services/data/v43.0/sobjects";
+            endpoint = $"{endpoint}services/data/v43.0/sobjects";
 
-            var response = _getSfObjectServiceCallWrapper.Get(endpoint, new SfObjectApiRequest())?.Result;
+            var requestObject = new SfObjectApiRequest
+            {
+                Headers = new Dictionary<string, string>
+                {
+                    { "authorization",$"Bearer {bearerToken}"}
+                }
+            };
+
+            var response = _getSfObjectServiceCallWrapper.Get(endpoint, requestObject)?.Result;
 
             if (response.Error != null)
             {

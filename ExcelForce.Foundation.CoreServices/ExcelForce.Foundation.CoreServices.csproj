@@ -47,6 +47,7 @@
     <Compile Include="Authentication\IAuthenticationManager.cs" />
     <Compile Include="Authentication\IAuthenticationRequest.cs" />
     <Compile Include="Authentication\IAuthenticationResponse.cs" />
+    <Compile Include="Exceptions\ExceptionExtensions.cs" />
     <Compile Include="FileManagement\FileContentManager.cs" />
     <Compile Include="FileManagement\Interfaces\IContentStreamManager.cs" />
     <Compile Include="Logger\Interfaces\ILoggerManager.cs" />
@@ -68,7 +69,9 @@
     <Compile Include="ServiceCallWrapper\ServiceCallWrapper.cs" />
     <Compile Include="ServiceCallWrapper\WebApiHttpClient.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

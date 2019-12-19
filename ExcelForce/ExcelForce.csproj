@@ -181,16 +181,16 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Forms\ExtractionMapFieldsForm.cs">
+    <Compile Include="Forms\ExtractionMap\ExtractionMapFieldsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ExtractionMapFieldsForm.Designer.cs">
+    <Compile Include="Forms\ExtractionMap\ExtractionMapFieldsForm.Designer.cs">
       <DependentUpon>ExtractionMapFieldsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ExtractionMapForm.cs">
+    <Compile Include="Forms\ExtractionMap\ExtractionMapForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ExtractionMapForm.Designer.cs">
+    <Compile Include="Forms\ExtractionMap\ExtractionMapForm.Designer.cs">
       <DependentUpon>ExtractionMapForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\DataPersistence\ApiConfigurationDataPersistence.cs" />
@@ -225,10 +225,10 @@
     <EmbeddedResource Include="Forms\ConnectionInformationForm.resx">
       <DependentUpon>ConnectionInformationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ExtractionMapFieldsForm.resx">
+    <EmbeddedResource Include="Forms\ExtractionMap\ExtractionMapFieldsForm.resx">
       <DependentUpon>ExtractionMapFieldsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ExtractionMapForm.resx">
+    <EmbeddedResource Include="Forms\ExtractionMap\ExtractionMapForm.resx">
       <DependentUpon>ExtractionMapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
@@ -277,6 +277,10 @@
     <Content Include="Images\Populate.jpg" />
     <Content Include="Images\Settings.jpg" />
     <Content Include="Images\Submit.jpg" />
+    <Content Include="Resources\loggin_toggle.JPG" />
+    <Content Include="Resources\Login.jpg" />
+    <Content Include="Resources\Logout.jpg" />
+    <Content Include="Resources\Submit1.jpg" />
     <None Include="Resources\LogOut1.JPG" />
     <None Include="Resources\Login1.JPG" />
     <None Include="Resources\UpdateExtractionMap.JPG" />

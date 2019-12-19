@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ExcelForce.Business.Constants;
 using ExcelForce.Business.Interfaces;
-using ExcelForce.Foundation.CoreServices.Repository;
+using ExcelForce.Business.ServiceFactory;
+using ExcelForce.Foundation.CoreServices.Exceptions;
+using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
+using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
-using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.Persistence.Persitence;
 
@@ -21,10 +23,13 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfQueryService _sfQueryService;
 
+        private readonly ILoggerManager _loggerManager;
+
         public ExtractMapService(ISfAttributeService attributeService,
             ISfObjectService objectService,
             IPersistenceContainer persistenceContainer,
-            ISfQueryService queryService)
+            ISfQueryService queryService,
+            ILoggerManager loggerManager)
         {
             _attributeService = attributeService;
 
@@ -33,18 +38,22 @@ namespace ExcelForce.Business.Services.MapExtraction
             _objectService = objectService;
 
             _sfQueryService = queryService;
+
+            _loggerManager = loggerManager;
         }
 
         public IEnumerable<string> GetObjectsByName(string name, string bearerToken)
         {
-            var objectNames = GetObjectNames(bearerToken);
+            //var objectNames = GetObjectNames(bearerToken);
 
-            objectNames = objectNames
-                ?.Where(x => !string.IsNullOrWhiteSpace(name)
-                    ? string.Equals(x, name, StringComparison.InvariantCultureIgnoreCase)
-                    : true);
+            //objectNames = objectNames
+            //    ?.Where(x => !string.IsNullOrWhiteSpace(name)
+            //        ? string.Equals(x, name, StringComparison.InvariantCultureIgnoreCase)
+            //        : true);
 
-            return objectNames;
+            //return objectNames;
+
+            return null;
         }
 
         public IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber)
@@ -76,20 +85,32 @@ namespace ExcelForce.Business.Services.MapExtraction
             throw new NotImplementedException();
         }
 
-        public IEnumerable<string> GetObjectNames(string bearerToken)
+        public ServiceResponseModel<IEnumerable<string>> GetObjectNames()
         {
-            var persistentObjectNames = 
-                _persistenceContainer.GetPersistence<IEnumerable<string>>(BusinessConstants.ObjectList);
+            try
+            {
+                var persistentObjectNames =
+                      _persistenceContainer.GetPersistence<IEnumerable<string>>(BusinessConstants.ObjectList);
 
-            if (persistentObjectNames != null)
-                return persistentObjectNames;
+                if (persistentObjectNames != null)
+                    return ServiceResponseModelFactory.GetModel(persistentObjectNames);
 
-            var objectNames = _objectService.GetObjectNames(bearerToken);
+                var bearerToken = _persistenceContainer.GetPersistence<string>(BusinessConstants.AccessToken);
 
-            _persistenceContainer?.SetPersistence(
-                BusinessConstants.ObjectList, objectNames);
+                var objectNames = _objectService.GetObjectNames(bearerToken);
 
-            return objectNames;
+                _persistenceContainer?.SetPersistence(
+                    BusinessConstants.ObjectList, objectNames);
+
+                return ServiceResponseModelFactory.GetModel(objectNames);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+
+                return ServiceResponseModelFactory
+                    .GetNullModelForReferenceType<IEnumerable<string>>("An error occurred while fetching object names");
+            }
         }
     }
 }

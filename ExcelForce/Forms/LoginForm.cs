@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using ExcelForce.Models;
 using ExcelForce.Business.Interfaces;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace ExcelForce.Forms
 {
@@ -61,7 +60,7 @@ namespace ExcelForce.Forms
             {
                 lblErrorMessage.ResetText();
 
-                var connectionProfile = Reusables.Instance.ConnectionProfile;
+                var connectionProfile = ddlConnectionProfiles.SelectedValue.ToString();
 
                 var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
 
@@ -72,7 +71,7 @@ namespace ExcelForce.Forms
                     _ribbonBase.btnLogin.Visible = false;
                     _ribbonBase.btnLogout.Visible = true;
                     _ribbonBase.connectionProfileSplitButton.Visible = false;
-                    _ribbonBase.button6.Enabled = true;
+                    _ribbonBase.btnCreateExtractionMap.Enabled = true;
                     _ribbonBase.button7.Enabled = true;
                     _ribbonBase.button8.Enabled = true;
                     this.Close();
@@ -134,14 +133,18 @@ namespace ExcelForce.Forms
             ////ErrorMsg = (string)jsonObj["error_description"];
             ////if (authToken != null)
             ////{
-            ////    HttpClient apiCallClient = new HttpClient();
-            ////    String restCallURL = ServiceURL + "/services/data/v43.0/sobjects";
-            ////    HttpRequestMessage apirequest = new HttpRequestMessage(HttpMethod.Get, restCallURL);
-            ////    apirequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            ////    apirequest.Headers.Add("authorization", "Bearer " + authToken);
-            ////    HttpResponseMessage apiCallResponse = apiCallClient.SendAsync(apirequest).Result;
+            //HttpClient apiCallClient = new HttpClient();
+            //String restCallURL = "https://login.salesforce.com" + "/services/data/v43.0/sobjects";
+            //HttpRequestMessage apirequest = new HttpRequestMessage(HttpMethod.Get, restCallURL);
+            //apirequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //apirequest.Headers.Add("authorization", "Bearer " + "00D2v000000NqEo!AQQAQJsG9hwurn5Wp_xj1F.0x9_rmKdmx48nbPsMI93VgsgaHFbiqaJMJZEVnVK7ng_W56s_GHt6gbW1veUk_yzSLe.My6G2");
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
-            ////    String requestresponse = apiCallResponse.Content.ReadAsStringAsync().Result;
+            //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            //HttpResponseMessage apiCallResponse = apiCallClient.SendAsync(apirequest).Result;
+
+            //String requestresponse = apiCallResponse.Content.ReadAsStringAsync().Result;
 
             ////    List<String> sObjLst = new List<string>();
             ////    if (apiCallResponse.IsSuccessStatusCode)

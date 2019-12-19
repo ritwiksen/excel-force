@@ -9,5 +9,7 @@
         IUserAuthenticationService GetUserAuthenticationService();
 
         ICreateExtractionMapService GetCreateExtractMapService();
+
+        IExtractMapService GetExtractMapService();
     }
 }

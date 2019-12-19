@@ -67,6 +67,8 @@ namespace ExcelForce.Business.Services.UserAuthentication
                 if (string.IsNullOrWhiteSpace(authResponse?.ErrorMessage) &&
                     authResponse ?.AccessToken != null)
                 {
+                    _persistenceContainer.SetPersistence<string>("AccessToken", authResponse.AccessToken);
+
                     response = true;
                 }
                 else

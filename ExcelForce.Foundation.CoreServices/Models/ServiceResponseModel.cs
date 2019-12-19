@@ -7,5 +7,9 @@ namespace ExcelForce.Foundation.CoreServices.Models
         public T Model { get; set; }
 
         public List<string> Messages { get; set; }
+
+        public bool IsValid() => (
+            ((typeof(T).IsByRef && Model != null) || ((typeof(T)).GetType().IsValueType))
+                && (Messages?.Count ?? 0) == 0);
     }
 }

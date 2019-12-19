@@ -314,7 +314,7 @@ namespace ExcelForce
 
             btnLogin.Visible = true;
             btnLogout.Visible = false;
-            button6.Enabled = false;
+            btnCreateExtractionMap.Enabled = false;
             button7.Enabled = false;
             button8.Enabled = false;
         }
@@ -371,21 +371,35 @@ namespace ExcelForce
             loginForm.Show();
         }
 
-        private void button6_Click(object sender, RibbonControlEventArgs e)
+        private void btnCreateExtractionMap_Click(object sender, RibbonControlEventArgs e)
         {
-            /*
-            ExtractionMapForm f1 = new ExtractionMapForm();
-            List<String> objNames = new List<string>();
-            objNames.Add("Account");
-            objNames.Add("Asphalt");
-            objNames.Add("Contact");
-            AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
-            auto.Add("Accoutn");
-            auto.Add("GobbleWobble");
-            f1.txtPrimaryObjName.AutoCompleteCustomSource = auto;
-            f1.Show();
-            */
+            var extractionMapForm = new ExtractionMapForm();
 
+            var stringCollection = GetAutoCompleteStringCollection();
+          
+            extractionMapForm.txtPrimaryObjName.AutoCompleteCustomSource = stringCollection;
+
+            extractionMapForm.Show();
+        }
+
+        private AutoCompleteStringCollection GetAutoCompleteStringCollection()
+        {
+            var extractMapService = _excelForceServiceFactory.GetExtractMapService();
+
+            var response = extractMapService.GetObjectNames();
+
+            List<string> objectNames = null;
+
+            if (response.IsValid())
+            {
+                objectNames = response.Model?.ToList();
+            }
+
+            var stringCollection = new AutoCompleteStringCollection();
+
+            stringCollection.AddRange(objectNames?.ToArray());
+
+            return stringCollection;
         }
     }
 }

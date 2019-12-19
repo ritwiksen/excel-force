@@ -1,6 +1,7 @@
 ﻿using ExcelForce.Business.Constants;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.Repository;
@@ -173,9 +174,13 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
 
-                var bearerToken = _persistenceContainer.GetPersistence<string>(BusinessConstants.BearerToken);
+                var objects = _extractMapService.GetObjectNames();
 
-                var objects = _extractMapService.GetObjectNames(bearerToken);
+                if (objects.Messages?.Count > 0)
+                {
+                    return ServiceResponseModelFactory.GetNullModelForReferenceType<ParameterSelectionModel>(
+                        objects.Messages?.ToArray());
+                }
 
                 var objectDetails = queryObject?.Objects
                     ?.First(x => x.Name == contextObject);
@@ -185,7 +190,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     SortExpression = objectDetails?.SortExpressions,
                     SearchExpression = objectDetails.FilterExpressions,
                     IsPrimary = objectDetails?.IsPrimary ?? false,
-                    ChildList = objects.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x) ?? false)?.ToList()
+                    ChildList = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x) ?? false)?.ToList()
                 };
             }
             catch (Exception ex)
