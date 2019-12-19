@@ -10,9 +10,8 @@ using System.Data;
 using System.Windows.Forms;
 using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
-using ExcelForce.Business.ServiceFactory;
 using ExcelForce.Models;
-using ExcelForce.Infrastructure.FormResources;
+using ExcelForce.Forms.ExtractionMap;
 
 namespace ExcelForce
 {
@@ -376,7 +375,7 @@ namespace ExcelForce
             var extractionMapForm = new ExtractionMapForm();
 
             var stringCollection = GetAutoCompleteStringCollection();
-          
+
             extractionMapForm.txtPrimaryObjName.AutoCompleteCustomSource = stringCollection;
 
             extractionMapForm.Show();

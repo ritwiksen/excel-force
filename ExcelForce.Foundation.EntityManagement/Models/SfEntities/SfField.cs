@@ -1,5 +1,4 @@
 ﻿using ExcelForce.Foundation.EntityManagement.Interfaces;
-using System;
 
 namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 {
@@ -7,10 +6,13 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string Name { get; set; }
 
+        public string ApiName { get; set; }
+
         public bool IsRequired { get; set; }
 
         public bool IsCustom { get; set; }
 
-        public Type Type { get; set; }
+        public string DisplayName() => $"{Name} ({ApiName})";
     }
 }
+

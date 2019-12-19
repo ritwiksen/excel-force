@@ -1,4 +1,4 @@
-﻿namespace ExcelForce
+﻿namespace ExcelForce.Forms.ExtractionMap
 {
     partial class ExtractionMapForm
     {
