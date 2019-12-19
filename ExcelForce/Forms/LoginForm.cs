@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ExcelForce.Models;
 using ExcelForce.Business.Interfaces;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ExcelForce.Forms
 {
@@ -47,6 +48,11 @@ namespace ExcelForce.Forms
                 return dropDownItem;
             })
             ?.ToList();
+
+            var index = connectionProfiles
+                ?.TakeWhile(x => !(x.Name == Reusables.Instance.ConnectionProfile))?.Count() ?? 0;
+
+            ddlConnectionProfiles.SelectedItem = index;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -61,7 +67,8 @@ namespace ExcelForce.Forms
 
                 var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
 
-                if (response.Model) {
+                if (response.Model)
+                {
                     _ribbonBase.btnLogin.Visible = false;
                     _ribbonBase.btnLogout.Visible = true;
                     _ribbonBase.connectionProfileSplitButton.Visible = false;

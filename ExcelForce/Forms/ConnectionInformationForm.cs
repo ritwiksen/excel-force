@@ -40,17 +40,14 @@ namespace ExcelForce.Forms
                     //TODO:(Ritwik)
                     //Perform tasks on submit action failed
                 }
+                
+                Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
 
                 this.Close();
 
-                if (profileService.ShowLoginFormFromConnectionInformation())
-                {
-                    var loginForm = new LoginForm();
+                var loginForm = new LoginForm();
 
-                    Reusables.Instance.ConnectionProfile = txtConnectionName.Text.Trim();
-
-                    loginForm.Show();
-                }
+                loginForm.Show();
             }
             else
             {
