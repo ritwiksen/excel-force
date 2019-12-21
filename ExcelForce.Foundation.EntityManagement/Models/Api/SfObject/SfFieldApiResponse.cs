@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ExcelForce.Foundation.EntityManagement.Models.Api.SfObject
 {
-    public class SfObjectApiResponse
+    public class SfFieldApiResponse
     {
-        [JsonProperty("sobjects")]
-        public IList<SfApiObject> SalesforceObjects { get; set; }
+        [JsonProperty("fields")]
+        public IList<SfApiField> Fields { get; set; }
     }
 }

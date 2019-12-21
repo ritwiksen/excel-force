@@ -4,10 +4,6 @@ namespace ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces
 {
     public interface ISfAttributeService
     {
-        IEnumerable<ISfField> GetSfFields();
-
-        ISfField GetSfFieldByName(string name);
-
-        IEnumerable<ISfField> SearchSfFieldByName(string name);
+        IEnumerable<ISfField> GetSfFields(string objectName, string bearerToken, string instanceUrl);
     }
 }

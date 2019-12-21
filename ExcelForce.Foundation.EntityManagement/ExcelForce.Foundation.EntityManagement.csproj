@@ -49,6 +49,9 @@
     <Compile Include="Interfaces\ServiceInterfaces\ISfObjectService.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\ISfQueryService.cs" />
     <Compile Include="Models\Api\SfObject\SfApiField.cs" />
+    <Compile Include="Models\Api\SfObject\SfApiObject.cs" />
+    <Compile Include="Models\Api\SfObject\SfFieldApiRequest.cs" />
+    <Compile Include="Models\Api\SfObject\SfFieldApiResponse.cs" />
     <Compile Include="Models\Api\SfObject\SfObjectApiRequest.cs" />
     <Compile Include="Models\Api\SfObject\SfObjectApiResponse.cs" />
     <Compile Include="Models\Conditionals\Conditions.cs" />
