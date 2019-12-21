@@ -56,7 +56,7 @@ namespace ExcelForce.Forms.ExtractionMap
                 {
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
                           fieldListResponse.Model.ObjectName,
-                          null,
+                          fieldListResponse?.Model.AvailableFields,
                           fieldListResponse?.Model.SfFields);
 
                     extractionMapFieldsForm.Show();
