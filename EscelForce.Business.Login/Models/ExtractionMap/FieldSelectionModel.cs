@@ -7,6 +7,8 @@ namespace ExcelForce.Business.Models.ExtractionMap
     {
         public List<SfField> SfFields { get; set; }
 
+        public List<SfField> AvailableFields { get; set; }
+
         public string ObjectName { get; set; }
     }
 }

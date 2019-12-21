@@ -2,6 +2,7 @@
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Business.ServiceFactory;
+using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.Repository;
@@ -27,11 +28,14 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfQueryService _sfQueryService;
 
+        private readonly ISfObjectService _sfObjectService;
+
         public CreateExtractionMapService(IPersistenceContainer container,
             ILoggerManager loggerManager,
             IExtractMapService extractMapService,
             IExcelForceRepository<ExtractMap, string> extractMapRepository,
-            ISfQueryService sfQueryService)
+            ISfQueryService sfQueryService,
+            ISfObjectService sfObjectService)
         {
             _persistenceContainer = container;
 
@@ -42,6 +46,8 @@ namespace ExcelForce.Business.Services.MapExtraction
             _extractMapRepository = extractMapRepository;
 
             _sfQueryService = sfQueryService;
+
+            _sfObjectService = sfObjectService;
         }
 
         public ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName)
@@ -52,7 +58,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var query = queryObject ?? new SfQuery
                 {
@@ -70,9 +76,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                     });
                 }
 
-                _persistenceContainer.SetPersistence(BusinessConstants.CurrentObject, objectName);
+                _persistenceContainer.Set(BusinessConstants.CurrentObject, objectName);
 
-                _persistenceContainer.SetPersistence(BusinessConstants.CreateMapKey, query);
+                _persistenceContainer.Set(BusinessConstants.CreateMapKey, query);
 
                 result = true;
             }
@@ -92,13 +98,16 @@ namespace ExcelForce.Business.Services.MapExtraction
         {
             try
             {
-                var currentObject = _persistenceContainer.GetPersistence<string>(BusinessConstants.CurrentObject);
+                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+
+                var sfQuery = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var response = ServiceResponseModelFactory.GetReferenceTypeModel<FieldSelectionModel>();
 
                 response.Model = new FieldSelectionModel
                 {
                     SfFields = _extractMapService.GetFieldsByName(currentObject)?.ToList(),
+                    AvailableFields = sfQuery.Objects?.FirstOrDefault(x => x.Name == currentObject).Fields?.ToList() ?? null,
                     ObjectName = currentObject
                 };
 
@@ -122,9 +131,9 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                _persistenceContainer.SetPersistence<SfQuery>(BusinessConstants.CreateMapKey, null);
+                _persistenceContainer.Set<SfQuery>(BusinessConstants.CreateMapKey, null);
 
-                _persistenceContainer.SetPersistence<string>(BusinessConstants.CurrentObject, null);
+                _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
             }
             catch (Exception ex)
             {
@@ -146,13 +155,13 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var sfObject = queryObject?.Objects?.First(x => x.Name == objectName);
 
                 sfObject.Fields = fields;
 
-                _persistenceContainer.SetPersistence(BusinessConstants.CreateMapKey, sfObject);
+                _persistenceContainer.Set(BusinessConstants.CreateMapKey, queryObject);
 
                 result = true;
             }
@@ -176,9 +185,9 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                var contextObject = _persistenceContainer.GetPersistence<string>(BusinessConstants.CurrentObject);
+                var contextObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
-                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var objects = _extractMapService.GetObjectNames();
 
@@ -227,9 +236,9 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                var contextObject = _persistenceContainer.GetPersistence<string>(BusinessConstants.CurrentObject);
+                var contextObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
-                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var objectDetails = queryObject?.Objects?.First(x => x.Name == contextObject);
 
@@ -244,7 +253,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 queryObject.Name = mapName;
 
-                result = _persistenceContainer.SetPersistence(BusinessConstants.CreateMapKey, queryObject);
+                result = _persistenceContainer.Set(BusinessConstants.CreateMapKey, queryObject);
 
                 if (!string.IsNullOrWhiteSpace(mapName))
                 {
@@ -275,7 +284,7 @@ namespace ExcelForce.Business.Services.MapExtraction
         {
             try
             {
-                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
                 var response = _extractMapService.GetObjectNames();
 
@@ -299,6 +308,49 @@ namespace ExcelForce.Business.Services.MapExtraction
                 LogException(ex, "An error occurred while saving object data", errorList);
 
                 return ServiceResponseModelFactory.GetNullModelForReferenceType<ObjectSelectionFormModel>(
+                    errorList?.ToArray());
+            }
+        }
+
+        public ServiceResponseModel<SearchSortExtractionModel> LoadSearchSortScreen()
+        {
+            try
+            {
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+
+                var authResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
+
+                var currentObjectData = queryObject?.Objects?.FirstOrDefault(x => x.Name == currentObject);
+
+                var children = _sfObjectService.GetChildrenForObject(
+                    authResponse?.InstanceUrl,
+                    authResponse?.AccessToken,
+                    queryObject?.GetParentObject()?.Name);
+
+                children = queryObject.GetChildren() != null
+                    ? children?.Where(x => !queryObject.GetChildren().Any(y => y.Name == y.Name)
+                                           && queryObject.GetParentObject()?.Name != x.Name)
+                              ?.OrderBy(x => x.Name)
+                    : children;
+
+                return ServiceResponseModelFactory.GetModel(
+                  new SearchSortExtractionModel
+                  {
+                      SearchExpression = currentObjectData.FilterExpressions,
+                      SortExpression = currentObjectData.SortExpressions,
+                      AddChild = queryObject.GetChildren()?.Count <= 2,
+                      Children = children?.ToList()
+                  });
+            }
+            catch (Exception ex)
+            {
+                var errorList = new List<string>();
+
+                LogException(ex, "An error occurred while getting children details", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
                     errorList?.ToArray());
             }
         }

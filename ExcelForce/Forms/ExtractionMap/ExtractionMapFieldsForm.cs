@@ -1,4 +1,5 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Forms.Common;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,30 @@ namespace ExcelForce.Forms.ExtractionMap
                     y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
                     ?.ToList();
 
-            var response = createExtractionMapService.SubmitFieldSelection(txtObjectName.Text, listOfFieldNames);
+            var response = createExtractionMapService.SubmitFieldSelection(
+                txtObjectName.Text, listOfFieldNames);
+
+            if (response.IsValid())
+            {
+                Close();
+
+                var searchSortFormResponse = createExtractionMapService.LoadSearchSortScreen();
+
+                if (searchSortFormResponse.IsValid())
+                {
+                    var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+
+                    searchSortForm.Show(); 
+                }
+                else
+                {
+                    //TODO:(Ritwik):: Handle error scenario
+                }
+            }
+            else
+            {
+                //TODO:(Ritwik):: Handle error scenario
+            }
         }
 
         private void AssignDataSourceToCheckBoxList()

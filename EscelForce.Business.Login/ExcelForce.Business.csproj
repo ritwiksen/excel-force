@@ -51,6 +51,7 @@
     <Compile Include="Models\ExtractionMap\FieldSelectionModel.cs" />
     <Compile Include="Models\ExtractionMap\ObjectSelectionFormModel.cs" />
     <Compile Include="Models\ExtractionMap\ParameterSelectionModel.cs" />
+    <Compile Include="Models\ExtractionMap\SearchSortExtractionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
     <Compile Include="ServiceFactory\ServiceResponseModelFactory.cs" />

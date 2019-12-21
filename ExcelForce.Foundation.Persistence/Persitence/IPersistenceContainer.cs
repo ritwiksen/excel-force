@@ -7,8 +7,8 @@ namespace ExcelForce.Foundation.Persistence.Persitence
     {
         IPersistenceManager<ApiConfiguration> ApiConfigurationManager { get; set; }
 
-        T GetPersistence<T>(string key);
+        T Get<T>(string key);
 
-        bool SetPersistence<T>(string key, T value);
+        bool Set<T>(string key, T value);
     }
 }

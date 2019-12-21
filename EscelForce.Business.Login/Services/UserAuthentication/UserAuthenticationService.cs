@@ -69,7 +69,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
                     !string.IsNullOrWhiteSpace(authResponse?.AccessToken)
                     && !string.IsNullOrWhiteSpace(authResponse?.InstanceUrl))
                 {
-                    _persistenceContainer.SetPersistence(BusinessConstants.AuthResponse, authResponse);
+                    _persistenceContainer.Set(BusinessConstants.AuthResponse, authResponse);
 
                     response = true;
                 }

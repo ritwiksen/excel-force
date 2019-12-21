@@ -33,14 +33,14 @@
             this.searchConditionTextBox = new System.Windows.Forms.RichTextBox();
             this.SortConditionLabel = new System.Windows.Forms.Label();
             this.sortConditionTextBox = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAddChild = new System.Windows.Forms.Label();
             this.radioButtonYes = new System.Windows.Forms.RadioButton();
             this.radioButtonNo = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblRelationshipDetails = new System.Windows.Forms.Label();
+            this.listChildObject = new System.Windows.Forms.ListBox();
+            this.lblChildObject = new System.Windows.Forms.Label();
+            this.txtMapName = new System.Windows.Forms.TextBox();
+            this.lblMapName = new System.Windows.Forms.Label();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -93,15 +93,15 @@
             this.sortConditionTextBox.TabIndex = 10;
             this.sortConditionTextBox.Text = "";
             // 
-            // label1
+            // lblAddChild
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(20, 340);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 23);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Add Child";
+            this.lblAddChild.AutoSize = true;
+            this.lblAddChild.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddChild.Location = new System.Drawing.Point(20, 340);
+            this.lblAddChild.Name = "lblAddChild";
+            this.lblAddChild.Size = new System.Drawing.Size(83, 23);
+            this.lblAddChild.TabIndex = 11;
+            this.lblAddChild.Text = "Add Child";
             // 
             // radioButtonYes
             // 
@@ -114,6 +114,7 @@
             this.radioButtonYes.TabStop = true;
             this.radioButtonYes.Text = "Yes";
             this.radioButtonYes.UseVisualStyleBackColor = true;
+            this.radioButtonYes.CheckedChanged += new System.EventHandler(this.radioButtonYes_CheckedChanged);
             // 
             // radioButtonNo
             // 
@@ -126,56 +127,57 @@
             this.radioButtonNo.TabStop = true;
             this.radioButtonNo.Text = "No";
             this.radioButtonNo.UseVisualStyleBackColor = true;
+            this.radioButtonNo.CheckedChanged += new System.EventHandler(this.radioButtonNo_CheckedChanged);
             // 
-            // label3
+            // lblRelationshipDetails
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(18, 409);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(158, 23);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Relationship Details";
+            this.lblRelationshipDetails.AutoSize = true;
+            this.lblRelationshipDetails.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRelationshipDetails.Location = new System.Drawing.Point(18, 409);
+            this.lblRelationshipDetails.Name = "lblRelationshipDetails";
+            this.lblRelationshipDetails.Size = new System.Drawing.Size(158, 23);
+            this.lblRelationshipDetails.TabIndex = 14;
+            this.lblRelationshipDetails.Text = "Relationship Details";
             // 
-            // listBox1
+            // listChildObject
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(188, 449);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(274, 20);
-            this.listBox1.TabIndex = 15;
+            this.listChildObject.FormattingEnabled = true;
+            this.listChildObject.ItemHeight = 16;
+            this.listChildObject.Location = new System.Drawing.Point(188, 449);
+            this.listChildObject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listChildObject.Name = "listChildObject";
+            this.listChildObject.Size = new System.Drawing.Size(274, 20);
+            this.listChildObject.TabIndex = 15;
             // 
-            // label4
+            // lblChildObject
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 449);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 23);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Child Object";
+            this.lblChildObject.AutoSize = true;
+            this.lblChildObject.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChildObject.Location = new System.Drawing.Point(18, 449);
+            this.lblChildObject.Name = "lblChildObject";
+            this.lblChildObject.Size = new System.Drawing.Size(101, 23);
+            this.lblChildObject.TabIndex = 16;
+            this.lblChildObject.Text = "Child Object";
             // 
-            // txtUserName
+            // txtMapName
             // 
-            this.txtUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUserName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(22, 520);
-            this.txtUserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(439, 30);
-            this.txtUserName.TabIndex = 17;
+            this.txtMapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMapName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMapName.Location = new System.Drawing.Point(22, 520);
+            this.txtMapName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtMapName.Name = "txtMapName";
+            this.txtMapName.Size = new System.Drawing.Size(439, 30);
+            this.txtMapName.TabIndex = 17;
             // 
-            // label5
+            // lblMapName
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(20, 486);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 23);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Map Name";
+            this.lblMapName.AutoSize = true;
+            this.lblMapName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMapName.Location = new System.Drawing.Point(20, 486);
+            this.lblMapName.Name = "lblMapName";
+            this.lblMapName.Size = new System.Drawing.Size(94, 23);
+            this.lblMapName.TabIndex = 18;
+            this.lblMapName.Text = "Map Name";
             // 
             // btnPrevious
             // 
@@ -188,6 +190,7 @@
             this.btnPrevious.TabIndex = 19;
             this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
@@ -210,14 +213,14 @@
             this.ClientSize = new System.Drawing.Size(492, 623);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtUserName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblMapName);
+            this.Controls.Add(this.txtMapName);
+            this.Controls.Add(this.lblChildObject);
+            this.Controls.Add(this.listChildObject);
+            this.Controls.Add(this.lblRelationshipDetails);
             this.Controls.Add(this.radioButtonNo);
             this.Controls.Add(this.radioButtonYes);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblAddChild);
             this.Controls.Add(this.sortConditionTextBox);
             this.Controls.Add(this.SortConditionLabel);
             this.Controls.Add(this.searchConditionTextBox);
@@ -243,14 +246,14 @@
         private System.Windows.Forms.RichTextBox searchConditionTextBox;
         private System.Windows.Forms.Label SortConditionLabel;
         private System.Windows.Forms.RichTextBox sortConditionTextBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAddChild;
         private System.Windows.Forms.RadioButton radioButtonYes;
         private System.Windows.Forms.RadioButton radioButtonNo;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtUserName;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblRelationshipDetails;
+        private System.Windows.Forms.ListBox listChildObject;
+        private System.Windows.Forms.Label lblChildObject;
+        private System.Windows.Forms.TextBox txtMapName;
+        private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
     }

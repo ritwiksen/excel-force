@@ -31,9 +31,9 @@ namespace ExcelForce.Forms.ExtractionMap
 
             txtPrimaryObjName.AutoCompleteCustomSource = stringCollection;
 
-            if (string.IsNullOrWhiteSpace(model?.selectedObjectName))
+            if (!string.IsNullOrWhiteSpace(model?.selectedObjectName))
             {
-                txtPrimaryObjName.Name = model.selectedObjectName;
+                txtPrimaryObjName.Text = model.selectedObjectName;
             }
         }
 

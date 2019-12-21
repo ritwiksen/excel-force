@@ -5,7 +5,10 @@ namespace ExcelForce.Foundation.EntityManagement.Models.Api.SfObject
 {
     public class SfFieldApiResponse
     {
-        [JsonProperty("fields")]
+        [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
         public IList<SfApiField> Fields { get; set; }
+
+        [JsonProperty("childRelationships", NullValueHandling = NullValueHandling.Ignore)]
+        public IList<SfChild> Children { get; set; }
     }
 }

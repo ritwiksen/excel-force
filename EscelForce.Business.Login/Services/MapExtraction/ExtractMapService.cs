@@ -49,7 +49,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 throw new ArgumentNullException(nameof(name));
 
             var authResponse =
-                _persistenceContainer.GetPersistence<AuthenticationResponse>(BusinessConstants.AuthResponse);
+                _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
             var values =
                 _attributeService.GetSfFields(name, authResponse?.AccessToken, authResponse?.InstanceUrl);
@@ -63,16 +63,16 @@ namespace ExcelForce.Business.Services.MapExtraction
             try
             {
                 var persistentObjectNames =
-                      _persistenceContainer.GetPersistence<IEnumerable<string>>(BusinessConstants.ObjectList);
+                      _persistenceContainer.Get<IEnumerable<string>>(BusinessConstants.ObjectList);
 
                 if (persistentObjectNames != null)
                     return ServiceResponseModelFactory.GetModel(persistentObjectNames);
 
-                var authResponse = _persistenceContainer.GetPersistence<AuthenticationResponse>(BusinessConstants.AuthResponse);
+                var authResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
                 var objectNames = _objectService.GetObjectNames(authResponse?.InstanceUrl, authResponse?.AccessToken);
 
-                _persistenceContainer?.SetPersistence(
+                _persistenceContainer?.Set(
                     BusinessConstants.ObjectList, objectNames);
 
                 return ServiceResponseModelFactory.GetModel(objectNames);

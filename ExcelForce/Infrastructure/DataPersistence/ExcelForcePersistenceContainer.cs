@@ -12,14 +12,14 @@ namespace ExcelForce.Infrastructure.DataPersistence
 
         private Dictionary<string, object> _containerValue;
 
-        public T GetPersistence<T>(string key)
+        public T Get<T>(string key)
         {
             _containerValue = _containerValue ?? new Dictionary<string, object>();
 
             return _containerValue.ContainsKey(key) ? (T)_containerValue[key] : default(T);
         }
 
-        public bool SetPersistence<T>(string key, T value)
+        public bool Set<T>(string key, T value)
         {
             try
             {
