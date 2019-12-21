@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IRibbonBaseService.cs" />
     <Compile Include="Interfaces\IUserAuthenticationService.cs" />
     <Compile Include="Models\ExtractionMap\FieldSelectionModel.cs" />
+    <Compile Include="Models\ExtractionMap\ObjectSelectionFormModel.cs" />
     <Compile Include="Models\ExtractionMap\ParameterSelectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />

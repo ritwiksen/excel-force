@@ -12,6 +12,7 @@ using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
+using ExcelForce.Business.Models.ExtractionMap;
 
 namespace ExcelForce
 {
@@ -372,37 +373,20 @@ namespace ExcelForce
 
         private void btnCreateExtractionMap_Click(object sender, RibbonControlEventArgs e)
         {
-            var extractionMapForm = new ExtractionMapForm();
+            var createExtractMapService = _excelForceServiceFactory.GetCreateExtractMapService();
 
-            var stringCollection = GetAutoCompleteStringCollection();
+            var response = createExtractMapService.LoadObjectSelectionScreen();
 
-            extractionMapForm.txtPrimaryObjName.AutoCompleteCustomSource = stringCollection;
-
-            extractionMapForm.Show();
-        }
-
-        private AutoCompleteStringCollection GetAutoCompleteStringCollection()
-        {
-            var extractMapService = _excelForceServiceFactory.GetExtractMapService();
-
-            var response = extractMapService.GetObjectNames();
-
-            List<string> objectNames = null;
-
-            if (response.IsValid())
+            if (!(response.Messages?.Any() ?? false))
             {
-                objectNames = response.Model?.ToList();
+                var extractionMapForm = new ExtractionMapForm(response?.Model);
+
+                extractionMapForm.Show();
             }
-
-            if (objectNames == null)
-                return null;
-
-
-            var stringCollection = new AutoCompleteStringCollection();
-
-            stringCollection.AddRange(objectNames?.ToArray());
-
-            return stringCollection;
+            else
+            {
+                //TODO:(RItwik):: Handle Error here
+            }
         }
     }
 }

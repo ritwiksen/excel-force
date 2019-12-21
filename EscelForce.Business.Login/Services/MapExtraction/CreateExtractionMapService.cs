@@ -59,13 +59,16 @@ namespace ExcelForce.Business.Services.MapExtraction
                     Objects = new List<SfObject>()
                 };
 
-                var isPrimary = (query.Objects?.Count(x => x.IsPrimary) ?? 0) == 0;
-
-                query.Objects.Add(new SfObject
+                if (!query.Objects.Any(x => x.Name == objectName))
                 {
-                    IsPrimary = isPrimary,
-                    Name = objectName
-                });
+                    var isPrimary = (query.Objects?.Count(x => x.IsPrimary) ?? 0) == 0;
+
+                    query.Objects.Add(new SfObject
+                    {
+                        IsPrimary = isPrimary,
+                        Name = objectName
+                    });
+                }
 
                 _persistenceContainer.SetPersistence(BusinessConstants.CurrentObject, objectName);
 
@@ -266,6 +269,38 @@ namespace ExcelForce.Business.Services.MapExtraction
                 Messages = errorList,
                 Model = result
             };
+        }
+
+        public ServiceResponseModel<ObjectSelectionFormModel> LoadObjectSelectionScreen()
+        {
+            try
+            {
+                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var response = _extractMapService.GetObjectNames();
+
+                var objects = response.IsValid()
+                    ? response.Model?.ToList()
+                    : null;
+
+                var existingObjectNames = queryObject?.Objects.Select(x => x.Name);
+
+                return ServiceResponseModelFactory.GetModel(
+                    new ObjectSelectionFormModel
+                    {
+                        ObjectNames = objects.Where(x => !(existingObjectNames?.Contains(x) ?? false)),
+                        selectedObjectName = queryObject?.Objects?.Last()?.Name ?? string.Empty
+                    });
+            }
+            catch (Exception ex)
+            {
+                var errorList = new List<string>();
+
+                LogException(ex, "An error occurred while saving object data", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<ObjectSelectionFormModel>(
+                    errorList?.ToArray());
+            }
         }
     }
 }

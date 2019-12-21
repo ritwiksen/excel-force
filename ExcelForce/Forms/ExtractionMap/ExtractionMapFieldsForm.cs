@@ -1,5 +1,4 @@
-﻿using ExcelForce.Business.Interfaces;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
@@ -69,6 +68,26 @@ namespace ExcelForce.Forms.ExtractionMap
                 {
                     checkedFieldList.Items.Add(item.DisplayName(), isChecked);
                 }
+            }
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            var mapService = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+
+            var response = mapService.LoadObjectSelectionScreen();
+
+            if (response.IsValid())
+            {
+                var objectSelectionScreen = new ExtractionMapForm(response?.Model);
+
+                Close();
+
+                objectSelectionScreen.Show();
+            }
+            else
+            {
+                //TODO:(RItwik) :: Handle error messages
             }
         }
     }

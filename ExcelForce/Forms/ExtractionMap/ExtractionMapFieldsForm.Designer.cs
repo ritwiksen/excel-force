@@ -100,6 +100,7 @@
             this.btnPrevious.TabIndex = 13;
             this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // ExtractionMapFieldsForm
             // 
