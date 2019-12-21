@@ -8,10 +8,6 @@ namespace ExcelForce.Business.Interfaces
     {
         ServiceResponseModel<IEnumerable<string>> GetObjectNames();
 
-        IEnumerable<string> GetObjectsByName(string name, string bearerToken);
-
-        IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber);
-
-        SfField GetAttributeData(string name);
+        IEnumerable<SfField> GetFieldsByName(string name);
     }
 }

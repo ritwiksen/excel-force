@@ -44,7 +44,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             _sfQueryService = sfQueryService;
         }
 
-        public ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName, bool isPrimary)
+        public ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName)
         {
             bool result = false;
 
@@ -52,10 +52,14 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                var query = new SfQuery
+                var queryObject = _persistenceContainer.GetPersistence<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var query = queryObject ?? new SfQuery
                 {
                     Objects = new List<SfObject>()
                 };
+
+                var isPrimary = (query.Objects?.Count(x => x.IsPrimary) ?? 0) == 0;
 
                 query.Objects.Add(new SfObject
                 {
@@ -66,6 +70,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                 _persistenceContainer.SetPersistence(BusinessConstants.CurrentObject, objectName);
 
                 _persistenceContainer.SetPersistence(BusinessConstants.CreateMapKey, query);
+
+                result = true;
             }
             catch (Exception ex)
             {
@@ -81,28 +87,28 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         public ServiceResponseModel<FieldSelectionModel> LoadActionsOnFieldList()
         {
-            FieldSelectionModel result = null;
-
-            List<string> errorList = null;
-
             try
             {
-                var cufrrentObject = _persistenceContainer.GetPersistence<string>(BusinessConstants.CurrentObject);
+                var currentObject = _persistenceContainer.GetPersistence<string>(BusinessConstants.CurrentObject);
 
-                var listOfFields = new List<SfField>();
+                var response = ServiceResponseModelFactory.GetReferenceTypeModel<FieldSelectionModel>();
 
-                result.SfFields = _extractMapService.GetFieldsByName(cufrrentObject, 10, 1)?.ToList();
+                response.Model = new FieldSelectionModel
+                {
+                    SfFields = _extractMapService.GetFieldsByName(currentObject)?.ToList(),
+                    ObjectName = currentObject
+                };
+
+                return response;
             }
             catch (Exception ex)
             {
-                LogException(ex, "An error occurred while fetching field details", errorList);
-            }
+                List<string> errorList = new List<string>();
 
-            return new ServiceResponseModel<FieldSelectionModel>
-            {
-                Messages = errorList,
-                Model = result
-            };
+                LogException(ex, "An error occurred while fetching field details", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<FieldSelectionModel>(errorList?.ToArray());
+            }
         }
 
         public ServiceResponseModel<bool> CancelCreateExtractionMap()
@@ -129,7 +135,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             };
         }
 
-        public ServiceResponseModel<bool> SubmitFieldSelection(string objectName, IList<string> fields)
+        public ServiceResponseModel<bool> SubmitFieldSelection(string objectName, IList<SfField> fields)
         {
             bool result = false;
 
@@ -141,10 +147,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var sfObject = queryObject?.Objects?.First(x => x.Name == objectName);
 
-                sfObject.Fields = fields.Select(x => new SfField
-                {
-                    Name = x
-                });
+                sfObject.Fields = fields;
 
                 _persistenceContainer.SetPersistence(BusinessConstants.CreateMapKey, sfObject);
 

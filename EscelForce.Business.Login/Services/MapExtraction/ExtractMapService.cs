@@ -43,47 +43,19 @@ namespace ExcelForce.Business.Services.MapExtraction
             _loggerManager = loggerManager;
         }
 
-        public IEnumerable<string> GetObjectsByName(string name, string bearerToken)
+        public IEnumerable<SfField> GetFieldsByName(string name)
         {
-            //var objectNames = GetObjectNames(bearerToken);
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
 
-            //objectNames = objectNames
-            //    ?.Where(x => !string.IsNullOrWhiteSpace(name)
-            //        ? string.Equals(x, name, StringComparison.InvariantCultureIgnoreCase)
-            //        : true);
+            var authResponse =
+                _persistenceContainer.GetPersistence<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
-            //return objectNames;
+            var values =
+                _attributeService.GetSfFields(name, authResponse?.AccessToken, authResponse?.InstanceUrl);
 
-            return null;
-        }
-
-        public IEnumerable<SfField> GetFieldsByName(string name, int pageSize, int pageNumber)
-        {
-            return null;
-            //if (pageSize < 0)
-            //    throw new InvalidOperationException("Page Size cannot be negative");
-
-            //if (pageSize <= 0)
-            //    throw new InvalidOperationException("Page number cannot be negative or 0");
-
-            //if (string.IsNullOrWhiteSpace(name))
-            //    throw new ArgumentNullException(nameof(name));
-
-            //var attributes = _fieldPersistenceManager.Get();
-
-            //if (attributes == null)
-            //{
-            //    var values = GetObjectsByName(name);
-
-            //    attributes = values;
-            //}
-
-            //return attributes?.Skip((pageNumber * (pageSize - 1)))?.Take(pageSize);
-        }
-
-        public SfField GetAttributeData(string name)
-        {
-            throw new NotImplementedException();
+            return values
+                ?.OrderBy(x => x.DisplayName());
         }
 
         public ServiceResponseModel<IEnumerable<string>> GetObjectNames()
@@ -98,7 +70,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var authResponse = _persistenceContainer.GetPersistence<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
-                var objectNames = _objectService.GetObjectNames(authResponse?.InstanceUrl,authResponse?.AccessToken);
+                var objectNames = _objectService.GetObjectNames(authResponse?.InstanceUrl, authResponse?.AccessToken);
 
                 _persistenceContainer?.SetPersistence(
                     BusinessConstants.ObjectList, objectNames);

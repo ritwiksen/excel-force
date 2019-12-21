@@ -20,7 +20,7 @@ namespace ExcelForce.Forms.ExtractionMap
             var createExtractionService = serviceFactory.GetCreateExtractMapService();
 
             var result = createExtractionService
-                .SubmitOnObjectSelection(txtPrimaryObjName.Text, false);
+                .SubmitOnObjectSelection(txtPrimaryObjName.Text);
 
             if (result.IsValid() && result.Model)
             {
@@ -35,7 +35,7 @@ namespace ExcelForce.Forms.ExtractionMap
                           null,
                           fieldListResponse?.Model.SfFields);
 
-                    extractionMapFieldsForm.Show(); 
+                    extractionMapFieldsForm.Show();
                 }
                 else
                 {

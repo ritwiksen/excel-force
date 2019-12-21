@@ -1,4 +1,6 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Business.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,15 +35,28 @@ namespace ExcelForce.Forms.ExtractionMap
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            var createExtractionMapService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
+            var submittedFields = checkedFieldList.CheckedItems
+                ?.Cast<string>()
+                ?.ToList();
+
+            var listOfFieldNames = _allFields?.Where(
+                x => submittedFields.Any(
+                    y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
+                    ?.ToList();
+
+            var response = createExtractionMapService.SubmitFieldSelection(txtObjectName.Text, listOfFieldNames);
         }
 
         private void AssignDataSourceToCheckBoxList()
         {
             BindFieldsToCheckList(_availableFields, true);
 
-            var additionalFields = _allFields
-                ?.Where(x => !_availableFields.Any(y => y.DisplayName() == x.DisplayName()));
+            var additionalFields = _availableFields == null || !_availableFields.Any()
+                ? _allFields
+                : _allFields?.Where(x => !_availableFields.Any(y => y.DisplayName() == x.DisplayName()));
 
             BindFieldsToCheckList(additionalFields, false);
         }

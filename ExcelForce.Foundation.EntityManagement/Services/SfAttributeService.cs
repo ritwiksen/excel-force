@@ -25,7 +25,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             _persistenceContainer = persistenceContainer;
         }
 
-        public IEnumerable<ISfField> GetSfFields(string objectName, string bearerToken, string instanceUrl)
+        public IEnumerable<SfField> GetSfFields(string objectName, string bearerToken, string instanceUrl)
         {
             if (string.IsNullOrWhiteSpace(objectName))
                 throw new ArgumentNullException(nameof(objectName));

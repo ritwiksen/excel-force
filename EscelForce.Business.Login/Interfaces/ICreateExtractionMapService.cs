@@ -1,18 +1,19 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using System.Collections.Generic;
 
 namespace ExcelForce.Business.Interfaces
 {
     public interface ICreateExtractionMapService
     {
-        ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName, bool isPrimar);
+        ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName);
 
         ServiceResponseModel<FieldSelectionModel> LoadActionsOnFieldList();
 
         ServiceResponseModel<bool> CancelCreateExtractionMap();
 
-        ServiceResponseModel<bool> SubmitFieldSelection(string objectName,IList<string> fields);
+        ServiceResponseModel<bool> SubmitFieldSelection(string objectName,IList<SfField> fields);
 
         ServiceResponseModel<ParameterSelectionModel> LoadParameterSelectionScreen();
 
