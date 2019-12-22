@@ -230,8 +230,6 @@ namespace ExcelForce.Business.Services.MapExtraction
         public ServiceResponseModel<bool> SubmitParameterSelectionScreen(
             SearchSortExtractionModel model)
         {
-
-
             try
             {
                 var contextObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
@@ -336,7 +334,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                       SearchExpression = currentObjectData.FilterExpressions,
                       SortExpression = currentObjectData.SortExpressions,
                       ShowAddChildSection = queryObject.GetChildren()?.Count < 2,
-                      Children = children?.ToList()
+                      Children = children?.ToList(),
+                      ShowMapNameSection = ShowMapSectionOnStart()
                   });
             }
             catch (Exception ex)
@@ -407,6 +406,13 @@ namespace ExcelForce.Business.Services.MapExtraction
                 return ServiceResponseModelFactory.GetNullModelForValueType<bool>(
                     errorList?.ToArray());
             }
+        }
+
+        private bool ShowMapSectionOnStart()
+        {
+            var children = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey)?.GetChildren();
+
+            return (children?.Count ?? 0) == 2;
         }
     }
 }

@@ -18,5 +18,7 @@ namespace ExcelForce.Business.Models.ExtractionMap
         public bool ShowAddChildSection { get; set; }
 
         public string MapName { get; set; }
+
+        public bool ShowMapNameSection { get; set; }
     }
 }

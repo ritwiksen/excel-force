@@ -22,12 +22,11 @@ namespace ExcelForce.Forms.Common
 
             sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
 
-            if (!model.ShowAddChildSection)
-            {
-                ShowChildrenSection(false);
+            ShowMapSection(model.ShowMapNameSection);
 
-                ShowAddChildSection(false);
-            }
+            ShowAddChildSection(model.ShowAddChildSection);
+
+            ShowChildrenSection(false);
 
             listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
         }
@@ -163,6 +162,5 @@ namespace ExcelForce.Forms.Common
 
             lblAddChild.Visible = show;
         }
-
     }
 }
