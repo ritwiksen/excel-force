@@ -51,7 +51,7 @@ namespace ExcelForce.Forms
             var index = connectionProfiles
                 ?.TakeWhile(x => !(x.Name == Reusables.Instance.ConnectionProfile))?.Count() ?? 0;
 
-            ddlConnectionProfiles.SelectedItem = index;
+            ddlConnectionProfiles.SelectedIndex = index;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -64,13 +64,13 @@ namespace ExcelForce.Forms
 
                 var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
 
-              //  var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
+                var response = profileService.Login(txtUserName.Text, txtPassword.Text, txtSecurityToken.Text, connectionProfile);
 
-                var response = profileService.Login(
-                    "nissankulatejaswi@deloitte.com.excelforce",
-                    "Excelforce@1234",
-                    "3A5zKaGo11HQajMoLzsyIAIg",
-                    connectionProfile);
+                //var response = profileService.Login(
+                //    "nissankulatejaswi@deloitte.com.excelforce",
+                //    "Excelforce@1234",
+                //    "3A5zKaGo11HQajMoLzsyIAIg",
+                //    connectionProfile);
 
                 if (response.Model)
                 {
