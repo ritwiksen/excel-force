@@ -19,8 +19,12 @@ namespace ExcelForce.Business.Interfaces
 
         ServiceResponseModel<ParameterSelectionModel> LoadParameterSelectionScreen();
 
-        ServiceResponseModel<bool> SubmitParameterSelectionScreen(string sortText, string filterText, string childName, string mapName);
+        ServiceResponseModel<bool> SubmitParameterSelectionScreen(SearchSortExtractionModel model);
 
         ServiceResponseModel<SearchSortExtractionModel> LoadSearchSortScreen();
+
+        ServiceResponseModel<FieldSelectionModel> SubmitForNewChild(SearchSortExtractionModel model);
+
+        ServiceResponseModel<bool> AreChildrenAvailable();
     }
 }

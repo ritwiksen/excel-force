@@ -22,7 +22,7 @@ namespace ExcelForce.Forms.Common
 
             sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
 
-            if (model.Children.Count == 2)
+            if (!model.ShowAddChildSection)
             {
                 ShowChildrenSection(false);
 
@@ -39,7 +39,65 @@ namespace ExcelForce.Forms.Common
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            if (radioButtonYes.Checked)
+            {
+                PerformActionsOnAdditionalChildren();
+            }
+            else
+            {
+                PerformActionsOnFinalSubmit();
+            }
+        }
 
+        private void PerformActionsOnFinalSubmit()
+        {
+            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+
+            var model = new SearchSortExtractionModel
+            {
+                SearchExpression = searchConditionTextBox.Text,
+                SortExpression = sortConditionTextBox.Text,
+                MapName = txtMapName.Text
+            };
+
+            var response = service.SubmitParameterSelectionScreen(model);
+
+            if (response.IsValid())
+            {
+                Close();
+            }
+            //TODO:(Ritwik):: Show error
+        }
+
+        private void PerformActionsOnAdditionalChildren()
+        {
+            var submitModel = new SearchSortExtractionModel
+            {
+                SelectedChild = Convert.ToString(listChildObject.SelectedItem),
+                SearchExpression = searchConditionTextBox.Text,
+                SortExpression = sortConditionTextBox.Text
+            };
+
+            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+
+            var response = service.SubmitForNewChild(submitModel);
+
+            if (response.IsValid())
+            {
+                var formModel = response?.Model;
+
+                var fieldSelectionForm = new ExtractionMapFieldsForm(
+                    formModel.ObjectName,
+                    formModel.AvailableFields, formModel.SfFields);
+
+                Close();
+
+                fieldSelectionForm.Show();
+            }
+            else
+            {
+                //TODO:(Ritwik):: Show error
+            }
         }
 
         private void radioButtonYes_CheckedChanged(object sender, EventArgs e)
@@ -102,6 +160,8 @@ namespace ExcelForce.Forms.Common
             radioButtonYes.Visible = show;
 
             lblChildObject.Visible = show;
+
+            lblAddChild.Visible = show;
         }
 
     }

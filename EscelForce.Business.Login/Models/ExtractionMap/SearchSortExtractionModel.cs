@@ -14,5 +14,9 @@ namespace ExcelForce.Business.Models.ExtractionMap
         public IList<SfObject> Children { get; set; }
 
         public string SelectedChild { get; set; }
+
+        public bool ShowAddChildSection { get; set; }
+
+        public string MapName { get; set; }
     }
 }

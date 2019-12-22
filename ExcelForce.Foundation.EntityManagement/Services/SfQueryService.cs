@@ -1,6 +1,7 @@
 ﻿using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -25,9 +26,9 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var sortExpression = GetSortExpression(query);
 
-            if (!string.IsNullOrWhiteSpace(filterExpression))
+            if (!string.IsNullOrWhiteSpace(sortExpression))
             {
-                selectStatementBuilder = selectStatementBuilder.Append($" ORDER BY {filterExpression}");
+                selectStatementBuilder = selectStatementBuilder.Append($" ORDER BY {sortExpression}");
             }
 
             return selectStatementBuilder?.ToString();
@@ -64,24 +65,31 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
         private string GetItemListForQuery(SfQuery query)
         {
-            var parentSelectItems = string.Join(",", query.GetParentObject());
+            var querySections = new List<string>
+            {
+                string.Join(",", query.GetParentObject()?.Fields?.Select(x => x.Name)),
 
-            var childSelectItems = string.Join(",", query.GetChildren());
+                string.Join(",", query.GetChildren()?.SelectMany(x => x.Fields?.Select(y => $"{x.Name}.{y.Name}")))
+            };
 
-            var selectItems = string.Concat(parentSelectItems, childSelectItems);
+            querySections.RemoveAll(x => string.IsNullOrWhiteSpace(x.Trim()));
 
-            return selectItems?.Trim()?.Remove(selectItems.Length - 2, 1);
+            return string.Join(",", querySections);
         }
 
         private string GetSearchExpression(SfQuery query)
         {
             var filterExpression = query?.GetParentObject()?.FilterExpressions;
 
-            if (query.GetChildren()?.Any() ?? false)
+            if (query.GetChildren()?.Any(x => !string.IsNullOrWhiteSpace(x.FilterExpressions)) ?? false)
             {
-                var childItemExpressions = string.Join("AND ", query.GetChildren().Select(x => x.FilterExpressions));
+                var childItemExpressions = string.Join("AND ", 
+                    query.GetChildren()?.Where(x => string.IsNullOrWhiteSpace(x.FilterExpressions))?.Select(x => x.FilterExpressions));
 
-                filterExpression = string.Concat(filterExpression, " AND", childItemExpressions);
+                if (!string.IsNullOrWhiteSpace(childItemExpressions))
+                {
+                    filterExpression = string.Concat(filterExpression, " AND", childItemExpressions);
+                }
             }
 
             return filterExpression;
@@ -89,16 +97,19 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
         private string GetSortExpression(SfQuery query)
         {
-            var sortExpression = query?.GetParentObject()?.SortExpressions;
+            var expressions = new List<string>
+            {
+                query?.GetParentObject()?.SortExpressions
+            };
 
             if (query.GetChildren()?.Any() ?? false)
             {
-                var childItemExpressions = string.Join(",", query.GetChildren().Select(x => x.SortExpressions));
-
-                sortExpression = string.Concat(sortExpression, ",", childItemExpressions);
+                expressions.AddRange(query.GetChildren().Select(x => x.SortExpressions));
             }
 
-            return sortExpression;
+            expressions.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+            return string.Join(",", expressions);
         }
     }
 }

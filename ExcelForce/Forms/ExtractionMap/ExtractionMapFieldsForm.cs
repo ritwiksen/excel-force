@@ -60,7 +60,7 @@ namespace ExcelForce.Forms.ExtractionMap
                 {
                     var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
 
-                    searchSortForm.Show(); 
+                    searchSortForm.Show();
                 }
                 else
                 {
@@ -99,19 +99,36 @@ namespace ExcelForce.Forms.ExtractionMap
         {
             var mapService = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var response = mapService.LoadObjectSelectionScreen();
+            var areChildObjectsAvailable = mapService.AreChildrenAvailable();
 
-            if (response.IsValid())
+            if (areChildObjectsAvailable?.Model ?? false)
             {
-                var objectSelectionScreen = new ExtractionMapForm(response?.Model);
+                var fieldSelectionModelResponse = mapService.LoadSearchSortScreen();
+
+                var searchSoryModel = fieldSelectionModelResponse?.Model;
+
+                var fieldSelectionScreen = new SearchSortExpressionForm(searchSoryModel);
 
                 Close();
 
-                objectSelectionScreen.Show();
+                fieldSelectionScreen.Show();
             }
             else
             {
-                //TODO:(RItwik) :: Handle error messages
+                var response = mapService.LoadObjectSelectionScreen();
+
+                if (response.IsValid())
+                {
+                    var objectSelectionScreen = new ExtractionMapForm(response?.Model);
+
+                    Close();
+
+                    objectSelectionScreen.Show();
+                }
+                else
+                {
+                    //TODO:(RItwik) :: Handle error messages
+                }
             }
         }
     }

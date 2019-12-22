@@ -228,11 +228,9 @@ namespace ExcelForce.Business.Services.MapExtraction
         }
 
         public ServiceResponseModel<bool> SubmitParameterSelectionScreen(
-            string sortText, string filterText, string childName, string mapName)
+            SearchSortExtractionModel model)
         {
-            bool result = false;
 
-            List<string> errorList = null;
 
             try
             {
@@ -242,42 +240,34 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var objectDetails = queryObject?.Objects?.First(x => x.Name == contextObject);
 
-                objectDetails.FilterExpressions = filterText;
+                objectDetails.FilterExpressions = model?.SearchExpression;
 
-                objectDetails.SortExpressions = sortText;
+                objectDetails.SortExpressions = model?.SortExpression;
 
-                queryObject.Objects.Add(new SfObject
+                queryObject.Name = model?.MapName;
+
+                var query = _sfQueryService.GetStringifiedQuery(queryObject);
+
+                var addRecordResult = _extractMapRepository.AddRecord(new ExtractMap
                 {
-                    Name = childName
+                    Query = query,
+                    Name = model.MapName
                 });
 
-                queryObject.Name = mapName;
+                _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
 
-                result = _persistenceContainer.Set(BusinessConstants.CreateMapKey, queryObject);
+                _persistenceContainer.Set<SfQuery>(BusinessConstants.CreateMapKey, null);
 
-                if (!string.IsNullOrWhiteSpace(mapName))
-                {
-                    var query = _sfQueryService.GetStringifiedQuery(queryObject);
-
-                    var addRecordResult = _extractMapRepository.AddRecord(new ExtractMap
-                    {
-                        Query = query,
-                        Name = mapName
-                    });
-                }
-
-                result = true;
+                return ServiceResponseModelFactory.GetModel(true, null);
             }
             catch (Exception ex)
             {
-                LogException(ex, "An error occurred while saving object data", errorList);
-            }
+                List<string> errorList = null;
 
-            return new ServiceResponseModel<bool>
-            {
-                Messages = errorList,
-                Model = result
-            };
+                LogException(ex, "An error occurred while saving object data", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForValueType<bool>(errorList?.ToArray());
+            }
         }
 
         public ServiceResponseModel<ObjectSelectionFormModel> LoadObjectSelectionScreen()
@@ -285,6 +275,8 @@ namespace ExcelForce.Business.Services.MapExtraction
             try
             {
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
                 var response = _extractMapService.GetObjectNames();
 
@@ -298,7 +290,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                     new ObjectSelectionFormModel
                     {
                         ObjectNames = objects.Where(x => !(existingObjectNames?.Contains(x) ?? false)),
-                        selectedObjectName = queryObject?.Objects?.Last()?.Name ?? string.Empty
+                        selectedObjectName = currentObject != null
+                            ? queryObject?.Objects?.Last()?.Name ?? string.Empty
+                            : string.Empty
                     });
             }
             catch (Exception ex)
@@ -329,9 +323,10 @@ namespace ExcelForce.Business.Services.MapExtraction
                     authResponse?.AccessToken,
                     queryObject?.GetParentObject()?.Name);
 
+                var excludedNames = queryObject?.Objects?.Select(x => x.Name)?.ToList();
+
                 children = queryObject.GetChildren() != null
-                    ? children?.Where(x => !queryObject.GetChildren().Any(y => y.Name == y.Name)
-                                           && queryObject.GetParentObject()?.Name != x.Name)
+                    ? children?.Where(x => !excludedNames.Contains(x.Name))
                               ?.OrderBy(x => x.Name)
                     : children;
 
@@ -340,7 +335,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                   {
                       SearchExpression = currentObjectData.FilterExpressions,
                       SortExpression = currentObjectData.SortExpressions,
-                      AddChild = queryObject.GetChildren()?.Count <= 2,
+                      ShowAddChildSection = queryObject.GetChildren()?.Count < 2,
                       Children = children?.ToList()
                   });
             }
@@ -351,6 +346,65 @@ namespace ExcelForce.Business.Services.MapExtraction
                 LogException(ex, "An error occurred while getting children details", errorList);
 
                 return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
+                    errorList?.ToArray());
+            }
+        }
+
+        public ServiceResponseModel<FieldSelectionModel> SubmitForNewChild(SearchSortExtractionModel model)
+        {
+            try
+            {
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+
+                var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == currentObject);
+
+                sfObject.FilterExpressions = model.SearchExpression;
+
+                sfObject.SortExpressions = model.SortExpression;
+
+                _persistenceContainer.Set(BusinessConstants.CreateMapKey, queryObject);
+
+                _persistenceContainer.Set(BusinessConstants.CurrentObject, model.SelectedChild);
+
+                var response = SubmitOnObjectSelection(model.SelectedChild);
+
+                var loadActionResponse = LoadActionsOnFieldList();
+
+                return ServiceResponseModelFactory.GetModel(
+                    loadActionResponse?.Model,
+                    loadActionResponse.Messages?.ToArray());
+            }
+            catch (Exception ex)
+            {
+                var errorList = new List<string>();
+
+                LogException(ex, "An error occurred while saving object data", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<FieldSelectionModel>(
+                    errorList?.ToArray());
+            }
+        }
+
+        public ServiceResponseModel<bool> AreChildrenAvailable()
+        {
+            try
+            {
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
+
+                var evaluation = queryObject?.GetParentObject() != null
+                    && (queryObject?.GetChildren()?.Count ?? 0) > 0;
+
+                return ServiceResponseModelFactory.GetModel<bool>(evaluation, null);
+            }
+            catch (Exception ex)
+            {
+                var errorList = new List<string>();
+
+                LogException(ex, "An error occurred while checking if primary object was added", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForValueType<bool>(
                     errorList?.ToArray());
             }
         }
