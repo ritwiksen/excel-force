@@ -22,6 +22,8 @@ namespace ExcelForce.Forms.Common
 
             sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
 
+            btnNext.Text = model.ShowAddChildSection ? "Next" : "Create";
+
             ShowMapSection(model.ShowMapNameSection);
 
             ShowAddChildSection(model.ShowAddChildSection);
@@ -29,11 +31,6 @@ namespace ExcelForce.Forms.Common
             ShowChildrenSection(false);
 
             listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
-        }
-
-        private void SearchSortExpressionForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnNext_Click(object sender, EventArgs e)
