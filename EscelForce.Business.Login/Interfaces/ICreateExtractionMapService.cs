@@ -26,5 +26,7 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<FieldSelectionModel> SubmitForNewChild(SearchSortExtractionModel model);
 
         ServiceResponseModel<bool> AreChildrenAvailable();
+
+        ServiceResponseModel<bool> SubmitPreviousFieldSelection();
     }
 }

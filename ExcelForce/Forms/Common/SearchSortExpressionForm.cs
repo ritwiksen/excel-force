@@ -83,20 +83,19 @@ namespace ExcelForce.Forms.Common
 
             if (response.IsValid())
             {
-                var formModel = response?.Model;
-
-                var fieldSelectionForm = new ExtractionMapFieldsForm(
-                    formModel.ObjectName,
-                    formModel.AvailableFields, formModel.SfFields);
-
-                Close();
-
-                fieldSelectionForm.Show();
-            }
-            else
-            {
                 //TODO:(Ritwik):: Show error
             }
+
+            var formModel = response?.Model;
+
+            var fieldSelectionForm = new ExtractionMapFieldsForm(
+                formModel.ObjectName,
+                formModel.AvailableFields, formModel.SfFields);
+
+            Close();
+
+            fieldSelectionForm.Show();
+
         }
 
         private void radioButtonYes_CheckedChanged(object sender, EventArgs e)
@@ -123,17 +122,19 @@ namespace ExcelForce.Forms.Common
 
             var response = service.LoadActionsOnFieldList();
 
-            if (response.IsValid())
+            if (!response.IsValid())
             {
-                var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                          response.Model.ObjectName,
-                          response?.Model.AvailableFields,
-                          response?.Model.SfFields);
-
-                Close();
-
-                extractionMapFieldsForm.Show();
+                //TODO:: do actions for error
             }
+
+            var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                         response.Model.ObjectName,
+                         response?.Model.AvailableFields,
+                         response?.Model.SfFields);
+
+            Close();
+
+            extractionMapFieldsForm.Show();
         }
 
         private void ShowChildrenSection(bool show)

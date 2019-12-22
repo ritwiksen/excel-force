@@ -414,5 +414,36 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             return (children?.Count ?? 0) == 2;
         }
+
+        public ServiceResponseModel<bool> SubmitPreviousFieldSelection()
+        {
+            {
+                try
+                {
+                    var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
+
+                    var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+
+                    queryObject.Objects = queryObject?.Objects.Where(x => x.Name != currentObject)?.ToList();
+
+                    currentObject = queryObject.Objects?.LastOrDefault()?.Name;
+
+                    _persistenceContainer.Set(BusinessConstants.CurrentObject, currentObject);
+
+                    _persistenceContainer.Set(BusinessConstants.CreateMapKey, queryObject);
+
+                    return ServiceResponseModelFactory.GetModel(true);
+                }
+                catch (Exception ex)
+                {
+                    var errorList = new List<string>();
+
+                    LogException(ex, "An error occurred while transitioning back", errorList);
+
+                    return ServiceResponseModelFactory.GetNullModelForValueType<bool>(
+                        errorList?.ToArray());
+                }
+            }
+        }
     }
 }

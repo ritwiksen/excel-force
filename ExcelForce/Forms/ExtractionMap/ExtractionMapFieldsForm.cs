@@ -103,15 +103,32 @@ namespace ExcelForce.Forms.ExtractionMap
 
             if (areChildObjectsAvailable?.Model ?? false)
             {
-                var fieldSelectionModelResponse = mapService.LoadSearchSortScreen();
+                var previousActionResponse = mapService.SubmitPreviousFieldSelection();
 
-                var searchSoryModel = fieldSelectionModelResponse?.Model;
+                if (previousActionResponse.IsValid())
+                {
+                    var fieldSelectionModelResponse = mapService.LoadSearchSortScreen();
 
-                var fieldSelectionScreen = new SearchSortExpressionForm(searchSoryModel);
+                    if (fieldSelectionModelResponse.IsValid())
+                    {
+                        var searchSoryModel = fieldSelectionModelResponse?.Model;
 
-                Close();
+                        var fieldSelectionScreen = new SearchSortExpressionForm(searchSoryModel);
 
-                fieldSelectionScreen.Show();
+                        Close();
+
+                        fieldSelectionScreen.Show();
+                    }
+                    else
+                    {
+                        //TODO:: error scenario
+                    }               
+                }
+                else
+                {
+                    //TODO:: error scenario
+                }
+
             }
             else
             {
