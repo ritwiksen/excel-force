@@ -20,7 +20,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             var createExtractionService = serviceFactory.GetCreateExtractMapService();
 
             var result = createExtractionService
-                .SubmitOnObjectSelection(updateSelectExtMap.Text, false);
+                .SubmitOnObjectSelection(updateSelectExtMap.Text);
 
             if (result.IsValid() && result.Model)
             {
