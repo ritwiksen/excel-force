@@ -67,9 +67,9 @@ namespace ExcelForce.Foundation.EntityManagement.Services
         {
             var querySections = new List<string>
             {
-                string.Join(",", query.GetParentObject()?.Fields?.Select(x => x.Name)),
+                string.Join(",", query.GetParentObject()?.Fields?.Select(x => x.ApiName)),
 
-                string.Join(",", query.GetChildren()?.SelectMany(x => x.Fields?.Select(y => $"{x.Name}.{y.Name}")))
+                string.Join(",", query.GetChildren()?.SelectMany(x => x.Fields?.Select(y => $"{x.Name}.{y.ApiName}")))
             };
 
             querySections.RemoveAll(x => string.IsNullOrWhiteSpace(x.Trim()));
