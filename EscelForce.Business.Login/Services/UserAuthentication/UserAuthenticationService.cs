@@ -90,6 +90,26 @@ namespace ExcelForce.Business.Services.UserAuthentication
             };
         }
 
+        public ServiceResponseModel<bool> Logout() {
+            List<string> errorList = null;
+
+            var response = false;
+            try
+            {
+                var loginResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
+                var authResponse = _authenticationManager.Logout(loginResponse?.AccessToken,loginResponse?.InstanceUrl);
+            }
+            catch (Exception ex) {
+                LogException(ex, "An error occurred while Logging in", errorList);
+            }
+
+            return new ServiceResponseModel<bool>
+            {
+                Messages = errorList,
+                Model = response
+            };
+        }
+
         //TODO:(Get this method to be reused
         private void LogException(Exception ex, string errorMessage, IList<string> errorList)
         {
@@ -97,5 +117,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
 
             _loggerManager.LogError($"{ex.Message} {ex.StackTrace}");
         }
+
+
     }
 }

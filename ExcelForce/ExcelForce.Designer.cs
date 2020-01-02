@@ -209,6 +209,7 @@ namespace ExcelForce
             // btnCreateExtractionMap
             // 
             this.btnCreateExtractionMap.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnCreateExtractionMap.Enabled = false;
             this.btnCreateExtractionMap.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateExtractionMap.Image")));
             this.btnCreateExtractionMap.Label = "Create Extraction Map";
             this.btnCreateExtractionMap.Name = "btnCreateExtractionMap";

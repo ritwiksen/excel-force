@@ -80,6 +80,9 @@ namespace ExcelForce.Forms
                     _ribbonBase.btnCreateExtractionMap.Enabled = true;
                     _ribbonBase.button7.Enabled = true;
                     _ribbonBase.button8.Enabled = true;
+                    _ribbonBase.btnInsert.Enabled = true;
+                    _ribbonBase.btnUpdate.Enabled = true;
+                    _ribbonBase.btnDelete.Enabled = true;
                     this.Close();
                 }
                 else if (response.Messages.Any())

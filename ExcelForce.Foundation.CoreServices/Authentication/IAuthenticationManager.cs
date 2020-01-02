@@ -4,5 +4,6 @@
         where U : IAuthenticationResponse
     {
         U Login(T request);
+        U Logout(string token,string instanceurl);
     }
 }

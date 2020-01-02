@@ -14,8 +14,8 @@ namespace ExcelForce.Foundation.CoreServices.Models
         {
             if (allowNullResponse)
                 return Error == null;
-
-            return Model != null && Error == null;
+            
+             return Model != null && Error == null && (int)StatusCode ==200;
         }
 
     }

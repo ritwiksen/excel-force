@@ -25,6 +25,7 @@ namespace ExcelForce
         public String[] columnName;
         public String authToken;
         public String ServiceURL;
+        private ExcelForce _ribbonBase;
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
 
@@ -291,7 +292,22 @@ namespace ExcelForce
 
         private void btnLogout_Click(object sender, RibbonControlEventArgs e)
         {
-            HttpClient LogoutCall = new HttpClient();
+            _ribbonBase = Globals.Ribbons.GetRibbon<ExcelForce>();
+            var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
+
+            var response = profileService.Logout();
+            if (response.Messages == null) {
+                _ribbonBase.btnLogin.Visible = true;
+                _ribbonBase.btnLogout.Visible = false;
+                _ribbonBase.connectionProfileSplitButton.Visible = true;
+                _ribbonBase.btnCreateExtractionMap.Enabled = false;
+                _ribbonBase.button7.Enabled = false;
+                _ribbonBase.button8.Enabled = false;
+                _ribbonBase.btnInsert.Enabled = false;
+                _ribbonBase.btnUpdate.Enabled = false;
+                _ribbonBase.btnDelete.Enabled = false;
+            }
+           /* HttpClient LogoutCall = new HttpClient();
             String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
             var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
             request.Headers.Add("Authorization", "Bearer " + authToken);
@@ -316,7 +332,7 @@ namespace ExcelForce
             btnLogout.Visible = false;
             btnCreateExtractionMap.Enabled = false;
             button7.Enabled = false;
-            button8.Enabled = false;
+            button8.Enabled = false;*/
         }
 
         private void button8_Click(object sender, RibbonControlEventArgs e)
