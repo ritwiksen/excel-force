@@ -53,7 +53,9 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                 return response?.Model?.Fields?.Select(x => new SfField
                 {
                     ApiName = x.Name,
-                    Name = x.Label
+                    Name = x.Label,
+                    Type = x.Type,
+                    Length = x.Length
                 })
                 ?.ToList();
             }

@@ -39,9 +39,7 @@ namespace ExcelForce.Forms.ExtractionMap
             var createExtractionMapService
                 = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var submittedFields = checkedFieldList.CheckedItems
-                ?.Cast<string>()
-                ?.ToList();
+            var submittedFields = GetCheckedFields();
 
             var listOfFieldNames = _allFields?.Where(
                 x => submittedFields.Any(
@@ -74,11 +72,42 @@ namespace ExcelForce.Forms.ExtractionMap
             }
         }
 
+        private IList<string> GetCheckedFields()
+        {
+            if (gridFieldList.Rows.Count == 0)
+                return null;
+
+            IList<string> result = null;
+
+            foreach (DataGridViewRow row in gridFieldList.Rows)
+            {
+                bool.TryParse(Convert.ToString(row.Cells[0].Value), out bool isSelected);
+
+                if (isSelected)
+                {
+                    result = result ?? new List<string>();
+
+                    result.Add(SfField.GetDisplayName(
+                        Convert.ToString(row.Cells[1]?.Value),
+                        Convert.ToString(row.Cells[2]?.Value)));
+                }
+            }
+
+            return result;
+        }
+
         private void AssignDataSourceToDataGrid()
         {
             var list = new List<SfFieldDataGrid>();
 
-            list.AddRange(_availableFields.Cast<SfFieldDataGrid>());
+            if (_availableFields != null)
+                list.AddRange(_availableFields.Select(x => new SfFieldDataGrid
+                {
+                    ApiName = x.ApiName,
+                    Name = x.Name,
+                    Type = x.Type,
+                    Length = x.Length
+                }));
 
             list?.ForEach(x => x.IsSelected = true);
 
@@ -86,32 +115,18 @@ namespace ExcelForce.Forms.ExtractionMap
                 ? _allFields
                 : _allFields?.Where(x => !_availableFields.Any(y => y.DisplayName() == x.DisplayName()));
 
-            list.AddRange(additionalFields.Cast<SfFieldDataGrid>());
+            if (additionalFields != null)
+                list.AddRange(additionalFields.Select(x => new SfFieldDataGrid
+                {
+                    ApiName = x.ApiName,
+                    Name = x.Name,
+                    Type = x.Type,
+                    Length = x.Length
+                }));
 
             gridFieldList.DataSource = list;
 
             gridFieldList.Update();
-        }
-
-
-        private DataGridViewColumn GetColumn(string name, int index, string headerText)
-        {
-            return new DataGridViewColumn
-            {
-                Name = name,
-                DisplayIndex = index
-            };
-        }
-
-        private void BindFieldsToCheckList(IEnumerable<SfField> fields, bool isChecked)
-        {
-            if (fields != null)
-            {
-                foreach (var item in fields)
-                {
-                    checkedFieldList.Items.Add(item.DisplayName(), isChecked);
-                }
-            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)

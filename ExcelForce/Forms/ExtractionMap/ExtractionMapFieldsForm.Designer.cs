@@ -30,7 +30,6 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkedFieldList = new System.Windows.Forms.CheckedListBox();
             this.btnNext = new System.Windows.Forms.Button();
             this.txtObjectName = new System.Windows.Forms.TextBox();
             this.btnPrevious = new System.Windows.Forms.Button();
@@ -57,15 +56,6 @@
             this.label5.Size = new System.Drawing.Size(121, 23);
             this.label5.TabIndex = 6;
             this.label5.Text = "Primary object";
-            // 
-            // checkedFieldList
-            // 
-            this.checkedFieldList.FormattingEnabled = true;
-            this.checkedFieldList.Location = new System.Drawing.Point(25, 133);
-            this.checkedFieldList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkedFieldList.Name = "checkedFieldList";
-            this.checkedFieldList.Size = new System.Drawing.Size(440, 174);
-            this.checkedFieldList.TabIndex = 7;
             // 
             // btnNext
             // 
@@ -107,10 +97,11 @@
             // gridFieldList
             // 
             this.gridFieldList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridFieldList.Location = new System.Drawing.Point(25, 324);
+            this.gridFieldList.Location = new System.Drawing.Point(25, 154);
             this.gridFieldList.Name = "gridFieldList";
             this.gridFieldList.RowTemplate.Height = 24;
-            this.gridFieldList.Size = new System.Drawing.Size(439, 40);
+            this.gridFieldList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.gridFieldList.Size = new System.Drawing.Size(439, 193);
             this.gridFieldList.TabIndex = 14;
             this.gridFieldList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.gridFieldList_DataBindingComplete);
             // 
@@ -123,7 +114,6 @@
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.txtObjectName);
             this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.checkedFieldList);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -145,7 +135,6 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckedListBox checkedFieldList;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.TextBox txtObjectName;
         private System.Windows.Forms.Button btnPrevious;

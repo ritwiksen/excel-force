@@ -23,7 +23,9 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
         [Browsable(false)]
         public bool IsCustom { get; set; }
 
-        public string DisplayName() => $"{Name} ({ApiName})";
+        public string DisplayName() => GetDisplayName(Name, ApiName);
+
+        public static string GetDisplayName(string name, string apiName) => $"{name} ({apiName})";
     }
 }
 
