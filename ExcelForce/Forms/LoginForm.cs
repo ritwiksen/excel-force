@@ -88,12 +88,15 @@ namespace ExcelForce.Forms
                 else if (response.Messages.Any())
                 {
                     lblErrorMessage.Text = string.Join(",", response.Messages);
+                    MessageBox.Show("Please check your credentials");
                 }
             }
             catch (Exception ex)
             {
 
                 lblErrorMessage.Text = _loginErrorMessage;
+                MessageBox.Show("Please check your credentials");
+
             }
         }
 

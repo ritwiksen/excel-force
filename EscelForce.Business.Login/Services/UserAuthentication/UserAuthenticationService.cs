@@ -39,7 +39,7 @@ namespace ExcelForce.Business.Services.UserAuthentication
 
         public ServiceResponseModel<bool> Login(string userName, string password, string securityToken, string connectionProfile)
         {
-            List<string> errorList = null;
+            List<string> errorList = new List<string>();
 
             var response = false;
 
