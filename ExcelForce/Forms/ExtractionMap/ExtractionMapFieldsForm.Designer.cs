@@ -34,6 +34,8 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.txtObjectName = new System.Windows.Forms.TextBox();
             this.btnPrevious = new System.Windows.Forms.Button();
+            this.gridFieldList = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gridFieldList)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -102,11 +104,22 @@
             this.btnPrevious.UseVisualStyleBackColor = false;
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
+            // gridFieldList
+            // 
+            this.gridFieldList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridFieldList.Location = new System.Drawing.Point(25, 324);
+            this.gridFieldList.Name = "gridFieldList";
+            this.gridFieldList.RowTemplate.Height = 24;
+            this.gridFieldList.Size = new System.Drawing.Size(439, 40);
+            this.gridFieldList.TabIndex = 14;
+            this.gridFieldList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.gridFieldList_DataBindingComplete);
+            // 
             // ExtractionMapFieldsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 436);
+            this.Controls.Add(this.gridFieldList);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.txtObjectName);
             this.Controls.Add(this.btnNext);
@@ -122,6 +135,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            ((System.ComponentModel.ISupportInitialize)(this.gridFieldList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +149,6 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.TextBox txtObjectName;
         private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.DataGridView gridFieldList;
     }
 }

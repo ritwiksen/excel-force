@@ -234,6 +234,7 @@
     <Compile Include="Infrastructure\DependencyInjection\UnityRegistration.cs" />
     <Compile Include="Infrastructure\FormResources\FormGenerator.cs" />
     <Compile Include="Models\Reusables.cs" />
+    <Compile Include="Models\SfFieldDataGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

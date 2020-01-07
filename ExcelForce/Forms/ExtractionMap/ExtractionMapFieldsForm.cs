@@ -3,6 +3,7 @@ using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,7 +30,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
             _allFields = allFields;
 
-            AssignDataSourceToCheckBoxList();
+            AssignDataSourceToDataGrid();
         }
 
 
@@ -73,15 +74,33 @@ namespace ExcelForce.Forms.ExtractionMap
             }
         }
 
-        private void AssignDataSourceToCheckBoxList()
+        private void AssignDataSourceToDataGrid()
         {
-            BindFieldsToCheckList(_availableFields, true);
+            var list = new List<SfFieldDataGrid>();
+
+            list.AddRange(_availableFields.Cast<SfFieldDataGrid>());
+
+            list?.ForEach(x => x.IsSelected = true);
 
             var additionalFields = _availableFields == null || !_availableFields.Any()
                 ? _allFields
                 : _allFields?.Where(x => !_availableFields.Any(y => y.DisplayName() == x.DisplayName()));
 
-            BindFieldsToCheckList(additionalFields, false);
+            list.AddRange(additionalFields.Cast<SfFieldDataGrid>());
+
+            gridFieldList.DataSource = list;
+
+            gridFieldList.Update();
+        }
+
+
+        private DataGridViewColumn GetColumn(string name, int index, string headerText)
+        {
+            return new DataGridViewColumn
+            {
+                Name = name,
+                DisplayIndex = index
+            };
         }
 
         private void BindFieldsToCheckList(IEnumerable<SfField> fields, bool isChecked)
@@ -122,7 +141,7 @@ namespace ExcelForce.Forms.ExtractionMap
                     else
                     {
                         //TODO:: error scenario
-                    }               
+                    }
                 }
                 else
                 {
@@ -145,6 +164,29 @@ namespace ExcelForce.Forms.ExtractionMap
                 else
                 {
                     //TODO:(RItwik) :: Handle error messages
+                }
+            }
+        }
+
+        private void gridFieldList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            var grid = sender as DataGridView;
+
+            grid.RowsDefaultCellStyle.SelectionBackColor = Color.Transparent;
+
+            grid.RowHeadersVisible = false;
+
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            for (int i = 0; i < grid.Columns.Count; i++)
+            {
+                var column = grid.Columns[i];
+
+                column.ReadOnly = i != 0;
+
+                if (i == 0)
+                {
+                    column.Width = 50;
                 }
             }
         }
