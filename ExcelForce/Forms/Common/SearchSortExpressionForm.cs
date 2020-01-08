@@ -2,6 +2,7 @@
 using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Models;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -102,6 +103,14 @@ namespace ExcelForce.Forms.Common
             ShowChildrenSection(true);
 
             ShowMapSection(false);
+
+            btnNext.Text = "Next";
+
+            Height = 835;
+
+            btnPrevious.Location = new Point(25, 710);
+
+            btnNext.Location = new Point(297, 710);
         }
 
         private void radioButtonNo_CheckedChanged(object sender, EventArgs e)
@@ -111,6 +120,15 @@ namespace ExcelForce.Forms.Common
             ShowChildrenSection(false);
 
             ShowMapSection(true);
+
+            btnNext.Text = "Save";
+
+            Height = 750;
+
+            btnPrevious.Location = new Point(22, 608);
+
+            btnNext.Location = new Point(297, 608);
+
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
@@ -145,6 +163,10 @@ namespace ExcelForce.Forms.Common
 
         private void ShowMapSection(bool show)
         {
+            lblMapName.Location = new Point(20, 511);
+
+            txtMapName.Location = new Point(20, 561);
+
             lblMapName.Visible = show;
 
             txtMapName.Visible = show;
