@@ -49,9 +49,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(19, 7);
+            this.label2.Location = new System.Drawing.Point(21, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(283, 31);
+            this.label2.Size = new System.Drawing.Size(334, 37);
             this.label2.TabIndex = 3;
             this.label2.Text = "Create Extraction Map";
             // 
@@ -59,18 +59,18 @@
             // 
             this.SearchConditionLabel.AutoSize = true;
             this.SearchConditionLabel.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchConditionLabel.Location = new System.Drawing.Point(20, 56);
+            this.SearchConditionLabel.Location = new System.Drawing.Point(22, 70);
             this.SearchConditionLabel.Name = "SearchConditionLabel";
-            this.SearchConditionLabel.Size = new System.Drawing.Size(194, 23);
+            this.SearchConditionLabel.Size = new System.Drawing.Size(222, 27);
             this.SearchConditionLabel.TabIndex = 7;
             this.SearchConditionLabel.Text = "Define Search Condition";
             // 
             // searchConditionTextBox
             // 
-            this.searchConditionTextBox.Location = new System.Drawing.Point(25, 94);
+            this.searchConditionTextBox.Location = new System.Drawing.Point(28, 118);
             this.searchConditionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.searchConditionTextBox.Name = "searchConditionTextBox";
-            this.searchConditionTextBox.Size = new System.Drawing.Size(434, 78);
+            this.searchConditionTextBox.Size = new System.Drawing.Size(488, 96);
             this.searchConditionTextBox.TabIndex = 8;
             this.searchConditionTextBox.Text = "";
             // 
@@ -78,18 +78,18 @@
             // 
             this.SortConditionLabel.AutoSize = true;
             this.SortConditionLabel.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SortConditionLabel.Location = new System.Drawing.Point(20, 201);
+            this.SortConditionLabel.Location = new System.Drawing.Point(22, 251);
             this.SortConditionLabel.Name = "SortConditionLabel";
-            this.SortConditionLabel.Size = new System.Drawing.Size(174, 23);
+            this.SortConditionLabel.Size = new System.Drawing.Size(199, 27);
             this.SortConditionLabel.TabIndex = 9;
             this.SortConditionLabel.Text = "Define Sort Condition";
             // 
             // sortConditionTextBox
             // 
-            this.sortConditionTextBox.Location = new System.Drawing.Point(25, 242);
+            this.sortConditionTextBox.Location = new System.Drawing.Point(28, 302);
             this.sortConditionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sortConditionTextBox.Name = "sortConditionTextBox";
-            this.sortConditionTextBox.Size = new System.Drawing.Size(434, 78);
+            this.sortConditionTextBox.Size = new System.Drawing.Size(488, 96);
             this.sortConditionTextBox.TabIndex = 10;
             this.sortConditionTextBox.Text = "";
             // 
@@ -97,19 +97,19 @@
             // 
             this.lblAddChild.AutoSize = true;
             this.lblAddChild.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddChild.Location = new System.Drawing.Point(20, 340);
+            this.lblAddChild.Location = new System.Drawing.Point(22, 425);
             this.lblAddChild.Name = "lblAddChild";
-            this.lblAddChild.Size = new System.Drawing.Size(83, 23);
+            this.lblAddChild.Size = new System.Drawing.Size(95, 27);
             this.lblAddChild.TabIndex = 11;
             this.lblAddChild.Text = "Add Child";
             // 
             // radioButtonYes
             // 
             this.radioButtonYes.AutoSize = true;
-            this.radioButtonYes.Location = new System.Drawing.Point(25, 375);
+            this.radioButtonYes.Location = new System.Drawing.Point(28, 469);
             this.radioButtonYes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonYes.Name = "radioButtonYes";
-            this.radioButtonYes.Size = new System.Drawing.Size(53, 21);
+            this.radioButtonYes.Size = new System.Drawing.Size(62, 24);
             this.radioButtonYes.TabIndex = 12;
             this.radioButtonYes.TabStop = true;
             this.radioButtonYes.Text = "Yes";
@@ -119,10 +119,10 @@
             // radioButtonNo
             // 
             this.radioButtonNo.AutoSize = true;
-            this.radioButtonNo.Location = new System.Drawing.Point(188, 375);
+            this.radioButtonNo.Location = new System.Drawing.Point(212, 469);
             this.radioButtonNo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonNo.Name = "radioButtonNo";
-            this.radioButtonNo.Size = new System.Drawing.Size(47, 21);
+            this.radioButtonNo.Size = new System.Drawing.Size(54, 24);
             this.radioButtonNo.TabIndex = 13;
             this.radioButtonNo.TabStop = true;
             this.radioButtonNo.Text = "No";
@@ -133,29 +133,29 @@
             // 
             this.lblRelationshipDetails.AutoSize = true;
             this.lblRelationshipDetails.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRelationshipDetails.Location = new System.Drawing.Point(18, 409);
+            this.lblRelationshipDetails.Location = new System.Drawing.Point(20, 511);
             this.lblRelationshipDetails.Name = "lblRelationshipDetails";
-            this.lblRelationshipDetails.Size = new System.Drawing.Size(158, 23);
+            this.lblRelationshipDetails.Size = new System.Drawing.Size(185, 27);
             this.lblRelationshipDetails.TabIndex = 14;
             this.lblRelationshipDetails.Text = "Relationship Details";
             // 
             // listChildObject
             // 
             this.listChildObject.FormattingEnabled = true;
-            this.listChildObject.ItemHeight = 16;
-            this.listChildObject.Location = new System.Drawing.Point(188, 449);
+            this.listChildObject.ItemHeight = 20;
+            this.listChildObject.Location = new System.Drawing.Point(212, 561);
             this.listChildObject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listChildObject.Name = "listChildObject";
-            this.listChildObject.Size = new System.Drawing.Size(274, 20);
+            this.listChildObject.Size = new System.Drawing.Size(308, 24);
             this.listChildObject.TabIndex = 15;
             // 
             // lblChildObject
             // 
             this.lblChildObject.AutoSize = true;
             this.lblChildObject.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChildObject.Location = new System.Drawing.Point(18, 449);
+            this.lblChildObject.Location = new System.Drawing.Point(20, 561);
             this.lblChildObject.Name = "lblChildObject";
-            this.lblChildObject.Size = new System.Drawing.Size(101, 23);
+            this.lblChildObject.Size = new System.Drawing.Size(118, 27);
             this.lblChildObject.TabIndex = 16;
             this.lblChildObject.Text = "Child Object";
             // 
@@ -163,19 +163,19 @@
             // 
             this.txtMapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMapName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMapName.Location = new System.Drawing.Point(22, 520);
+            this.txtMapName.Location = new System.Drawing.Point(25, 650);
             this.txtMapName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMapName.Name = "txtMapName";
-            this.txtMapName.Size = new System.Drawing.Size(439, 30);
+            this.txtMapName.Size = new System.Drawing.Size(494, 34);
             this.txtMapName.TabIndex = 17;
             // 
             // lblMapName
             // 
             this.lblMapName.AutoSize = true;
             this.lblMapName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMapName.Location = new System.Drawing.Point(20, 486);
+            this.lblMapName.Location = new System.Drawing.Point(22, 608);
             this.lblMapName.Name = "lblMapName";
-            this.lblMapName.Size = new System.Drawing.Size(94, 23);
+            this.lblMapName.Size = new System.Drawing.Size(109, 27);
             this.lblMapName.TabIndex = 18;
             this.lblMapName.Text = "Map Name";
             // 
@@ -183,10 +183,10 @@
             // 
             this.btnPrevious.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnPrevious.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnPrevious.Location = new System.Drawing.Point(22, 568);
+            this.btnPrevious.Location = new System.Drawing.Point(25, 710);
             this.btnPrevious.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(191, 46);
+            this.btnPrevious.Size = new System.Drawing.Size(215, 58);
             this.btnPrevious.TabIndex = 19;
             this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = false;
@@ -196,10 +196,10 @@
             // 
             this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(264, 568);
+            this.btnNext.Location = new System.Drawing.Point(297, 710);
             this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(197, 46);
+            this.btnNext.Size = new System.Drawing.Size(222, 58);
             this.btnNext.TabIndex = 20;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = false;
@@ -208,9 +208,9 @@
             // SearchSortExpressionForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 623);
+            this.ClientSize = new System.Drawing.Size(554, 779);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.lblMapName);
