@@ -13,6 +13,7 @@ using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ExcelForce.Business.Services.MapExtraction
 {
@@ -65,18 +66,22 @@ namespace ExcelForce.Business.Services.MapExtraction
                     Objects = new List<SfObject>()
                 };
 
-                if (!query.Objects.Any(x => x.Name == objectName))
+                string selectedObjectName = objectName.Contains('|')? objectName.Split('|')[1].Trim(): objectName.Trim();
+                string label = objectName.Contains('|') ? objectName.Split('|')[0].Trim() : objectName.Trim();
+
+                if (!query.Objects.Any(x => x.Name == selectedObjectName))
                 {
                     var isPrimary = (query.Objects?.Count(x => x.IsPrimary) ?? 0) == 0;
 
                     query.Objects.Add(new SfObject
                     {
                         IsPrimary = isPrimary,
-                        Name = objectName
+                        Name = selectedObjectName,
+                        Label= label
                     });
                 }
 
-                _persistenceContainer.Set(BusinessConstants.CurrentObject, objectName);
+                _persistenceContainer.Set(BusinessConstants.CurrentObject, selectedObjectName);
 
                 _persistenceContainer.Set(BusinessConstants.CreateMapKey, query);
 
@@ -189,7 +194,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
-                var objects = _extractMapService.GetObjectNames();
+                var objects = _extractMapService.GetObjects();
 
                 if (objects.Messages?.Count > 0)
                 {
@@ -205,7 +210,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     SortExpression = objectDetails?.SortExpressions,
                     SearchExpression = objectDetails.FilterExpressions,
                     IsPrimary = objectDetails?.IsPrimary ?? false,
-                    ChildList = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x) ?? false)?.ToList()
+                    ChildList = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x.Name) ?? false).Select(s=>s.Name)?.ToList()
                 };
             }
             catch (Exception ex)
@@ -276,7 +281,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
-                var response = _extractMapService.GetObjectNames();
+                var response = _extractMapService.GetObjects();
 
                 var objects = response.IsValid()
                     ? response.Model?.ToList()
@@ -287,9 +292,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                 return ServiceResponseModelFactory.GetModel(
                     new ObjectSelectionFormModel
                     {
-                        ObjectNames = objects.Where(x => !(existingObjectNames?.Contains(x) ?? false)),
+                        ObjectNames = objects.Where(x => !(existingObjectNames?.Contains(x.Name) ?? false)).Select(s=>s.DisplayName()),
                         selectedObjectName = currentObject != null
-                            ? queryObject?.Objects?.Last()?.Name ?? string.Empty
+                            ? queryObject?.Objects?.Last()?.DisplayName() ?? string.Empty
                             : string.Empty
                     });
             }

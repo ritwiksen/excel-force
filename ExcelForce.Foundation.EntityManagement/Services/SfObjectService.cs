@@ -68,7 +68,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             throw new Exception("An error occurred while fetching the details of children");
         }
 
-        public IEnumerable<string> GetObjectNames(string instanceUrl, string bearerToken)
+        public IEnumerable<SfObject> GetObjects(string instanceUrl, string bearerToken)
         {
             if (string.IsNullOrWhiteSpace(bearerToken))
                 throw new ArgumentNullException(nameof(bearerToken));
@@ -90,7 +90,12 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             if (response.Error == null)
             {
-                return response?.Model?.SalesforceObjects?.Select(x => x.Name)?.ToList();
+                return response?.Model?.SalesforceObjects?.Select(x =>
+                     new SfObject
+                     {
+                         Name = x.Name,
+                         Label=x.Label
+                     })?.ToList();
             }
 
             throw new Exception("An error occurred while fetching salesforce object names");

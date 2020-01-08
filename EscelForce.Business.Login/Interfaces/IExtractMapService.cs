@@ -6,7 +6,7 @@ namespace ExcelForce.Business.Interfaces
 {
     public interface IExtractMapService
     {
-        ServiceResponseModel<IEnumerable<string>> GetObjectNames();
+        ServiceResponseModel<IEnumerable<SfObject>> GetObjects();
 
         IEnumerable<SfField> GetFieldsByName(string name);
     }
