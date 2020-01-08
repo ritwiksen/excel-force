@@ -93,8 +93,8 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                 return response?.Model?.SalesforceObjects?.Select(x =>
                      new SfObject
                      {
-                         Name = x.Name,
-                         Label=x.Label
+                         Name = x.Label,
+                         ApiName=x.Name
                      })?.ToList();
             }
 

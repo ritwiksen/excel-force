@@ -16,5 +16,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
         public string SortExpressions { get; set; }
 
         public bool IsPrimary { get; set; }
+
+        public string DisplayName() => GetDisplayName(Name, ApiName);
+        public static string GetDisplayName(string name, string apiName) => $"{name} | {apiName}";
     }
 }

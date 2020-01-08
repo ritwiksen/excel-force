@@ -76,8 +76,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                     query.Objects.Add(new SfObject
                     {
                         IsPrimary = isPrimary,
-                        Name = selectedObjectName,
-                        Label= label
+                        ApiName = selectedObjectName,
+                        Name= label
                     });
                 }
 
