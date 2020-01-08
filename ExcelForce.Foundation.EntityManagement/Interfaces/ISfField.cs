@@ -4,7 +4,5 @@
     public interface ISfField
     {
         string Name { get; set; }
-
-        bool IsRequired { get; set; }
     }
 }

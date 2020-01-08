@@ -23,7 +23,8 @@ namespace ExcelForce.Foundation.CoreServices.Serialization
 
         private static JsonSerializerSettings GetSerializerSettings() => new JsonSerializerSettings
         {
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.Indented
         };
     }
 }

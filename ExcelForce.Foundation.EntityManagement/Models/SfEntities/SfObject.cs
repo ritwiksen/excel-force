@@ -7,6 +7,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string Name { get; set; }
 
+        public string ApiName { get; set; }
+
         public IEnumerable<SfField> Fields { get; set; }
 
         public string FilterExpressions { get; set; }
@@ -14,9 +16,5 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
         public string SortExpressions { get; set; }
 
         public bool IsPrimary { get; set; }
-
-        public IEnumerable<SfField> GetSystemFields() => Fields?.Where(x => !x.IsCustom);
-
-        public IEnumerable<SfField> GetCustomFields() => Fields?.Where(x => x.IsCustom);
     }
 }

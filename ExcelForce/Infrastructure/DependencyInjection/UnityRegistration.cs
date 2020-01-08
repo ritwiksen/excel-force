@@ -127,6 +127,9 @@ namespace ExcelForce.Infrastructure.DependencyInjection
             container.RegisterType<IWebApiHttpClient
                 , WebApiHttpClient>();
 
+            container.RegisterType<IReadableExtractMapService
+               , ReadableExtractMapService>();
+
             return container;
         }
     }

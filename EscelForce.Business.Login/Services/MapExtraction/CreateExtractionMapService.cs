@@ -26,7 +26,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly IExtractMapService _extractMapService;
 
-        private readonly ISfQueryService _sfQueryService;
+        private readonly IReadableExtractMapService _readableExtractMapService;
 
         private readonly ISfObjectService _sfObjectService;
 
@@ -34,7 +34,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             ILoggerManager loggerManager,
             IExtractMapService extractMapService,
             IExcelForceRepository<ExtractMap, string> extractMapRepository,
-            ISfQueryService sfQueryService,
+            IReadableExtractMapService readableExtractMapService,
             ISfObjectService sfObjectService)
         {
             _persistenceContainer = container;
@@ -45,7 +45,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             _extractMapRepository = extractMapRepository;
 
-            _sfQueryService = sfQueryService;
+            _readableExtractMapService = readableExtractMapService;
 
             _sfObjectService = sfObjectService;
         }
@@ -244,7 +244,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 queryObject.Name = model?.MapName;
 
-                var query = _sfQueryService.GetStringifiedQuery(queryObject);
+                var query = _readableExtractMapService.GetContentFromQuery(queryObject);
 
                 var addRecordResult = _extractMapRepository.AddRecord(new ExtractMap
                 {
