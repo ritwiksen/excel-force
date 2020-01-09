@@ -30,12 +30,6 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             AssignDataSourceToCheckBoxList();
         }
 
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void AssignDataSourceToCheckBoxList()
         {
             BindFieldsToCheckList(_availableFields, true);
