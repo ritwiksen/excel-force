@@ -66,10 +66,10 @@ namespace ExcelForce.Business.Services.MapExtraction
                     Objects = new List<SfObject>()
                 };
 
-                string selectedObjectName = objectName.Contains('|')? objectName.Split('|')[1].Trim(): objectName.Trim();
-                string label = objectName.Contains('|') ? objectName.Split('|')[0].Trim() : objectName.Trim();
+                string selectedObjectName = SfObject.GetApiNameFromDisplayName(objectName);
+                string label = SfObject.GetObjectNameFromDisplayName(objectName);
 
-                if (!query.Objects.Any(x => x.Name == selectedObjectName))
+                if (!query.Objects.Any(x => x.Name .Equals(selectedObjectName)))
                 {
                     var isPrimary = (query.Objects?.Count(x => x.IsPrimary) ?? 0) == 0;
 

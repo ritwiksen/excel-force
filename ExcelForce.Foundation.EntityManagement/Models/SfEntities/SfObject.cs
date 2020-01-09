@@ -19,5 +19,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 
         public string DisplayName() => GetDisplayName(Name, ApiName);
         public static string GetDisplayName(string name, string apiName) => $"{name} | {apiName}";
+
+        public static string GetObjectNameFromDisplayName(string objectName) => objectName != null && objectName.Split('|').Length > 0 ? objectName.Split('|')[0].Trim() : null;
+        public static string GetApiNameFromDisplayName(string objectName) => objectName != null ? (objectName.Split('|').Length > 1) ? objectName.Split('|')[1].Trim() : (objectName.Split('|').Length > 0 ? objectName.Split('|')[0].Trim():null):null;
     }
 }
