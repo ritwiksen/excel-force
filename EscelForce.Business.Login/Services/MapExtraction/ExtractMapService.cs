@@ -58,19 +58,19 @@ namespace ExcelForce.Business.Services.MapExtraction
                 ?.OrderBy(x => x.DisplayName());
         }
 
-        public ServiceResponseModel<IEnumerable<string>> GetObjectNames()
+        public ServiceResponseModel<IEnumerable<SfObject>> GetObjects()
         {
             try
             {
                 var persistentObjectNames =
-                      _persistenceContainer.Get<IEnumerable<string>>(BusinessConstants.ObjectList);
+                      _persistenceContainer.Get<IEnumerable<SfObject>>(BusinessConstants.ObjectList);
 
                 if (persistentObjectNames != null)
                     return ServiceResponseModelFactory.GetModel(persistentObjectNames);
 
                 var authResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
-                var objectNames = _objectService.GetObjectNames(authResponse?.InstanceUrl, authResponse?.AccessToken);
+                var objectNames = _objectService.GetObjects(authResponse?.InstanceUrl, authResponse?.AccessToken);
 
                 _persistenceContainer?.Set(
                     BusinessConstants.ObjectList, objectNames);
@@ -82,7 +82,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 _loggerManager.LogError(ex.GetExceptionLog());
 
                 return ServiceResponseModelFactory
-                    .GetNullModelForReferenceType<IEnumerable<string>>("An error occurred while fetching object names");
+                    .GetNullModelForReferenceType<IEnumerable<SfObject>>("An error occurred while fetching object names");
             }
         }
     }
