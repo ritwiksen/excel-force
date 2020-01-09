@@ -67,7 +67,6 @@ namespace ExcelForce.Business.Services.MapExtraction
                 };
 
                 string selectedObjectName = SfObject.GetApiNameFromDisplayName(objectName);
-                string label = SfObject.GetObjectNameFromDisplayName(objectName);
 
                 if (!query.Objects.Any(x => x.Name .Equals(selectedObjectName)))
                 {
@@ -77,7 +76,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     {
                         IsPrimary = isPrimary,
                         ApiName = selectedObjectName,
-                        Name= label
+                        Name= SfObject.GetObjectNameFromDisplayName(objectName)
                     });
                 }
 
