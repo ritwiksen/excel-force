@@ -192,7 +192,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
-                var objects = _extractMapService.GetObjects();
+                var objects = _extractMapService.GetChildRelationships(contextObject);
 
                 if (objects.Messages?.Count > 0)
                 {
@@ -208,7 +208,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     SortExpression = objectDetails?.SortExpressions,
                     SearchExpression = objectDetails.FilterExpressions,
                     IsPrimary = objectDetails?.IsPrimary ?? false,
-                    ChildList = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x.Name) ?? false).Select(s=>s.Name)?.ToList()
+                    ChildList = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x.ObjectName) ?? false)?.Select(s=>s)?.ToList()
                 };
             }
             catch (Exception ex)
