@@ -193,6 +193,12 @@
     <Compile Include="Forms\ExtractionMap\ExtractionMapForm.Designer.cs">
       <DependentUpon>ExtractionMapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.Designer.cs">
+      <DependentUpon>UpdateExtractionMapObjForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ExtractionMap\Update\UpdateSearchSortExpressionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtractionMap\ExtractionMapForm.resx">
       <DependentUpon>ExtractionMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.resx">
+      <DependentUpon>UpdateExtractionMapObjForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtractionMap\Update\UpdateSearchSortExpressionForm.resx">
       <DependentUpon>UpdateSearchSortExpressionForm.cs</DependentUpon>
@@ -346,7 +355,9 @@
       <Name>ExcelForce.Foundation.ProfileManagement</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Forms\ExtractData\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
