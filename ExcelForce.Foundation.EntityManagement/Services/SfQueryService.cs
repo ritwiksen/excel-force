@@ -17,7 +17,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var queryObject = query.Query;
 
-            var resultQuery = GetQueryForReadableObject(query.Query.Parent);
+            var resultQuery = GetQueryForReadableObject(query.Query.Parent, true);
 
             if (queryObject.Children?.Any() ?? false)
             {
@@ -43,7 +43,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
         {
             var parentAdditionalContent = isParent ? ",[child]" : string.Empty;
 
-            var selectStatement = $"SELECT {string.Join(",", readableQueryObject?.Fields)}{parentAdditionalContent}";
+            var selectStatement = $"SELECT {string.Join(",", readableQueryObject?.Fields?.Select(x => x.Name))}{parentAdditionalContent}";
 
             var queryBuilder = new StringBuilder();
 
