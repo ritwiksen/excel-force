@@ -7,6 +7,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string Name { get; set; }
 
+        public string ApiName { get; set; }
+
         public IEnumerable<SfField> Fields { get; set; }
 
         public string FilterExpressions { get; set; }
@@ -15,8 +17,10 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 
         public bool IsPrimary { get; set; }
 
-        public IEnumerable<SfField> GetSystemFields() => Fields?.Where(x => !x.IsCustom);
+        public string DisplayName() => GetDisplayName(Name, ApiName);
+        public static string GetDisplayName(string name, string apiName) => $"{name} | {apiName}";
 
-        public IEnumerable<SfField> GetCustomFields() => Fields?.Where(x => x.IsCustom);
+        public static string GetObjectNameFromDisplayName(string objectName) => objectName != null && objectName.Split('|').Length > 0 ? objectName.Split('|')[0].Trim() : null;
+        public static string GetApiNameFromDisplayName(string objectName) => objectName != null ? (objectName.Split('|').Length > 1) ? objectName.Split('|')[1].Trim() : (objectName.Split('|').Length > 0 ? objectName.Split('|')[0].Trim():null):null;
     }
 }

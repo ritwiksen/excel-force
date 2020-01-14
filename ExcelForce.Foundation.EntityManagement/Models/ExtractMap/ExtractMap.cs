@@ -6,6 +6,6 @@ namespace ExcelForce.Foundation.EntityManagement.Models.ExtractMap
     {
         public string Name { get; set; }
 
-        public string Query { get; set; }
+        public ReadableMapExtract Query { get; set; }
     }
 }
