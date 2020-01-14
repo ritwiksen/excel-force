@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.Persi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B7659B03-5AFE-4449-AD3E-0D18F7586D47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{564957E3-6B91-4873-9853-CCC3A8720BE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelForce.Foundation.EntityManagement.Tests", "ExcelForce.Foundation.EntityManagement.Tests\ExcelForce.Foundation.EntityManagement.Tests.csproj", "{81444091-C4D5-49DC-A5CA-BACC7E43859B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,10 @@ Global
 		{F7451E8F-5ED8-4F43-B321-05BC371CB54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7451E8F-5ED8-4F43-B321-05BC371CB54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7451E8F-5ED8-4F43-B321-05BC371CB54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81444091-C4D5-49DC-A5CA-BACC7E43859B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81444091-C4D5-49DC-A5CA-BACC7E43859B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81444091-C4D5-49DC-A5CA-BACC7E43859B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81444091-C4D5-49DC-A5CA-BACC7E43859B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{A21C035D-CE32-40B9-ADD1-51458C2F0530} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 		{713C7659-54FC-4E1E-B0D6-B92D491E0D83} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
 		{F7451E8F-5ED8-4F43-B321-05BC371CB54C} = {666375C8-57B9-4022-B7FA-59E045DBC56E}
+		{81444091-C4D5-49DC-A5CA-BACC7E43859B} = {564957E3-6B91-4873-9853-CCC3A8720BE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F258FD4F-E49D-429D-B63D-EC6BD9A81187}

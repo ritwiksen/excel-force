@@ -1,10 +1,11 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 
 namespace ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces
 {
     public interface ISfQueryService
     {
-        string GetStringifiedQuery(SfQuery query);
+        string GetStringifiedQuery(ExtractMap query);
 
         SfQuery MapStringifiedQuery(string query);  
 
