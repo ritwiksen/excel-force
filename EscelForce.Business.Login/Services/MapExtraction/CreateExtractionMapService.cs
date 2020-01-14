@@ -13,7 +13,6 @@ using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ExcelForce.Business.Services.MapExtraction
 {
