@@ -13,6 +13,7 @@ using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.ExtractionMap.Update;
 
 namespace ExcelForce
 {
@@ -398,6 +399,24 @@ namespace ExcelForce
                 var extractionMapForm = new ExtractionMapForm(response?.Model);
 
                 extractionMapForm.Show();
+            }
+            else
+            {
+                //TODO:(RItwik):: Handle Error here
+            }
+        }
+
+        private void btnUpdateExtractionMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            var updateExtractionMapService = _excelForceServiceFactory.GetUpdateExtractionMapService();
+
+            var response = updateExtractionMapService.LoadMapSelectionScreen();
+
+            if (!(response.Messages?.Any() ?? false))
+            {
+                var updateExtractionMapForm = new UpdateExtractionMapForm(response?.Model);
+
+                updateExtractionMapForm.Show();
             }
             else
             {

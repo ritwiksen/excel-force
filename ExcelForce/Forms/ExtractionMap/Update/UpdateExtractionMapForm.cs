@@ -1,7 +1,9 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ExcelForce.Forms.ExtractionMap.Update
@@ -11,8 +13,31 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         public UpdateExtractionMapForm()
         {
             InitializeComponent();
+
         }
 
+        public UpdateExtractionMapForm(ObjectSelectionFormModel model)
+        {
+            InitializeComponent();
+
+            InitializeAutoComplete(model);
+        }
+        private void InitializeAutoComplete(ObjectSelectionFormModel model)
+        {
+            var stringCollection = new AutoCompleteStringCollection();
+
+            if (model?.ObjectNames?.Any() ?? false)
+            {
+                stringCollection.AddRange(model?.ObjectNames.ToArray());
+            }
+
+            updateSelectExtMap.AutoCompleteCustomSource = stringCollection;
+
+            if (!string.IsNullOrWhiteSpace(model?.selectedObjectName))
+            {
+                updateSelectExtMap.Text = model.selectedObjectName;
+            }
+        }
         private void btnNext_Click(object sender, EventArgs e)
         {
             var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;

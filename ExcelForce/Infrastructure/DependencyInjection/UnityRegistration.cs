@@ -96,6 +96,12 @@ namespace ExcelForce.Infrastructure.DependencyInjection
             container.RegisterType<ICreateExtractionMapService
                 , CreateExtractionMapService>();
 
+            container.RegisterType<IUpdateExtractionMapService
+               , UpdateExtractionMapService>();
+
+            container.RegisterType<IUpdateMapService
+               , UpdateMapService>();
+
             return container;
         }
 

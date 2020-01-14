@@ -11,5 +11,12 @@
         public const string ObjectList = "ObjectList";
 
         public const string AuthResponse = "AuthResponse";
+
+        public const string UpdateMapKey = "updateMap";
+
+        public const string MapList = "MapList";
+
+        public const string CurrentMapName = "mapName";
+
     }
 }

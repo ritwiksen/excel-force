@@ -15,12 +15,18 @@ namespace ExcelForce.Business.ServiceFactory
 
         private readonly IExtractMapService _extractMapService;
 
+        private readonly IUpdateMapService _updateMapService;
+
+        private readonly IUpdateExtractionMapService _updateExtractionMapService;
+
         public ExcelForceServiceFactory(
             IConfigurationInformationService configurationInfoService,
             ICreateExtractionMapService createExtractionMapService,
             IRibbonBaseService ribbonBaseService,
             IUserAuthenticationService userAuthenticationService,
-            IExtractMapService extractMapService)
+            IExtractMapService extractMapService,
+            IUpdateMapService updateMapService,
+            IUpdateExtractionMapService updateExtractionMapService)
         {
             _configurationInformationService = configurationInfoService;
 
@@ -31,6 +37,10 @@ namespace ExcelForce.Business.ServiceFactory
             _userAuthenticationService = userAuthenticationService;
 
             _extractMapService = extractMapService;
+
+            _updateMapService = updateMapService;
+
+            _updateExtractionMapService = updateExtractionMapService;
         }
 
         public IConfigurationInformationService GetConnectionProfileService() => _configurationInformationService;
@@ -42,5 +52,9 @@ namespace ExcelForce.Business.ServiceFactory
         public IUserAuthenticationService GetUserAuthenticationService() => _userAuthenticationService;
 
         public IExtractMapService GetExtractMapService() => _extractMapService;
+
+        public IUpdateMapService GetUpdateMapService() => _updateMapService;
+
+        public IUpdateExtractionMapService GetUpdateExtractionMapService() => _updateExtractionMapService;
     }
 }
