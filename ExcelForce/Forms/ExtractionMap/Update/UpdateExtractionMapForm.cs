@@ -1,5 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
-using ExcelForce.Forms.ExtractionMapObj.Update;
+//using ExcelForce.Forms.ExtractionMapFields.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -41,6 +41,10 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         }
         private void btnNext_Click(object sender, EventArgs e)
         {
+            var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm();
+
+            updateExtractionMapFieldsForm.Show();
+            /*
             var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
@@ -57,7 +61,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 if (fieldListResponse.IsValid())
                 {
 
-                    var updateExtractionMapFieldsForm = new UpdateExtractionMapObjForm(
+                   var updateExtractionMapFieldsForm = new UpdateExtractionMapObjForm(
                           fieldListResponse.Model.ObjectName,
                           fieldListResponse?.Model.AvailableFields,
                           fieldListResponse?.Model.SfFields);
@@ -72,7 +76,12 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             else
             {
                 //TODO:(Show error message);
-            }
+            }*/
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

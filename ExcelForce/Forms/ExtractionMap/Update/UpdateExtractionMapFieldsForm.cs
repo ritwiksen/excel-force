@@ -21,7 +21,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             IList<SfField> availableFields,
             IList<SfField> allFields) : this()
         {
-            updateSelectExtMap.Text = selectedObject;
+            //updateSelectExtMap.Text = selectedObject;
 
             _availableFields = availableFields;
 
@@ -52,7 +52,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             {
                 foreach (var item in fields)
                 {
-                    checkedFieldList.Items.Add(item.DisplayName(), isChecked);
+                  //  checkedFieldList.Items.Add(item.DisplayName(), isChecked);
                 }
             }
         }
@@ -60,6 +60,11 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
