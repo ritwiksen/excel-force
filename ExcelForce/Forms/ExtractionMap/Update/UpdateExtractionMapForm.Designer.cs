@@ -31,8 +31,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
-            this.updateSelectExtMap = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.updateSelectExtMap = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -68,18 +68,6 @@
             this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // updateSelectExtMap
-            // 
-            this.updateSelectExtMap.DropDownHeight = 120;
-            this.updateSelectExtMap.FormattingEnabled = true;
-            this.updateSelectExtMap.IntegralHeight = false;
-            this.updateSelectExtMap.ItemHeight = 20;
-            this.updateSelectExtMap.Location = new System.Drawing.Point(28, 106);
-            this.updateSelectExtMap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.updateSelectExtMap.Name = "updateSelectExtMap";
-            this.updateSelectExtMap.Size = new System.Drawing.Size(494, 28);
-            this.updateSelectExtMap.TabIndex = 12;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(39, 306);
@@ -90,6 +78,18 @@
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // updateSelectExtMap
+            // 
+            this.updateSelectExtMap.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.updateSelectExtMap.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.updateSelectExtMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.updateSelectExtMap.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateSelectExtMap.Location = new System.Drawing.Point(28, 114);
+            this.updateSelectExtMap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.updateSelectExtMap.Name = "updateSelectExtMap";
+            this.updateSelectExtMap.Size = new System.Drawing.Size(494, 34);
+            this.updateSelectExtMap.TabIndex = 13;
+            // 
             // UpdateExtractionMapForm
             // 
             this.AcceptButton = this.btnNext;
@@ -98,8 +98,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(566, 381);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.updateSelectExtMap);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
@@ -120,7 +120,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.ComboBox updateSelectExtMap;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.TextBox updateSelectExtMap;
     }
 }
