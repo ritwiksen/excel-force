@@ -63,6 +63,7 @@
     <Compile Include="Models\ExtractMap\ExtractMap.cs" />
     <Compile Include="Models\ExtractMap\ReadableMapExtract.cs" />
     <Compile Include="Models\ExtractMap\ReadableObject.cs" />
+    <Compile Include="Models\SfEntities\SfDisplayData.cs" />
     <Compile Include="Models\SfEntities\SfField.cs" />
     <Compile Include="Models\SfEntities\SfObject.cs" />
     <Compile Include="Models\SfEntities\SfQuery.cs" />
