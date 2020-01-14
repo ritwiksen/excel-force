@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using System;
 using System.Collections.Generic;
@@ -9,34 +10,52 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 {
     public class SfQueryService : ISfQueryService
     {
-        public string GetStringifiedQuery(SfQuery query)
+        public string GetStringifiedQuery(ExtractMap query)
         {
-            var itemList = GetItemListForQuery(query);
+            if (query?.Query == null)
+                throw new ArgumentNullException("query cannot be null");
 
-            var selectStatementBuilder = new StringBuilder();
+            var queryObject = query.Query;
 
-            selectStatementBuilder = selectStatementBuilder.Append($"SELECT {itemList} FROM {query.GetParentObject()?.Name}");
+            var resultQuery = GetQueryForReadableObject(query.Query.Parent, true);
 
-            var filterExpression = GetSearchExpression(query);
-
-            if (!string.IsNullOrWhiteSpace(filterExpression))
+            if (queryObject.Children?.Any() ?? false)
             {
-                selectStatementBuilder = selectStatementBuilder.Append($" WHERE {filterExpression}");
+                var childQueries = query.Query?.Children
+                    ?.Select(x => $"({GetQueryForReadableObject(x)})");
+
+                resultQuery = resultQuery.Replace("[child]", string.Join(",", childQueries));
+            }
+            else
+            {
+                resultQuery = resultQuery.Replace(",[child]", string.Empty);
             }
 
-            var sortExpression = GetSortExpression(query);
-
-            if (!string.IsNullOrWhiteSpace(sortExpression))
-            {
-                selectStatementBuilder = selectStatementBuilder.Append($" ORDER BY {sortExpression}");
-            }
-
-            return selectStatementBuilder?.ToString();
+            return resultQuery;
         }
 
         public bool IsValidQuery(SfQuery query)
         {
             throw new NotImplementedException();
+        }
+
+        private string GetQueryForReadableObject(ReadableObject readableQueryObject, bool isParent = false)
+        {
+            var parentAdditionalContent = isParent ? ",[child]" : string.Empty;
+
+            var selectStatement = $"SELECT {string.Join(",", readableQueryObject?.Fields?.Select(x => x.Name))}{parentAdditionalContent}";
+
+            var queryBuilder = new StringBuilder();
+
+            queryBuilder.Append($"{selectStatement} FROM {readableQueryObject.Label}");
+
+            if (!string.IsNullOrWhiteSpace(readableQueryObject?.SearchFilter))
+                queryBuilder.Append($" WHERE {readableQueryObject.SearchFilter}");
+
+            if (!string.IsNullOrWhiteSpace(readableQueryObject?.SearchFilter))
+                queryBuilder.Append($" ORDER BY {readableQueryObject.SortFilter}");
+
+            return queryBuilder.ToString();
         }
 
         public SfQuery MapStringifiedQuery(string query)
@@ -83,7 +102,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             if (query.GetChildren()?.Any(x => !string.IsNullOrWhiteSpace(x.FilterExpressions)) ?? false)
             {
-                var childItemExpressions = string.Join("AND ", 
+                var childItemExpressions = string.Join("AND ",
                     query.GetChildren()?.Where(x => string.IsNullOrWhiteSpace(x.FilterExpressions))?.Select(x => x.FilterExpressions));
 
                 if (!string.IsNullOrWhiteSpace(childItemExpressions))
