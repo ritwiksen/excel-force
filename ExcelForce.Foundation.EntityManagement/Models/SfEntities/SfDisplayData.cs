@@ -8,6 +8,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
     {
         public string ItemUrl { get; set; }
 
+        public string ObjectName { get; set; }
+
         private Hashtable DisplayData { get; set; }
 
         public void SetData<T>(string key, T value)
