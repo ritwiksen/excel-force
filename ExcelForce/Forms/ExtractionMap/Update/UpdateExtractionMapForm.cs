@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.ExtractionMapObj.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -55,12 +56,13 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
                 if (fieldListResponse.IsValid())
                 {
-                    var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(
+
+                    var updateExtractionMapFieldsForm = new UpdateExtractionMapObjForm(
                           fieldListResponse.Model.ObjectName,
-                          null,
+                          fieldListResponse?.Model.AvailableFields,
                           fieldListResponse?.Model.SfFields);
 
-                    updateExtractionMapFieldsForm.Show(); 
+                    updateExtractionMapFieldsForm.Show();
                 }
                 else
                 {

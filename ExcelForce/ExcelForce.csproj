@@ -199,6 +199,12 @@
     <Compile Include="Forms\ExtractionMap\Update\UpdateExtractionMapForm.Designer.cs">
       <DependentUpon>UpdateExtractionMapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.designer.cs">
+      <DependentUpon>UpdateExtractionMapObjForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ExtractionMap\Update\UpdateSearchSortExpressionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtractionMap\Update\UpdateExtractionMapForm.resx">
       <DependentUpon>UpdateExtractionMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMap\Update\UpdateExtractionMapObjForm.resx">
+      <DependentUpon>UpdateExtractionMapObjForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtractionMap\Update\UpdateSearchSortExpressionForm.resx">
       <DependentUpon>UpdateSearchSortExpressionForm.cs</DependentUpon>
