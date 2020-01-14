@@ -42,25 +42,25 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         {
             var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
-            var createExtractionService = serviceFactory.GetCreateExtractMapService();
+            var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
 
-            var result = createExtractionService
+            var result = updateExtractionService
                 .SubmitOnObjectSelection(updateSelectExtMap.Text);
 
             if (result.IsValid() && result.Model)
             {
                 Close();
 
-                var fieldListResponse = createExtractionService.LoadActionsOnFieldList();
+                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
 
                 if (fieldListResponse.IsValid())
                 {
-                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                    var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(
                           fieldListResponse.Model.ObjectName,
                           null,
                           fieldListResponse?.Model.SfFields);
 
-                    extractionMapFieldsForm.Show(); 
+                    updateExtractionMapFieldsForm.Show(); 
                 }
                 else
                 {
