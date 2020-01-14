@@ -30,12 +30,14 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfObjectService _sfObjectService;
 
+        private readonly IReadableExtractMapService _readableExtractMapService;
         public UpdateExtractionMapService(IPersistenceContainer container,
             ILoggerManager loggerManager,
             IUpdateMapService updateMapService,
             IExcelForceRepository<ExtractMap, string> extractMapRepository,
             ISfQueryService sfQueryService,
-            ISfObjectService sfObjectService)
+            ISfObjectService sfObjectService,
+            IReadableExtractMapService readableExtractMapService)
         {
             _persistenceContainer = container;
 
@@ -48,6 +50,8 @@ namespace ExcelForce.Business.Services.MapExtraction
             _sfQueryService = sfQueryService;
 
             _sfObjectService = sfObjectService;
+
+            _readableExtractMapService = readableExtractMapService;
         }
 
         public ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName)
@@ -230,6 +234,7 @@ namespace ExcelForce.Business.Services.MapExtraction
         public ServiceResponseModel<bool> SubmitParameterSelectionScreen(
             SearchSortExtractionModel model)
         {
+
             try
             {
                 var contextObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
@@ -244,7 +249,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 queryObject.Name = model?.MapName;
 
-                var query = _sfQueryService.GetStringifiedQuery(queryObject);
+                var query = _readableExtractMapService.GetContentFromQuery(queryObject);
 
                 var addRecordResult = _updateMapRepository.AddRecord(new ExtractMap
                 {
