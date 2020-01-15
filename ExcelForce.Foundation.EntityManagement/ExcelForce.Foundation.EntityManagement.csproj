@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityManagementConstants.cs" />
     <Compile Include="Infrastructure\CustomSerializers\SfDisplayDataSerializer.cs" />
     <Compile Include="Interfaces\ISfField.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\IReadableExtractMapService.cs" />

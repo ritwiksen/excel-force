@@ -8,9 +8,6 @@ namespace ExcelForce.Foundation.EntityManagement.Infrastructure.CustomSerializer
 {
     public class SfDisplayDataSerializer : JsonConverter
     {
-        private static readonly string _sfEntitySchema
-            = @"{'type': 'object','properties': {'totalSize': {'type':'integer','required':'true'},'done': {'type': 'boolean','required':'true'}}}";
-
         public override bool CanConvert(Type objectType)
         {
             return objectType == typeof(SfExtractDataWrapper);
@@ -89,6 +86,7 @@ namespace ExcelForce.Foundation.EntityManagement.Infrastructure.CustomSerializer
             return Tuple.Create(type, listData);
         }
 
-        private static JsonSchema GetJsonSchema() => JsonSchema.Parse(_sfEntitySchema);
+        private static JsonSchema GetJsonSchema() => JsonSchema.Parse(
+            EntityManagementConstants.SfEntitySchema);
     }
 }
