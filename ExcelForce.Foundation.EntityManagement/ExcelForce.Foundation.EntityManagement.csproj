@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\CustomSerializers\SfDisplayDataSerializer.cs" />
     <Compile Include="Interfaces\ISfField.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\IReadableExtractMapService.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\ISfAttributeService.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Models\ExtractMap\ExtractMap.cs" />
     <Compile Include="Models\ExtractMap\ReadableMapExtract.cs" />
     <Compile Include="Models\ExtractMap\ReadableObject.cs" />
+    <Compile Include="Models\ExtractMap\SfExtractDataModel.cs" />
+    <Compile Include="Models\ExtractMap\SfExtractDataWrapper.cs" />
     <Compile Include="Models\SfEntities\SfDisplayData.cs" />
     <Compile Include="Models\SfEntities\SfField.cs" />
     <Compile Include="Models\SfEntities\SfObject.cs" />
