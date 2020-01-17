@@ -181,6 +181,18 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Forms\ExtractionMap\ExtractData\ExtractMapViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMap\ExtractData\ExtractMapViewer.Designer.cs">
+      <DependentUpon>ExtractMapViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExtractionMap\ExtractData\MapSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExtractionMap\ExtractData\MapSelector.Designer.cs">
+      <DependentUpon>MapSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ExtractionMap\ExtractionMapFieldsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +255,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConnectionInformationForm.resx">
       <DependentUpon>ConnectionInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMap\ExtractData\ExtractMapViewer.resx">
+      <DependentUpon>ExtractMapViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExtractionMap\ExtractData\MapSelector.resx">
+      <DependentUpon>MapSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExtractionMap\ExtractionMapFieldsForm.resx">
       <DependentUpon>ExtractionMapFieldsForm.cs</DependentUpon>
