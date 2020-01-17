@@ -1,5 +1,6 @@
 ﻿using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +103,30 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            var extractDataService = Reusables.Instance.ExcelForceServiceFactory?.GetExtractDataService();
 
+            if (extractDataService != null)
+            {
+                var extractDataFormResponse = extractDataService.GetExtractMapSelectionFormModel();
+
+                if (extractDataFormResponse.IsValid())
+                {
+                    Close();
+
+                    var extractDataStartForm = new MapSelector(
+                        extractDataFormResponse.Model);
+
+                    extractDataStartForm.Show();
+                }
+                else
+                {
+                    //TODO::(Handle error scenario)
+                }
+            }
+            else
+            {
+                //TODO::(Handle error scenario)
+            }
         }
     }
 }
