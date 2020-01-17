@@ -12,7 +12,7 @@ using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
-using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.ExtractionMap.ExtractData;
 
 namespace ExcelForce
 {
@@ -296,7 +296,8 @@ namespace ExcelForce
             var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
 
             var response = profileService.Logout();
-            if (response.Messages == null) {
+            if (response.Messages == null)
+            {
                 _ribbonBase.btnLogin.Visible = true;
                 _ribbonBase.btnLogout.Visible = false;
                 _ribbonBase.connectionProfileSplitButton.Visible = true;
@@ -307,37 +308,50 @@ namespace ExcelForce
                 _ribbonBase.btnUpdate.Enabled = false;
                 _ribbonBase.btnDelete.Enabled = false;
             }
-           /* HttpClient LogoutCall = new HttpClient();
-            String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
-            var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
-            request.Headers.Add("Authorization", "Bearer " + authToken);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            request.Headers.Add("X-PrettyPrint", "1");
-            var response = LogoutCall.SendAsync(request).Result;
-            if (response.IsSuccessStatusCode)
-            {
+            /* HttpClient LogoutCall = new HttpClient();
+             String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
+             var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
+             request.Headers.Add("Authorization", "Bearer " + authToken);
+             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+             request.Headers.Add("X-PrettyPrint", "1");
+             var response = LogoutCall.SendAsync(request).Result;
+             if (response.IsSuccessStatusCode)
+             {
 
-                dropDown1.SelectedItemIndex = -1;
-                dropDown1.Items.Clear();
-                objectSelected = "";
-                operationSelected = "";
-                MessageBox.Show("Logged out successfully");
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong");
-            }
+                 dropDown1.SelectedItemIndex = -1;
+                 dropDown1.Items.Clear();
+                 objectSelected = "";
+                 operationSelected = "";
+                 MessageBox.Show("Logged out successfully");
+             }
+             else
+             {
+                 MessageBox.Show("Something went wrong");
+             }
 
-            btnLogin.Visible = true;
-            btnLogout.Visible = false;
-            btnCreateExtractionMap.Enabled = false;
-            button7.Enabled = false;
-            button8.Enabled = false;*/
+             btnLogin.Visible = true;
+             btnLogout.Visible = false;
+             btnCreateExtractionMap.Enabled = false;
+             button7.Enabled = false;
+             button8.Enabled = false;*/
         }
 
         private void button8_Click(object sender, RibbonControlEventArgs e)
         {
+            var extractDataService = Reusables.Instance.ExcelForceServiceFactory.GetExtractDataService();
 
+            var mapSelectorModelResponse = extractDataService.GetExtractMapSelectionFormModel();
+
+            if (mapSelectorModelResponse.IsValid())
+            {
+                var extractDataForm = new MapSelector(mapSelectorModelResponse?.Model);
+
+                extractDataForm.Show();
+            }
+            else
+            {
+                //TODO::Handle error scenario
+            }
         }
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)

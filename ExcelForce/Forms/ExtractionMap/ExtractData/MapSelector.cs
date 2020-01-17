@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using ExcelForce.Business.Models.ExtractionMap.ExtractData;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExcelForce.Forms.ExtractionMap.ExtractData
@@ -17,5 +12,33 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
             InitializeComponent();
         }
 
+        public MapSelector(ExtractMapSelectionFormModel model)
+        {
+            InitializeComponent();
+
+            InitializeAutoComplete(model);
+        }
+
+        private void InitializeAutoComplete(ExtractMapSelectionFormModel model)
+        {
+            var stringCollection = new AutoCompleteStringCollection();
+
+            if (model?.ExtractMapNames?.Any() ?? false)
+            {
+                stringCollection.AddRange(model?.ExtractMapNames.ToArray());
+            }
+
+            txtExtractMap.AutoCompleteCustomSource = stringCollection;
+
+            if (!string.IsNullOrWhiteSpace(model?.SelectedExtractMap))
+            {
+                txtExtractMap.Text = model.SelectedExtractMap;
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
