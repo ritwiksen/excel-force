@@ -1,9 +1,11 @@
-﻿using ExcelForce.Business.Interfaces;
+﻿using ExcelForce.Business.Constants;
+using ExcelForce.Business.Interfaces;
 using ExcelForce.Business.Models.ExtractionMap.ExtractData;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
+using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace ExcelForce.Business.Services.MapExtraction
     public class ExtractDataService : IExtractDataService
     {
         private readonly IExcelForceRepository<ExtractMap, string> _excelForceRepository;
+
+        private readonly IPersistenceContainer _persistenceContainer;
 
         private readonly ILoggerManager _loggerManager;
 
@@ -32,6 +36,8 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
+                _persistenceContainer.Set<string>(BusinessConstants.ExtractDataKey, null);
+
                 extractMaps = new ExtractMapSelectionFormModel
                 {
                     ExtractMapNames = _excelForceRepository.GetRecords()?.Select(x => x.Name)?.ToList()
@@ -46,6 +52,28 @@ namespace ExcelForce.Business.Services.MapExtraction
             {
                 Messages = errorList,
                 Model = extractMaps
+            };
+        }
+
+        public ServiceResponseModel<bool> SubmitExtractMapSelection(string extractMap)
+        {
+            bool response = false;
+
+            List<string> errorList = null;
+
+            try
+            {
+                _persistenceContainer.Set(BusinessConstants.ExtractDataKey, extractMap);
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, "An error occurred while Submitting the Map selection form ", errorList);
+            }
+
+            return new ServiceResponseModel<bool>
+            {
+                Messages = errorList,
+                Model = response
             };
         }
 

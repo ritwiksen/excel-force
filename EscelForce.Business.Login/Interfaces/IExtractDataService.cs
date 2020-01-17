@@ -6,5 +6,7 @@ namespace ExcelForce.Business.Interfaces
     public interface IExtractDataService
     {
         ServiceResponseModel<ExtractMapSelectionFormModel> GetExtractMapSelectionFormModel();
+
+        ServiceResponseModel<bool> SubmitExtractMapSelection(string extractMap);
     }
 }

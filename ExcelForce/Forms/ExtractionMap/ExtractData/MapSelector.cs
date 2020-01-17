@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap.ExtractData;
+using ExcelForce.Models;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,7 +39,16 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            var extractDataService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetExtractDataService();
 
+            var submitFormResponse
+                = extractDataService.SubmitExtractMapSelection(txtExtractMap.Text?.Trim());
+
+            if (submitFormResponse?.IsValid() ?? false)
+            {
+
+            }
         }
     }
 }
