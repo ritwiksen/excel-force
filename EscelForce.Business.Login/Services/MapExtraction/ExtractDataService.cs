@@ -21,11 +21,47 @@ namespace ExcelForce.Business.Services.MapExtraction
         private readonly ILoggerManager _loggerManager;
 
         public ExtractDataService(IExcelForceRepository<ExtractMap, string> excelForceRepository,
+            IPersistenceContainer persistenceContainer,
             ILoggerManager loggerManager)
         {
             _excelForceRepository = excelForceRepository;
 
             _loggerManager = loggerManager;
+
+            _persistenceContainer = persistenceContainer;
+        }
+
+        public ServiceResponseModel<ReadableMapExtract> GetEtxractMapViewerFormModel()
+        {
+            List<string> errorList = null;
+
+            ReadableMapExtract readableMapExtract = null;
+
+            try
+            {
+                var savedMapName = _persistenceContainer.Get<string>(BusinessConstants.ExtractDataKey);
+
+                var extractMaps = _excelForceRepository.GetRecords();
+
+                var matchingMap = extractMaps?.FirstOrDefault(x => string.Equals(savedMapName, x.Name));
+
+                if (matchingMap == null)
+                {
+                    throw new InvalidOperationException("No matching map records found");
+                }
+
+                readableMapExtract = matchingMap?.Query;
+            }
+            catch (Exception ex)
+            {
+                LogException(ex, "An error occurred while loading the Map viewer form ", errorList);
+            }
+
+            return new ServiceResponseModel<ReadableMapExtract>
+            {
+                Messages = errorList,
+                Model = readableMapExtract
+            };
         }
 
         public ServiceResponseModel<ExtractMapSelectionFormModel> GetExtractMapSelectionFormModel()

@@ -47,7 +47,24 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
 
             if (submitFormResponse?.IsValid() ?? false)
             {
+                var loadMapViewerResponse = extractDataService.GetEtxractMapViewerFormModel();
 
+                if (loadMapViewerResponse?.IsValid() ?? false)
+                {
+                    Close();
+
+                    var mapViewerForm = new ExtractMapViewer(loadMapViewerResponse?.Model);
+
+                    mapViewerForm.Show();
+                }
+                else
+                {
+                    //TODO:: Show bad data
+                }
+            }
+            else
+            {
+                //TODO:: Show bad data
             }
         }
     }

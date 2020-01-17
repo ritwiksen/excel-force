@@ -18,6 +18,8 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
         public ExtractMapViewer(ReadableMapExtract mapExtract) : this()
         {
             _treeViewSource = mapExtract;
+
+            LoadTreeView();
         }
 
         private void btnExtract_Click(object sender, EventArgs e)
@@ -29,17 +31,13 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
         {
             var parent = _treeViewSource.Parent;
 
-            var parentNode = GetTreeNode("Parent");
+            var parentNode = GetTreeNode(parent.Label);
 
             parentNode = GetNodes(parentNode, parent, true);
 
             parentNode = ConstructChildren(parentNode);
 
-            var objectNode = GetTreeNode("Object");
-
-            objectNode.Nodes.Add(parentNode);
-
-            treeViewObject.Nodes.Add(objectNode);
+            treeViewObject.Nodes.Add(parentNode);
 
             treeViewObject.ExpandAll();
         }
