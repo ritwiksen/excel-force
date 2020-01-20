@@ -13,6 +13,8 @@ using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.ExtractData;
+using Microsoft.Office.Tools.Excel;
+using System.Threading.Tasks;
 
 namespace ExcelForce
 {
@@ -417,6 +419,74 @@ namespace ExcelForce
             {
                 //TODO:(RItwik):: Handle Error here
             }
+        }
+
+        private void btnTest_Click(object sender, RibbonControlEventArgs e)
+        {
+            var parent = new List<Dictionary<string, string>>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                parent.Add(new Dictionary<string, string>
+                {
+                    { "key1","key"},
+                    { "key2","key2"},
+                      { "key3","key"},
+                    { "key4","key2"},
+                      { "key6","key"},
+                    { "key5","key2"},
+                      { "key7","key"},
+                    { "key8","key2"},
+                      { "key9","key"},
+                    { "key10","key2"},
+                      { "key11","key"},
+                    { "key12","key2"}
+                });
+            }
+
+            Task t = new Task(() =>
+            {
+                var worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveSheet);
+                PopulateWorksheet(worksheet, parent);
+
+            });
+
+            t.Start();
+
+         //   Worksheet worksheet123 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+
+            Task t1 = new Task(() =>
+            {
+                Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+                PopulateWorksheet(worksheet, parent);
+            });
+
+            t1.Start();
+
+            //Task t2 = new Task(() =>
+            //{
+            //    Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            //    PopulateWorksheet(worksheet, parent);
+            //});
+
+            //t2.Start();
+        }
+
+        private static bool PopulateWorksheet(Worksheet worksheet, List<Dictionary<string, string>> parent)
+        {
+            for (int i = 0; i < parent.Count; i++)
+            {
+                for (var j = 0; j < parent[i].Count; j++)
+                {
+                    var dictionaryItem = parent[i];
+                    worksheet.Cells[i + 1, j + 1] = parent[i].ElementAt(j).Value;
+                }
+            }
+
+            return true;
         }
     }
 }

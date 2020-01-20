@@ -86,6 +86,7 @@ namespace ExcelForce
             this.btnUpdate = this.Factory.CreateRibbonButton();
             this.separator4 = this.Factory.CreateRibbonSeparator();
             this.btnDelete = this.Factory.CreateRibbonButton();
+            this.btnTest = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group2.SuspendLayout();
             this.groupActions.SuspendLayout();
@@ -249,6 +250,7 @@ namespace ExcelForce
             this.groupCRUD.Items.Add(this.separator3);
             this.groupCRUD.Items.Add(this.btnUpdate);
             this.groupCRUD.Items.Add(this.separator4);
+            this.groupCRUD.Items.Add(this.btnTest);
             this.groupCRUD.Items.Add(this.btnDelete);
             this.groupCRUD.Label = "DML Operations (CRUD)";
             this.groupCRUD.Name = "groupCRUD";
@@ -287,6 +289,12 @@ namespace ExcelForce
             this.btnDelete.Label = "Delete";
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShowImage = true;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Label = "Test Button";
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnTest_Click);
             // 
             // ExcelForce
             // 
@@ -334,6 +342,7 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpdate;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDelete;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnTest;
     }
 
     partial class ThisRibbonCollection
