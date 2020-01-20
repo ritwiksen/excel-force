@@ -45,9 +45,11 @@
     <Compile Include="Interfaces\IConfigurationInformationService.cs" />
     <Compile Include="Interfaces\ICreateExtractionMapService.cs" />
     <Compile Include="Interfaces\IExcelForceServiceFactory.cs" />
+    <Compile Include="Interfaces\IExtractDataService.cs" />
     <Compile Include="Interfaces\IExtractMapService.cs" />
     <Compile Include="Interfaces\IRibbonBaseService.cs" />
     <Compile Include="Interfaces\IUserAuthenticationService.cs" />
+    <Compile Include="Models\ExtractionMap\ExtractData\ExtractMapSelectionFormModel.cs" />
     <Compile Include="Models\ExtractionMap\FieldSelectionModel.cs" />
     <Compile Include="Models\ExtractionMap\ObjectSelectionFormModel.cs" />
     <Compile Include="Models\ExtractionMap\ParameterSelectionModel.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="ServiceFactory\ServiceResponseModelFactory.cs" />
     <Compile Include="Services\ConfigurationInformation\ConfigurationInformationService.cs" />
     <Compile Include="Services\MapExtraction\CreateExtractionMapService.cs" />
+    <Compile Include="Services\MapExtraction\ExtractDataService.cs" />
     <Compile Include="Services\MapExtraction\ExtractMapService.cs" />
     <Compile Include="Services\RibbonBase\RibbonBaseService.cs" />
     <Compile Include="Services\UserAuthentication\UserAuthenticationService.cs" />

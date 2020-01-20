@@ -16,8 +16,7 @@ namespace ExcelForce
         {
 
             DataTable tester = JsonConvert.DeserializeObject<DataTable>(trgArray.ToString());
-            worksheet = Globals.Factory.GetVstoObject(
-                   this.Application.ActiveWorkbook.ActiveSheet);
+            worksheet = Globals.Factory.GetVstoObject(this.Application.ActiveWorkbook.ActiveSheet);
 
             worksheet.Controls.Remove("list1");
             //Excel.Range selection = Globals.ThisAddIn.Application.Selection as Excel.Range;

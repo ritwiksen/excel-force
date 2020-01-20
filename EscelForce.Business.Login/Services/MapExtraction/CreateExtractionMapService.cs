@@ -225,7 +225,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private void LogException(Exception ex, string errorMessage, IList<string> errorList)
         {
-            errorList.Add("An error occurred while fetching field details");
+            errorList.Add(errorMessage);
 
             _loggerManager.LogError($"{ex.Message} {ex.StackTrace}");
         }

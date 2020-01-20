@@ -11,5 +11,7 @@
         ICreateExtractionMapService GetCreateExtractMapService();
 
         IExtractMapService GetExtractMapService();
+
+        IExtractDataService GetExtractDataService();
     }
 }
