@@ -1,7 +1,10 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Business.Models.ExtractionMap;
+//using ExcelForce.Forms.ExtractionMapFields.Update;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ExcelForce.Forms.ExtractionMap.Update
@@ -11,41 +14,60 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         public UpdateExtractionMapForm()
         {
             InitializeComponent();
+
         }
 
+        public UpdateExtractionMapForm(ObjectSelectionFormModel model)
+        {
+            InitializeComponent();
+
+            InitializeAutoComplete(model);
+        }
+        private void InitializeAutoComplete(ObjectSelectionFormModel model)
+        {
+            var stringCollection = new AutoCompleteStringCollection();
+
+            if (model?.ObjectNames?.Any() ?? false)
+            {
+                stringCollection.AddRange(model?.ObjectNames.ToArray());
+            }
+
+            updateSelectExtMap.AutoCompleteCustomSource = stringCollection;
+
+            if (!string.IsNullOrWhiteSpace(model?.selectedObjectName))
+            {
+                updateSelectExtMap.Text = model.selectedObjectName;
+            }
+        }
         private void btnNext_Click(object sender, EventArgs e)
         {
+            
+            
             var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
-            var createExtractionService = serviceFactory.GetCreateExtractMapService();
+            var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
 
-            var result = createExtractionService
-                .SubmitOnObjectSelection(updateSelectExtMap.Text);
+            var result = updateExtractionService
+                .SubmitOnMapSelection(updateSelectExtMap.Text);
 
-            if (result.IsValid() && result.Model)
+            if (result.IsValid())
             {
                 Close();
 
-                var fieldListResponse = createExtractionService.LoadActionsOnFieldList();
+                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(result.Model);
 
-                if (fieldListResponse.IsValid())
-                {
-                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                          fieldListResponse.Model.ObjectName,
-                          null,
-                          fieldListResponse?.Model.SfFields);
-
-                    extractionMapFieldsForm.Show(); 
-                }
-                else
-                {
-                    //TODO:(Show error message);
-                }
+                updateExtractionMapFieldsForm.Show();
+                
             }
             else
             {
                 //TODO:(Show error message);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

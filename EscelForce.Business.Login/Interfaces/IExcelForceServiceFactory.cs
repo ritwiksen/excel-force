@@ -13,5 +13,9 @@
         IExtractMapService GetExtractMapService();
 
         IExtractDataService GetExtractDataService();
+
+        IUpdateExtractionMapService GetUpdateExtractionMapService();
+
+        IUpdateMapService GetUpdateMapService();
     }
 }

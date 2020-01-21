@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Constants\BusinessConstants.cs" />
     <Compile Include="Interfaces\IConfigurationInformationService.cs" />
+    <Compile Include="Interfaces\IUpdateMapService.cs" />
+    <Compile Include="Interfaces\IUpdateExtractionMapService.cs" />
     <Compile Include="Interfaces\ICreateExtractionMapService.cs" />
     <Compile Include="Interfaces\IExcelForceServiceFactory.cs" />
     <Compile Include="Interfaces\IExtractDataService.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="ServiceFactory\ExcelForceServiceFactory.cs" />
     <Compile Include="ServiceFactory\ServiceResponseModelFactory.cs" />
     <Compile Include="Services\ConfigurationInformation\ConfigurationInformationService.cs" />
+    <Compile Include="Services\MapExtraction\UpdateMapService.cs" />
+    <Compile Include="Services\MapExtraction\UpdateExtractionMapService.cs" />
     <Compile Include="Services\MapExtraction\CreateExtractionMapService.cs" />
     <Compile Include="Services\MapExtraction\ExtractDataService.cs" />
     <Compile Include="Services\MapExtraction\ExtractMapService.cs" />

@@ -15,6 +15,8 @@ using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.ExtractData;
 using Microsoft.Office.Tools.Excel;
 using System.Threading.Tasks;
+using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.ExtractionMap.Update;
 
 namespace ExcelForce
 {
@@ -487,6 +489,23 @@ namespace ExcelForce
             }
 
             return true;
+        }
+        private void btnUpdateExtractionMap_Click(object sender, RibbonControlEventArgs e)
+        {
+            var updateExtractionMapService = _excelForceServiceFactory.GetUpdateExtractionMapService();
+
+            var response = updateExtractionMapService.LoadMapSelectionScreen();
+
+            if (!(response.Messages?.Any() ?? false))
+            {
+                var updateExtractionMapForm = new UpdateExtractionMapForm(response?.Model);
+
+                updateExtractionMapForm.Show();
+            }
+            else
+            {
+                //TODO:(RItwik):: Handle Error here
+            }
         }
     }
 }
