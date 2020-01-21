@@ -118,7 +118,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 Model = response
             };
         }
-        public void getDataFromExtractMap() {
+        public void GetDataFromExtractMap() {
 
             List<string> errorList = null;
             

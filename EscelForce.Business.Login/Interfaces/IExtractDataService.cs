@@ -12,7 +12,7 @@ namespace ExcelForce.Business.Interfaces
 
         ServiceResponseModel<ReadableMapExtract> GetEtxractMapViewerFormModel();
 
-        void getDataFromExtractMap();
+        void GetDataFromExtractMap();
 
 
     }

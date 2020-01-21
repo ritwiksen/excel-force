@@ -28,7 +28,7 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
             var extractDataService
                  = Reusables.Instance.ExcelForceServiceFactory?.GetExtractDataService();
 
-            extractDataService.getDataFromExtractMap();
+            extractDataService.GetDataFromExtractMap();
            
         }
 
