@@ -23,8 +23,8 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             _updateMap = updateMap;
             updateSelectMap2.Text = updateMap.Name;
             parentObjectName.Text = updateMap.ParentObject.ApiName;
-            childObject1.Text = updateMap.ChildObjects.First().DisplayName();
-            childObject2.Text = updateMap.ChildObjects.Last()?.DisplayName();
+            childObject1.Text = updateMap.ChildObjects!=null && updateMap.ChildObjects.Count() > 0  ? updateMap.ChildObjects.First().DisplayName():null;
+            childObject2.Text = updateMap.ChildObjects != null  && updateMap.ChildObjects.Count()>1 ? updateMap.ChildObjects?.Last()?.DisplayName():null;
         }
 
 
@@ -44,6 +44,12 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var extractionMapFieldsForm = new ExtractionMapFieldsForm();
+            extractionMapFieldsForm.Show();
         }
     }
 }
