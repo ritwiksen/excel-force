@@ -25,6 +25,17 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             parentObjectName.Text = updateMap.ParentObject.ApiName;
             childObject1.Text = updateMap.ChildObjects!=null && updateMap.ChildObjects.Count() > 0  ? updateMap.ChildObjects.First().DisplayName():null;
             childObject2.Text = updateMap.ChildObjects != null  && updateMap.ChildObjects.Count()>1 ? updateMap.ChildObjects?.Last()?.DisplayName():null;
+            if (updateMap.ChildObjects != null) {
+                if (updateMap.ChildObjects.Count() == 0)
+                {
+                    childObject1.Hide();
+                    childObject2.Hide();
+                }else if(updateMap.ChildObjects.Count() == 1)
+                {
+                    childObject2.Hide();
+                }
+                
+            }
         }
 
 
