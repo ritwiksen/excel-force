@@ -75,6 +75,9 @@ namespace ExcelForce.Infrastructure.DependencyInjection
             container.RegisterType<IServiceCallWrapper<AuthenticationResponse, ApiError>
                 , ServiceCallWrapper<AuthenticationResponse, ApiError>>();
 
+            container.RegisterType<IServiceCallWrapper<SfExtractDataWrapper, ApiError>
+            , ServiceCallWrapper<SfExtractDataWrapper, ApiError>>();
+
             container.RegisterType<IServiceCallWrapper<SfObjectApiResponse, ApiError>
               , ServiceCallWrapper<SfObjectApiResponse, ApiError>>();
 

@@ -25,7 +25,11 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
 
         private void btnExtract_Click(object sender, EventArgs e)
         {
+            var extractDataService
+                 = Reusables.Instance.ExcelForceServiceFactory?.GetExtractDataService();
 
+            extractDataService.getDataFromExtractMap();
+           
         }
 
         private void LoadTreeView()

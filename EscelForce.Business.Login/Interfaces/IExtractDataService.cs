@@ -11,5 +11,9 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<bool> SubmitExtractMapSelection(string extractMap);
 
         ServiceResponseModel<ReadableMapExtract> GetEtxractMapViewerFormModel();
+
+        void getDataFromExtractMap();
+
+
     }
 }
