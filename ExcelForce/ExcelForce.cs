@@ -12,6 +12,9 @@ using ExcelForce.Forms;
 using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
+using ExcelForce.Forms.ExtractionMap.ExtractData;
+using Microsoft.Office.Tools.Excel;
+using System.Threading.Tasks;
 using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.Update;
 
@@ -297,7 +300,8 @@ namespace ExcelForce
             var profileService = _excelForceServiceFactory.GetUserAuthenticationService();
 
             var response = profileService.Logout();
-            if (response.Messages == null) {
+            if (response.Messages == null)
+            {
                 _ribbonBase.btnLogin.Visible = true;
                 _ribbonBase.btnLogout.Visible = false;
                 _ribbonBase.connectionProfileSplitButton.Visible = true;
@@ -308,37 +312,50 @@ namespace ExcelForce
                 _ribbonBase.btnUpdate.Enabled = false;
                 _ribbonBase.btnDelete.Enabled = false;
             }
-           /* HttpClient LogoutCall = new HttpClient();
-            String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
-            var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
-            request.Headers.Add("Authorization", "Bearer " + authToken);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            request.Headers.Add("X-PrettyPrint", "1");
-            var response = LogoutCall.SendAsync(request).Result;
-            if (response.IsSuccessStatusCode)
-            {
+            /* HttpClient LogoutCall = new HttpClient();
+             String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
+             var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
+             request.Headers.Add("Authorization", "Bearer " + authToken);
+             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+             request.Headers.Add("X-PrettyPrint", "1");
+             var response = LogoutCall.SendAsync(request).Result;
+             if (response.IsSuccessStatusCode)
+             {
 
-                dropDown1.SelectedItemIndex = -1;
-                dropDown1.Items.Clear();
-                objectSelected = "";
-                operationSelected = "";
-                MessageBox.Show("Logged out successfully");
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong");
-            }
+                 dropDown1.SelectedItemIndex = -1;
+                 dropDown1.Items.Clear();
+                 objectSelected = "";
+                 operationSelected = "";
+                 MessageBox.Show("Logged out successfully");
+             }
+             else
+             {
+                 MessageBox.Show("Something went wrong");
+             }
 
-            btnLogin.Visible = true;
-            btnLogout.Visible = false;
-            btnCreateExtractionMap.Enabled = false;
-            button7.Enabled = false;
-            button8.Enabled = false;*/
+             btnLogin.Visible = true;
+             btnLogout.Visible = false;
+             btnCreateExtractionMap.Enabled = false;
+             button7.Enabled = false;
+             button8.Enabled = false;*/
         }
 
         private void button8_Click(object sender, RibbonControlEventArgs e)
         {
+            var extractDataService = Reusables.Instance.ExcelForceServiceFactory.GetExtractDataService();
 
+            var mapSelectorModelResponse = extractDataService.GetExtractMapSelectionFormModel();
+
+            if (mapSelectorModelResponse.IsValid())
+            {
+                var extractDataForm = new MapSelector(mapSelectorModelResponse?.Model);
+
+                extractDataForm.Show();
+            }
+            else
+            {
+                //TODO::Handle error scenario
+            }
         }
 
         private void splitButton1_Click(object sender, RibbonControlEventArgs e)
@@ -406,6 +423,73 @@ namespace ExcelForce
             }
         }
 
+        private void btnTest_Click(object sender, RibbonControlEventArgs e)
+        {
+            var parent = new List<Dictionary<string, string>>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                parent.Add(new Dictionary<string, string>
+                {
+                    { "key1","key"},
+                    { "key2","key2"},
+                      { "key3","key"},
+                    { "key4","key2"},
+                      { "key6","key"},
+                    { "key5","key2"},
+                      { "key7","key"},
+                    { "key8","key2"},
+                      { "key9","key"},
+                    { "key10","key2"},
+                      { "key11","key"},
+                    { "key12","key2"}
+                });
+            }
+
+            Task t = new Task(() =>
+            {
+                var worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveSheet);
+                PopulateWorksheet(worksheet, parent);
+
+            });
+
+            t.Start();
+
+         //   Worksheet worksheet123 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+
+            Task t1 = new Task(() =>
+            {
+                Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+                PopulateWorksheet(worksheet, parent);
+            });
+
+            t1.Start();
+
+            //Task t2 = new Task(() =>
+            //{
+            //    Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            //    PopulateWorksheet(worksheet, parent);
+            //});
+
+            //t2.Start();
+        }
+
+        private static bool PopulateWorksheet(Worksheet worksheet, List<Dictionary<string, string>> parent)
+        {
+            for (int i = 0; i < parent.Count; i++)
+            {
+                for (var j = 0; j < parent[i].Count; j++)
+                {
+                    var dictionaryItem = parent[i];
+                    worksheet.Cells[i + 1, j + 1] = parent[i].ElementAt(j).Value;
+                }
+            }
+
+            return true;
+        }
         private void btnUpdateExtractionMap_Click(object sender, RibbonControlEventArgs e)
         {
             var updateExtractionMapService = _excelForceServiceFactory.GetUpdateExtractionMapService();

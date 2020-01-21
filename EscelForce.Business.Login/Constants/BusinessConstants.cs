@@ -8,6 +8,8 @@
 
         public const string CurrentObject = "objectName";
 
+        public const string ExtractDataKey = "extractData";
+
         public const string ObjectList = "ObjectList";
 
         public const string AuthResponse = "AuthResponse";
