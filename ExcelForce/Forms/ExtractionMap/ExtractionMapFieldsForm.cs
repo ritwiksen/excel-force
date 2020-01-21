@@ -191,6 +191,8 @@ namespace ExcelForce.Forms.ExtractionMap
 
             grid.RowHeadersVisible = false;
 
+            grid.RowTemplate.Height = 32;
+
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             for (int i = 0; i < grid.Columns.Count; i++)

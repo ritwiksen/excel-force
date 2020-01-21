@@ -229,6 +229,7 @@ namespace ExcelForce
             this.button7.Label = "Update Existing Map";
             this.button7.Name = "button7";
             this.button7.ShowImage = true;
+            this.button7.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpdateExtractionMap_Click);
             // 
             // separator2
             // 
