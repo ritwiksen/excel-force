@@ -30,7 +30,6 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnNext = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.parentObjectName = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -63,19 +62,6 @@
             this.label5.Size = new System.Drawing.Size(132, 27);
             this.label5.TabIndex = 6;
             this.label5.Text = "Selected Map";
-            // 
-            // btnNext
-            // 
-            this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(300, 476);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(222, 58);
-            this.btnNext.TabIndex = 11;
-            this.btnNext.Text = "Next";
-            this.btnNext.UseVisualStyleBackColor = false;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // label1
             // 
@@ -188,7 +174,6 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.parentObjectName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -209,7 +194,6 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox parentObjectName;
         private System.Windows.Forms.Button button2;
