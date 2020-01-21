@@ -70,6 +70,7 @@
     <Compile Include="Models\SfEntities\SfSortExpression.cs" />
     <Compile Include="Models\SfEntities\SortingDirection.cs" />
     <Compile Include="Models\SortEntities\SortByModel.cs" />
+    <Compile Include="Models\UpdateMap\UpdateMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ExtractMapRepository.cs" />
     <Compile Include="Services\ReadableExtractMapService.cs" />

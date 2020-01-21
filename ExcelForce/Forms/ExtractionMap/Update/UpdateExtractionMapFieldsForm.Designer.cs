@@ -32,15 +32,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.parentObjectName = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.childObject2 = new System.Windows.Forms.CheckBox();
+            this.childObject1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.updateSelectMap2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -60,9 +60,9 @@
             this.label5.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(22, 71);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 27);
+            this.label5.Size = new System.Drawing.Size(132, 27);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Select";
+            this.label5.Text = "Selected Map";
             // 
             // btnNext
             // 
@@ -87,12 +87,12 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "Parent Object";
             // 
-            // textBox1
+            // parentObjectName
             // 
-            this.textBox1.Location = new System.Drawing.Point(28, 172);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(494, 26);
-            this.textBox1.TabIndex = 17;
+            this.parentObjectName.Location = new System.Drawing.Point(28, 172);
+            this.parentObjectName.Name = "parentObjectName";
+            this.parentObjectName.Size = new System.Drawing.Size(494, 26);
+            this.parentObjectName.TabIndex = 17;
             // 
             // button2
             // 
@@ -134,25 +134,25 @@
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // childObject2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(28, 334);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(162, 24);
-            this.checkBox2.TabIndex = 26;
-            this.checkBox2.Text = "Name | API Name";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.childObject2.AutoSize = true;
+            this.childObject2.Location = new System.Drawing.Point(28, 334);
+            this.childObject2.Name = "childObject2";
+            this.childObject2.Size = new System.Drawing.Size(162, 24);
+            this.childObject2.TabIndex = 26;
+            this.childObject2.Text = "Name | API Name";
+            this.childObject2.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // childObject1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(28, 283);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(162, 24);
-            this.checkBox1.TabIndex = 25;
-            this.checkBox1.Text = "Name | API Name";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.childObject1.AutoSize = true;
+            this.childObject1.Location = new System.Drawing.Point(28, 283);
+            this.childObject1.Name = "childObject1";
+            this.childObject1.Size = new System.Drawing.Size(162, 24);
+            this.childObject1.TabIndex = 25;
+            this.childObject1.Text = "Name | API Name";
+            this.childObject1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -165,28 +165,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox2
+            // updateSelectMap2
             // 
-            this.textBox2.Location = new System.Drawing.Point(27, 101);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(494, 26);
-            this.textBox2.TabIndex = 28;
+            this.updateSelectMap2.Location = new System.Drawing.Point(27, 101);
+            this.updateSelectMap2.Name = "updateSelectMap2";
+            this.updateSelectMap2.ReadOnly = true;
+            this.updateSelectMap2.Size = new System.Drawing.Size(494, 26);
+            this.updateSelectMap2.TabIndex = 28;
             // 
             // UpdateExtractionMapFieldsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 545);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.updateSelectMap2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.childObject2);
+            this.Controls.Add(this.childObject1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.parentObjectName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label5);
@@ -211,14 +211,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox parentObjectName;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox childObject2;
+        private System.Windows.Forms.CheckBox childObject1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox updateSelectMap2;
     }
 }

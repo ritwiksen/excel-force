@@ -9,6 +9,7 @@ using ExcelForce.Foundation.CoreServices.Exceptions;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.EntityManagement.Repository;
 using ExcelForce.Foundation.Persistence.Persitence;
@@ -64,6 +65,33 @@ namespace ExcelForce.Business.Services.MapExtraction
                 ?.OrderBy(x => x.DisplayName());
         }
 
+        public ServiceResponseModel<IEnumerable<SfObject>> GetChildrenssByName(string name)
+        {
+            try
+            {
+                var persistentMapNames =
+                      _persistenceContainer.Get<IEnumerable<SfObject>>(BusinessConstants.ChildList);
+
+                if (persistentMapNames != null)
+                    return ServiceResponseModelFactory.GetModel(persistentMapNames);
+
+
+                var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label});
+                
+                _persistenceContainer?.Set(
+                    BusinessConstants.ChildList, childObjectNames);
+
+                return ServiceResponseModelFactory.GetModel(childObjectNames);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+
+                return ServiceResponseModelFactory
+                    .GetNullModelForReferenceType<IEnumerable<SfObject>>("An error occurred while fetching child object names");
+            }
+        }
+
         public ServiceResponseModel<IEnumerable<string>> GetMapNames()
         {
             try
@@ -87,7 +115,39 @@ namespace ExcelForce.Business.Services.MapExtraction
                 _loggerManager.LogError(ex.GetExceptionLog());
 
                 return ServiceResponseModelFactory
-                    .GetNullModelForReferenceType<IEnumerable<string>>("An error occurred while fetching object names");
+                    .GetNullModelForReferenceType<IEnumerable<string>>("An error occurred while fetching Map names");
+            }
+        }
+
+        public ServiceResponseModel<SfObject> GetObjectNameByMapName(string mapName)
+        {
+            try
+            {
+                var updatedObject =
+                      _persistenceContainer.Get<SfObject>(BusinessConstants.UpdatedObject);
+
+                if (updatedObject != null)
+                    return ServiceResponseModelFactory.GetModel(updatedObject);
+
+                var response = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(mapName));
+                updatedObject = new SfObject
+                {
+                    ApiName = response.Query?.Parent?.ApiName,
+                    Name= response.Query?.Parent?.Label
+
+                };
+
+                _persistenceContainer?.Set(
+                    BusinessConstants.UpdatedObject, updatedObject);
+
+                return ServiceResponseModelFactory.GetModel(updatedObject);
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+
+                return ServiceResponseModelFactory
+                    .GetNullModelForReferenceType<SfObject>("An error occurred while fetching parent object");
             }
         }
 

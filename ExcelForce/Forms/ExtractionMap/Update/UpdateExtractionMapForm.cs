@@ -41,42 +41,28 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         }
         private void btnNext_Click(object sender, EventArgs e)
         {
-            var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm();
-
-            updateExtractionMapFieldsForm.Show();
-            /*
+            
+            
             var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
 
             var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
 
             var result = updateExtractionService
-                .SubmitOnObjectSelection(updateSelectExtMap.Text);
+                .SubmitOnMapSelection(updateSelectExtMap.Text);
 
-            if (result.IsValid() && result.Model)
+            if (result.IsValid())
             {
                 Close();
 
-                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
+                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(result.Model);
 
-                if (fieldListResponse.IsValid())
-                {
-
-                   var updateExtractionMapFieldsForm = new UpdateExtractionMapObjForm(
-                          fieldListResponse.Model.ObjectName,
-                          fieldListResponse?.Model.AvailableFields,
-                          fieldListResponse?.Model.SfFields);
-
-                    updateExtractionMapFieldsForm.Show();
-                }
-                else
-                {
-                    //TODO:(Show error message);
-                }
+                updateExtractionMapFieldsForm.Show();
+                
             }
             else
             {
                 //TODO:(Show error message);
-            }*/
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -9,6 +9,11 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<IEnumerable<string>> GetMapNames();
 
         ServiceResponseModel<IEnumerable<string>> GetObjectNames();
+
+        ServiceResponseModel<SfObject> GetObjectNameByMapName(string mapName);
+
+        ServiceResponseModel<IEnumerable<SfObject>> GetChildrenssByName(string name);
+
         IEnumerable<SfField> GetFieldsByName(string name);
     }
 }

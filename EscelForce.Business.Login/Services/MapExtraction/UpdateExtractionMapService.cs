@@ -9,6 +9,7 @@ using ExcelForce.Foundation.CoreServices.Repository;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.EntityManagement.Models.UpdateMap;
 using ExcelForce.Foundation.Persistence.Persitence;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,52 @@ namespace ExcelForce.Business.Services.MapExtraction
             };
         }
 
+        public ServiceResponseModel<UpdateMap> SubmitOnMapSelection(string mapName)
+        {
+           try
+            {
+                var updateMapObject = _persistenceContainer.Get<UpdateMap>(BusinessConstants.UpdateMapKey);
+
+                var updateObject = updateMapObject ?? new UpdateMap
+                {
+                    Name = string.Empty,
+                    ChildObjects = new List<SfObject>(),
+                    ParentObject=new SfObject()
+                };
+
+                if (!string.Equals(updateObject.Name,mapName))
+                {
+                    var parentObjectResponse = _updateMapService.GetObjectNameByMapName(mapName);
+                    var childObjectResponse = _updateMapService.GetChildrenssByName(mapName);
+
+                    updateObject.Name = mapName;
+                    updateObject.ParentObject = parentObjectResponse.IsValid()? parentObjectResponse.Model:null;                                      
+                    updateObject.ChildObjects = childObjectResponse.IsValid()
+                    ? childObjectResponse.Model?.ToList()
+                    : null;
+                }
+
+                var finResponse = ServiceResponseModelFactory.GetReferenceTypeModel<UpdateMap>();
+
+                finResponse.Model = updateObject;
+
+                _persistenceContainer.Set(BusinessConstants.CurrentMapName, mapName);
+
+                _persistenceContainer.Set(BusinessConstants.UpdateMapKey, updateObject);
+
+                
+
+                return finResponse;
+            }catch (Exception ex)
+            {
+                List<string> errorList = new List<string>();
+
+                LogException(ex, "An error occurred while fetching field details", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<UpdateMap>(errorList?.ToArray());
+            }
+        }
+        
         public ServiceResponseModel<FieldSelectionModel> LoadActionsOnFieldList()
         {
             try
@@ -127,7 +174,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             }
         }
 
-        public ServiceResponseModel<bool> CancelCreateExtractionMap()
+        public ServiceResponseModel<bool> CancelUpdateExtractionMap()
         {
             bool result = false;
 
@@ -135,9 +182,9 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                _persistenceContainer.Set<SfQuery>(BusinessConstants.CreateMapKey, null);
+                _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, null);
 
-                _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
+                _persistenceContainer.Set<string>(BusinessConstants.CurrentMapName, null);
             }
             catch (Exception ex)
             {
@@ -277,7 +324,7 @@ namespace ExcelForce.Business.Services.MapExtraction
         {
             try
             {
-                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
+                var updateObject = _persistenceContainer.Get<UpdateMap>(BusinessConstants.UpdateMapKey);
 
                 var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentMapName);
 
@@ -287,14 +334,14 @@ namespace ExcelForce.Business.Services.MapExtraction
                     ? response.Model?.ToList()
                     : null;
 
-                var existingObjectNames = queryObject?.Objects.Select(x => x.Name);
+                var existingObjectName = updateObject != null ? updateObject.Name:string.Empty;
 
                 return ServiceResponseModelFactory.GetModel(
                     new ObjectSelectionFormModel
                     {
-                        ObjectNames = objects.Where(x => !(existingObjectNames?.Contains(x) ?? false)),
+                        ObjectNames = objects.Where(x => !(existingObjectName?.Contains(x) ?? false)),
                         selectedObjectName = currentObject != null
-                            ? queryObject?.Objects?.Last()?.Name ?? string.Empty
+                            ? updateObject.Name ?? string.Empty
                             : string.Empty
                     });
             }

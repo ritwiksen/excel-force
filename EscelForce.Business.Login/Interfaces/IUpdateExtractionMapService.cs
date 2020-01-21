@@ -1,6 +1,7 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.EntityManagement.Models.UpdateMap;
 using System.Collections.Generic;
 
 namespace ExcelForce.Business.Interfaces
@@ -11,9 +12,11 @@ namespace ExcelForce.Business.Interfaces
 
         ServiceResponseModel<bool> SubmitOnObjectSelection(string objectName);
 
+        ServiceResponseModel<UpdateMap> SubmitOnMapSelection(string mapName);
+
         ServiceResponseModel<FieldSelectionModel> LoadActionsOnFieldList();
 
-        ServiceResponseModel<bool> CancelCreateExtractionMap();
+        ServiceResponseModel<bool> CancelUpdateExtractionMap();
 
         ServiceResponseModel<bool> SubmitFieldSelection(string objectName,IList<SfField> fields);
 

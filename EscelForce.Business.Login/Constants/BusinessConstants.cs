@@ -16,6 +16,10 @@
 
         public const string MapList = "MapList";
 
+        public const string ChildList = "ChildList";
+
+        public const string UpdatedObject = "UpdatedObject";
+
         public const string CurrentMapName = "mapName";
 
     }
