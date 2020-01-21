@@ -10,5 +10,7 @@ namespace ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces
         SfQuery MapStringifiedQuery(string query);  
 
         bool IsValidQuery(SfQuery query);
+
+        SfExtractDataWrapper ExtractData(string query, string AccessToken, string InstanceUrl);
     }
 }

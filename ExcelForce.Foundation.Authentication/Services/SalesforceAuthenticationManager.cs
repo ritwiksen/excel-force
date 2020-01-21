@@ -56,9 +56,9 @@ namespace ExcelForce.Foundation.Authentication.Services
         public AuthenticationResponse Logout(string AccessToken,string InstanceUrl)
         {
 
-          //TODO:(Ritwik):: Get these URL's from a configuration file
-           // var host = _persistenceContainer?.ApiConfigurationManager.Get()?.GetUrl();
-            
+            //TODO:(Ritwik):: Get these URL's from a configuration file
+            // var host = _persistenceContainer?.ApiConfigurationManager.Get()?.GetUrl();
+
 
             var url = $"{InstanceUrl}/services/oauth2/revoke?token={AccessToken}";
             var requestObject = new AuthenticationApiRequest()
@@ -68,12 +68,12 @@ namespace ExcelForce.Foundation.Authentication.Services
                 }
 
             };
-        
 
-            var response = _loginServiceCallWrapper.Get<IHeader>(url, requestObject)?.Result;
+
+            var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
 
             return response?.Model;
-            
+
         }
     }
 }
