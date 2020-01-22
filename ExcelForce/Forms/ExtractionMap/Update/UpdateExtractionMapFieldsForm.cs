@@ -69,7 +69,15 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
             if (childObject1.Checked && childObject2.Checked)
             {
-                childEdit.Enabled = false;
+                MessageBox.Show("You cannot edit both the objects at a time!", "Error!",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            }
+            else if (!childObject1.Checked && !childObject2.Checked)
+            {
+                MessageBox.Show("Please Select atleast one Child Object to edit!", "Error!",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
             }
             else
             {
@@ -101,7 +109,9 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
                         formModel.ObjectName,
-                        formModel.AvailableFields, formModel.SfFields);
+                        formModel.AvailableFields, 
+                        formModel.SfFields,
+                        null);
 
                     Close();
 

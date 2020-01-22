@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Forms.Common;
+using ExcelForce.Forms.ExtractionMap.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -15,7 +16,10 @@ namespace ExcelForce.Forms.ExtractionMap
 
         private IList<SfField> _allFields;
 
-        private Dictionary<string,string> _updateMap;
+        private Dictionary<string, string> _updateMap;
+
+        Boolean isUpdate = false;
+
         public ExtractionMapFieldsForm()
         {
             InitializeComponent();
@@ -46,44 +50,54 @@ namespace ExcelForce.Forms.ExtractionMap
             _updateMap = updateMap;
             label2.Text = "Update Extraction Map";
             AssignDataSourceToDataGrid();
+            isUpdate = true;
         }
-
         private void btnNext_Click(object sender, EventArgs e)
         {
-            var createExtractionMapService
-                = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
-            var submittedFields = GetCheckedFields();
-
-            var listOfFieldNames = _allFields?.Where(
-                x => submittedFields.Any(
-                    y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
-                    ?.ToList();
-
-            var response = createExtractionMapService.SubmitFieldSelection(
-                txtObjectName.Text, listOfFieldNames);
-
-            if (response.IsValid())
+            if (isUpdate)
             {
                 Close();
+                var searchSortForm = new SearchSortExpressionForm();
+                searchSortForm.Show();
+            }
+            else
+            {
+                var createExtractionMapService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-                var searchSortFormResponse = createExtractionMapService.LoadSearchSortScreen();
+                var submittedFields = GetCheckedFields();
 
-                if (searchSortFormResponse.IsValid())
+                var listOfFieldNames = _allFields?.Where(
+                    x => submittedFields.Any(
+                        y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
+                        ?.ToList();
+
+                var response = createExtractionMapService.SubmitFieldSelection(
+                    txtObjectName.Text, listOfFieldNames);
+
+                if (response.IsValid())
                 {
-                    var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+                    Close();
 
-                    searchSortForm.Show();
+                    var searchSortFormResponse = createExtractionMapService.LoadSearchSortScreen();
+
+                    if (searchSortFormResponse.IsValid())
+                    {
+                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+
+                        searchSortForm.Show();
+                    }
+                    else
+                    {
+                        //TODO:(Ritwik):: Handle error scenario
+                    }
                 }
                 else
                 {
                     //TODO:(Ritwik):: Handle error scenario
                 }
             }
-            else
-            {
-                //TODO:(Ritwik):: Handle error scenario
-            }
+            
         }
 
         private IList<string> GetCheckedFields()
@@ -149,7 +163,14 @@ namespace ExcelForce.Forms.ExtractionMap
 
             var areChildObjectsAvailable = mapService.AreChildrenAvailable();
 
-            if (areChildObjectsAvailable?.Model ?? false)
+            if (isUpdate)
+            {
+                Close();
+                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm();
+                updateExtractionMapFieldsForm.Show();
+            }
+
+            else if (areChildObjectsAvailable?.Model ?? false)
             {
                 var previousActionResponse = mapService.SubmitPreviousFieldSelection();
 
