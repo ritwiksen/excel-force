@@ -103,6 +103,7 @@
             this.button2.TabIndex = 18;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.parentObjectUpdate_Click);
             // 
             // label3
             // 

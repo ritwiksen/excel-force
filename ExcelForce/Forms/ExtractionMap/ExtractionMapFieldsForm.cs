@@ -15,6 +15,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
         private IList<SfField> _allFields;
 
+        private Dictionary<string,string> _updateMap;
         public ExtractionMapFieldsForm()
         {
             InitializeComponent();
@@ -29,10 +30,23 @@ namespace ExcelForce.Forms.ExtractionMap
             _availableFields = availableFields;
 
             _allFields = allFields;
-
+            label2.Text = "Create Extraction Map";
             AssignDataSourceToDataGrid();
         }
 
+        public ExtractionMapFieldsForm(string selectedObject,
+          IList<SfField> availableFields,
+          IList<SfField> allFields,Dictionary<string,string> updateMap) : this()
+        {
+            txtObjectName.Text = selectedObject;
+
+            _availableFields = availableFields;
+
+            _allFields = allFields;
+            _updateMap = updateMap;
+            label2.Text = "Update Extraction Map";
+            AssignDataSourceToDataGrid();
+        }
 
         private void btnNext_Click(object sender, EventArgs e)
         {

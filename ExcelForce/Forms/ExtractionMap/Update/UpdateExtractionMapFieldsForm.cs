@@ -1,5 +1,6 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
-using ExcelForce.Foundation.EntityManagement.Models.UpdateMap;
+﻿using ExcelForce.Business.Constants;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 {
     public partial class UpdateExtractionMapFieldsForm : Form
     {
-        private UpdateMap _updateMap;
+        private SfQuery _sfQuery;
 
        
 
@@ -18,19 +19,19 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             InitializeComponent();
         }
 
-        public UpdateExtractionMapFieldsForm(UpdateMap updateMap) : this()
+        public UpdateExtractionMapFieldsForm(SfQuery sfQuery) : this()
         {
-            _updateMap = updateMap;
-            updateSelectMap2.Text = updateMap.Name;
-            parentObjectName.Text = updateMap.ParentObject.ApiName;
-            childObject1.Text = updateMap.ChildObjects!=null && updateMap.ChildObjects.Count() > 0  ? updateMap.ChildObjects.First().DisplayName():null;
-            childObject2.Text = updateMap.ChildObjects != null  && updateMap.ChildObjects.Count()>1 ? updateMap.ChildObjects?.Last()?.DisplayName():null;
-            if (updateMap.ChildObjects != null) {
-                if (updateMap.ChildObjects.Count() == 0)
+            _sfQuery = sfQuery;
+            updateSelectMap2.Text = sfQuery.Name;
+            parentObjectName.Text = sfQuery.ParentObject.ApiName;
+            childObject1.Text = sfQuery.Objects!=null && sfQuery.Objects.Count() > 0  ? sfQuery.Objects.First().DisplayName():null;
+            childObject2.Text = sfQuery.Objects != null  && sfQuery.Objects.Count()>1 ? sfQuery.Objects?.Last()?.DisplayName():null;
+            if (sfQuery.Objects != null) {
+                if (sfQuery.Objects.Count() == 0)
                 {
                     childObject1.Hide();
                     childObject2.Hide();
-                }else if(updateMap.ChildObjects.Count() == 1)
+                }else if(sfQuery.Objects.Count() == 1)
                 {
                     childObject2.Hide();
                 }
@@ -61,6 +62,43 @@ namespace ExcelForce.Forms.ExtractionMap.Update
         {
             var extractionMapFieldsForm = new ExtractionMapFieldsForm();
             extractionMapFieldsForm.Show();
+        }
+
+        private void parentObjectUpdate_Click(object sender, EventArgs e)
+        {
+            var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
+
+            var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
+
+          
+            var result = updateExtractionService
+                .SubmitOnObjectSelection(parentObjectName.Text);
+
+            if (result.IsValid() && result.Model)
+            {
+                Close();
+
+                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
+
+                if (fieldListResponse.IsValid())
+                {
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                          fieldListResponse.Model.ObjectName,
+                          fieldListResponse?.Model.AvailableFields,
+                          fieldListResponse?.Model.SfFields, null);
+
+                    extractionMapFieldsForm.Show();
+                }
+                else
+                {
+                    //TODO:(Show error message);
+                }
+            }
+            else
+            {
+                //TODO:(Show error message);
+            }
+
         }
     }
 }

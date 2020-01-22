@@ -15,5 +15,9 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<IEnumerable<SfObject>> GetChildrenssByName(string name);
 
         IEnumerable<SfField> GetFieldsByName(string name);
+        IEnumerable<SfField> GetFieldsByMapParentObjectName(string name);
+
+        
+
     }
 }

@@ -65,6 +65,20 @@ namespace ExcelForce.Business.Services.MapExtraction
                 ?.OrderBy(x => x.DisplayName());
         }
 
+        public IEnumerable<SfField> GetFieldsByMapParentObjectName(string name)
+        {
+            try
+            {
+                return _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Parent?.Fields;
+
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+                
+            }
+            return null;
+        }
         public ServiceResponseModel<IEnumerable<SfObject>> GetChildrenssByName(string name)
         {
             try
