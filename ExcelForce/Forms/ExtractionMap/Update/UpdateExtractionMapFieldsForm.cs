@@ -66,42 +66,52 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
         private void childObjectUpdate_Click(object sender, EventArgs e)
         {
-            //var extractionMapFieldsForm = new ExtractionMapFieldsForm();
-            //extractionMapFieldsForm.Show();
-            var childObj = "";
+
             if (childObject1.Checked && childObject2.Checked)
             {
                 childEdit.Enabled = false;
             }
-            if (childObject1.Checked)
+            else
             {
-                childObj = Convert.ToString(childObject1.Text); 
+                var childObj = "";
+
+                if (childObject1.Checked)
+                {
+                    childObj = Convert.ToString(childObject1.Text);
+                }
+                if (childObject2.Checked)
+                {
+                    childObj = Convert.ToString(childObject2.Text);
+                }
+
+                string[] childObjApi = childObj.Split('|');
+
+                var submitModel = new SearchSortExtractionModel
+                {
+                    SelectedChild = Convert.ToString(childObjApi[1]),
+                };
+
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+                var response = service.SubmitForNewChild(submitModel);
+
+                if (response.IsValid())
+                {
+                    var formModel = response?.Model;
+
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                        formModel.ObjectName,
+                        formModel.AvailableFields, formModel.SfFields);
+
+                    Close();
+
+                    extractionMapFieldsForm.Show();
+                }
+                else
+                {
+                    //TODO:(Show error message);
+                }
             }
-            if (childObject2.Checked)
-            {
-                childObj = Convert.ToString(childObject2.Text);
-            }
-            
-            string[] childObjApi = childObj.Split('|');
-
-            var submitModel = new SearchSortExtractionModel
-            {
-                SelectedChild = Convert.ToString(childObjApi[1]),
-            };
-
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
-
-            var response = service.SubmitForNewChild(submitModel);
-            
-            var formModel = response?.Model;
-
-            var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                formModel.ObjectName,
-                formModel.AvailableFields, formModel.SfFields);
-
-            Close();
-
-            extractionMapFieldsForm.Show();
         }
 
         private void parentObjectUpdate_Click(object sender, EventArgs e)
