@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business.Constants;
+using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -31,7 +32,12 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 {
                     childObject1.Hide();
                     childObject2.Hide();
-                }else if(sfQuery.Objects.Count() == 1)
+                    childDelete.Hide();
+                    childEdit.Hide();
+                    childObjectLabel.Hide();
+
+                }
+                else if(sfQuery.Objects.Count() == 1)
                 {
                     childObject2.Hide();
                 }
@@ -58,9 +64,43 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void childObjectUpdate_Click(object sender, EventArgs e)
         {
-            var extractionMapFieldsForm = new ExtractionMapFieldsForm();
+            //var extractionMapFieldsForm = new ExtractionMapFieldsForm();
+            //extractionMapFieldsForm.Show();
+            var childObj = "";
+            if (childObject1.Checked && childObject2.Checked)
+            {
+                childEdit.Enabled = false;
+            }
+            if (childObject1.Checked)
+            {
+                childObj = Convert.ToString(childObject1.Text); 
+            }
+            if (childObject2.Checked)
+            {
+                childObj = Convert.ToString(childObject2.Text);
+            }
+            
+            string[] childObjApi = childObj.Split('|');
+
+            var submitModel = new SearchSortExtractionModel
+            {
+                SelectedChild = Convert.ToString(childObjApi[1]),
+            };
+
+            var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+            var response = service.SubmitForNewChild(submitModel);
+            
+            var formModel = response?.Model;
+
+            var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                formModel.ObjectName,
+                formModel.AvailableFields, formModel.SfFields);
+
+            Close();
+
             extractionMapFieldsForm.Show();
         }
 

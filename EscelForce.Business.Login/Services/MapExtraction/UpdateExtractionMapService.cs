@@ -411,13 +411,13 @@ namespace ExcelForce.Business.Services.MapExtraction
             {
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
 
-                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+                //var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
-                var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == currentObject);
+                var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == model.SelectedChild);
 
-                sfObject.FilterExpressions = model.SearchExpression;
+                //sfObject.FilterExpressions = model.SearchExpression;
 
-                sfObject.SortExpressions = model.SortExpression;
+                //sfObject.SortExpressions = model.SortExpression;
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, queryObject);
 
