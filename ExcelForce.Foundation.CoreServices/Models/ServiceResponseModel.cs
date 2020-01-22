@@ -12,5 +12,12 @@ namespace ExcelForce.Foundation.CoreServices.Models
         public bool IsValid() => (
             ((!typeof(T).GetType().IsValueType && Model != null) || (typeof(T).GetType().IsValueType))
                 && (Messages?.Count ?? 0) == 0);
+
+        public bool IsValid(bool isNullResponse)
+        {
+            return isNullResponse && !typeof(T).GetType().IsValueType 
+                ? (Messages?.Count ?? 0) == 0 
+                : IsValid();
+        }
     }
 }
