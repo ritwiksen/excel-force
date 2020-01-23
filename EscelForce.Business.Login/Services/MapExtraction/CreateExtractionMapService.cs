@@ -331,6 +331,16 @@ namespace ExcelForce.Business.Services.MapExtraction
                               ?.OrderBy(x => x.Name)
                     : children;
 
+                var objects = _extractMapService.GetChildRelationships(currentObject);
+                if (objects.Messages?.Count > 0)
+                {
+                    return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
+                        objects.Messages?.ToArray());
+                }
+
+                var objectDetails = queryObject?.Objects
+                    ?.First(x => x.Name == currentObject);
+
                 return ServiceResponseModelFactory.GetModel(
                   new SearchSortExtractionModel
                   {
@@ -338,7 +348,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                       SortExpression = currentObjectData.SortExpressions,
                       ShowAddChildSection = queryObject.GetChildren()?.Count < 2,
                       Children = children?.ToList(),
-                      ShowMapNameSection = ShowMapSectionOnStart()
+                      ShowMapNameSection = ShowMapSectionOnStart(),
+                      ChildRelationships = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x.ObjectName) ?? false)?.Select(s => s)?.ToList()
                   });
             }
             catch (Exception ex)

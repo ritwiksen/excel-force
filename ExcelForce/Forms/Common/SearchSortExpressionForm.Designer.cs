@@ -43,6 +43,8 @@
             this.lblMapName = new System.Windows.Forms.Label();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
+            this.lblRelationshipName = new System.Windows.Forms.Label();
+            this.listRelationshipName = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label2
@@ -148,6 +150,7 @@
             this.listChildObject.Name = "listChildObject";
             this.listChildObject.Size = new System.Drawing.Size(308, 24);
             this.listChildObject.TabIndex = 15;
+            this.listChildObject.SelectedIndexChanged += new System.EventHandler(this.listChildObject_SelectedIndexChanged);
             // 
             // lblChildObject
             // 
@@ -163,7 +166,7 @@
             // 
             this.txtMapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMapName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMapName.Location = new System.Drawing.Point(25, 650);
+            this.txtMapName.Location = new System.Drawing.Point(26, 708);
             this.txtMapName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMapName.Name = "txtMapName";
             this.txtMapName.Size = new System.Drawing.Size(494, 34);
@@ -173,7 +176,7 @@
             // 
             this.lblMapName.AutoSize = true;
             this.lblMapName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMapName.Location = new System.Drawing.Point(22, 608);
+            this.lblMapName.Location = new System.Drawing.Point(23, 667);
             this.lblMapName.Name = "lblMapName";
             this.lblMapName.Size = new System.Drawing.Size(109, 27);
             this.lblMapName.TabIndex = 18;
@@ -183,7 +186,7 @@
             // 
             this.btnPrevious.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnPrevious.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnPrevious.Location = new System.Drawing.Point(25, 710);
+            this.btnPrevious.Location = new System.Drawing.Point(25, 775);
             this.btnPrevious.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(215, 58);
@@ -196,7 +199,7 @@
             // 
             this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(297, 710);
+            this.btnNext.Location = new System.Drawing.Point(298, 775);
             this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(222, 58);
@@ -205,12 +208,34 @@
             this.btnNext.UseVisualStyleBackColor = false;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // lblRelationshipName
+            // 
+            this.lblRelationshipName.AutoSize = true;
+            this.lblRelationshipName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRelationshipName.Location = new System.Drawing.Point(22, 619);
+            this.lblRelationshipName.Name = "lblRelationshipName";
+            this.lblRelationshipName.Size = new System.Drawing.Size(177, 27);
+            this.lblRelationshipName.TabIndex = 21;
+            this.lblRelationshipName.Text = "Relationship Name";
+            // 
+            // listRelationshipName
+            // 
+            this.listRelationshipName.FormattingEnabled = true;
+            this.listRelationshipName.ItemHeight = 20;
+            this.listRelationshipName.Location = new System.Drawing.Point(213, 622);
+            this.listRelationshipName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listRelationshipName.Name = "listRelationshipName";
+            this.listRelationshipName.Size = new System.Drawing.Size(308, 24);
+            this.listRelationshipName.TabIndex = 22;
+            // 
             // SearchSortExpressionForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 779);
+            this.ClientSize = new System.Drawing.Size(554, 853);
+            this.Controls.Add(this.listRelationshipName);
+            this.Controls.Add(this.lblRelationshipName);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.lblMapName);
@@ -255,5 +280,7 @@
         private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Label lblRelationshipName;
+        private System.Windows.Forms.ListBox listRelationshipName;
     }
 }

@@ -50,7 +50,9 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
                 SortFilter = source.SortExpressions,
 
-                Fields = source.Fields?.ToList()
+                Fields = source.Fields?.ToList(),
+
+                RelationshipName = source.RelationshipName
             };
 
             return output;
