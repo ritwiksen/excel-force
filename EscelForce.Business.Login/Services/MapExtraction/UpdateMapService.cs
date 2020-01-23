@@ -86,8 +86,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                 var persistentMapNames =
                       _persistenceContainer.Get<IEnumerable<SfObject>>(BusinessConstants.ChildList);
 
-                if (persistentMapNames != null)
-                    return ServiceResponseModelFactory.GetModel(persistentMapNames);
+                //if (persistentMapNames != null)
+                  //  return ServiceResponseModelFactory.GetModel(persistentMapNames);
 
 
                 var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label});

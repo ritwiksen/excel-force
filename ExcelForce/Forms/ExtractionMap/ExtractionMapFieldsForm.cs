@@ -16,9 +16,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
         private IList<SfField> _allFields;
 
-        private Dictionary<string, string> _updateMap;
-
-        Boolean isUpdate = false;
+        Boolean _isUpdate = false;
 
         public ExtractionMapFieldsForm()
         {
@@ -40,25 +38,58 @@ namespace ExcelForce.Forms.ExtractionMap
 
         public ExtractionMapFieldsForm(string selectedObject,
           IList<SfField> availableFields,
-          IList<SfField> allFields,Dictionary<string,string> updateMap) : this()
+          IList<SfField> allFields,Boolean isUpdate) : this()
         {
             txtObjectName.Text = selectedObject;
 
             _availableFields = availableFields;
 
             _allFields = allFields;
-            _updateMap = updateMap;
+            _isUpdate = isUpdate;
             label2.Text = "Update Extraction Map";
+            gridFieldList.ClearSelection();
             AssignDataSourceToDataGrid();
-            isUpdate = true;
         }
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (isUpdate)
+            if (_isUpdate)
             {
                 Close();
-                var searchSortForm = new SearchSortExpressionForm();
-                searchSortForm.Show();
+                var updateExtractionMapService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+                
+               
+                var submittedFields = GetCheckedFields();
+
+                var listOfFieldNames = _allFields?.Where(
+                    x => submittedFields.Any(
+                        y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
+                        ?.ToList();
+
+                var response = updateExtractionMapService.SubmitFieldSelection(
+                    txtObjectName.Text, listOfFieldNames);
+
+                if (response.IsValid())
+                {
+                    Close();
+
+                    var searchSortFormResponse = updateExtractionMapService.LoadSearchSortScreen();
+
+                    if (searchSortFormResponse.IsValid())
+                    {
+                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+
+                        searchSortForm.Show();
+                    }
+                    else
+                    {
+                        //TODO:(Ritwik):: Handle error scenario
+                    }
+                }
+                else
+                {
+                    //TODO:(Ritwik):: Handle error scenario
+                }
             }
             else
             {
@@ -160,13 +191,14 @@ namespace ExcelForce.Forms.ExtractionMap
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             var mapService = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
+            var updateExtractionMapService= Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
             var areChildObjectsAvailable = mapService.AreChildrenAvailable();
 
-            if (isUpdate)
+            if (_isUpdate)
             {
                 Close();
-                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm();
+                var response = updateExtractionMapService.SubmitOnMapSelection(null);
+                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(response?.Model);
                 updateExtractionMapFieldsForm.Show();
             }
 
@@ -239,6 +271,11 @@ namespace ExcelForce.Forms.ExtractionMap
                     column.Width = 50;
                 }
             }
+        }
+
+        private void ExtractionMapFieldsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

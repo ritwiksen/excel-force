@@ -77,5 +77,14 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
         }
+
+        public bool DeleteRecordByMapNameAndKey(string mapName, string key)
+        {
+            var record = GetRecords()?.Where(x=>string.Equals(mapName,x.Name, StringComparison.InvariantCultureIgnoreCase)).ToList().FirstOrDefault();
+
+            record.Query.Children.Remove(record.Query.Children.Where(x => x.ApiName.Equals(key)).First());
+
+            return UpdateRecord(mapName, record);
+        }
     }
 }

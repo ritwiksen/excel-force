@@ -10,6 +10,7 @@ namespace ExcelForce.Forms.Common
 {
     public partial class SearchSortExpressionForm : Form
     {
+        Boolean _isUpdate = false;
         public SearchSortExpressionForm()
         {
             InitializeComponent();
@@ -32,6 +33,26 @@ namespace ExcelForce.Forms.Common
             ShowChildrenSection(false);
 
             listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
+        }
+
+        public SearchSortExpressionForm(SearchSortExtractionModel model,Boolean isUpdate)
+        {
+            InitializeComponent();
+
+            searchConditionTextBox.Text = model?.SearchExpression ?? string.Empty;
+
+            sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
+
+            btnNext.Text = model.ShowAddChildSection ? "Next" : "Create";
+
+            ShowMapSection(model.ShowMapNameSection);
+
+            ShowAddChildSection(model.ShowAddChildSection);
+
+            ShowChildrenSection(false);
+
+            listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
+            _isUpdate = isUpdate;
         }
 
         private void btnNext_Click(object sender, EventArgs e)

@@ -110,6 +110,7 @@
             this.childDelete.TabIndex = 24;
             this.childDelete.Text = "Delete";
             this.childDelete.UseVisualStyleBackColor = true;
+            this.childDelete.Click += new System.EventHandler(this.childDelete_Click);
             // 
             // childEdit
             // 

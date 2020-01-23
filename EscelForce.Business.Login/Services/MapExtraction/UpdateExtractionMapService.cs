@@ -114,7 +114,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     ParentObject=new SfObject()
                 };
 
-                if (!string.Equals(updateObject.Name,mapName))
+                if (!string.IsNullOrEmpty(mapName) && !string.Equals(updateObject.Name,mapName))
                 {
                     var parentObjectResponse = _updateMapService.GetObjectNameByMapName(mapName);
                     var childObjectResponse = _updateMapService.GetChildrenssByName(mapName);
@@ -130,7 +130,15 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 finResponse.Model = updateObject;
 
-                _persistenceContainer.Set(BusinessConstants.CurrentMapName, mapName);
+                if (string.IsNullOrEmpty(mapName))
+                {
+                    _persistenceContainer.Set(BusinessConstants.CurrentMapName, updateObject?.Name);
+                }
+                else
+                {
+                    _persistenceContainer.Set(BusinessConstants.CurrentMapName, mapName);
+                }
+                
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, updateObject);
 
@@ -499,6 +507,32 @@ namespace ExcelForce.Business.Services.MapExtraction
                     return ServiceResponseModelFactory.GetNullModelForValueType<bool>(
                         errorList?.ToArray());
                 }
+            }
+        }
+
+        public ServiceResponseModel<bool> DeleteSelectedChild(
+           string childObjectName)
+        {
+
+            try
+            {
+               
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);                
+
+                var addRecordResult = _updateMapRepository.DeleteRecordByMapNameAndKey(queryObject.Name,childObjectName);
+
+                queryObject.Objects = _updateMapService.GetChildrenssByName(queryObject.ParentObject.Name).Model?.ToList();
+                _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, queryObject);
+
+                return ServiceResponseModelFactory.GetModel(true, null);
+            }
+            catch (Exception ex)
+            {
+                List<string> errorList = null;
+
+                LogException(ex, "An error occurred while saving object data", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForValueType<bool>(errorList?.ToArray());
             }
         }
     }

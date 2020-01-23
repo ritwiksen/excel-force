@@ -100,6 +100,7 @@
             this.gridFieldList.Location = new System.Drawing.Point(28, 192);
             this.gridFieldList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridFieldList.Name = "gridFieldList";
+            this.gridFieldList.RowHeadersWidth = 62;
             this.gridFieldList.RowTemplate.Height = 24;
             this.gridFieldList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.gridFieldList.Size = new System.Drawing.Size(494, 241);
@@ -126,6 +127,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.ExtractionMapFieldsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridFieldList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
