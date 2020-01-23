@@ -11,6 +11,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.ExtractMap
 
         public string Url { get; set; }
 
+        public string Id { get; set; }
+
         public Dictionary<string, object> Data { get; set; }
     }
 }
