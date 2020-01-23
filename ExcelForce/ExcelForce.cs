@@ -425,6 +425,17 @@ namespace ExcelForce
 
         private void btnTest_Click(object sender, RibbonControlEventArgs e)
         {
+
+            Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            worksheet.Name = "sheetName2";
+
+            Worksheet worksheet1 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            worksheet1.Name = "sheetName1";
+
+            var sheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Item["sheetName2"]);
+
             var parent = new List<Dictionary<string, string>>();
 
             for (int i = 0; i < 1000; i++)
@@ -446,35 +457,8 @@ namespace ExcelForce
                 });
             }
 
-            Task t = new Task(() =>
-            {
-                var worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveSheet);
-                PopulateWorksheet(worksheet, parent);
+            PopulateWorksheet(worksheet, parent);
 
-            });
-
-            t.Start();
-
-         //   Worksheet worksheet123 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-
-            Task t1 = new Task(() =>
-            {
-                Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-                PopulateWorksheet(worksheet, parent);
-            });
-
-            t1.Start();
-
-            //Task t2 = new Task(() =>
-            //{
-            //    Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-            //    PopulateWorksheet(worksheet, parent);
-            //});
-
-            //t2.Start();
         }
 
         private static bool PopulateWorksheet(Worksheet worksheet, List<Dictionary<string, string>> parent)
