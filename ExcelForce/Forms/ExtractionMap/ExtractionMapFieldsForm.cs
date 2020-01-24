@@ -54,7 +54,7 @@ namespace ExcelForce.Forms.ExtractionMap
         {
             if (_isUpdate)
             {
-                Close();
+                
                 var updateExtractionMapService
                 = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
                 
