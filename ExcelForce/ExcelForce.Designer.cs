@@ -85,8 +85,8 @@ namespace ExcelForce
             this.separator3 = this.Factory.CreateRibbonSeparator();
             this.btnUpdate = this.Factory.CreateRibbonButton();
             this.separator4 = this.Factory.CreateRibbonSeparator();
-            this.btnDelete = this.Factory.CreateRibbonButton();
             this.btnTest = this.Factory.CreateRibbonButton();
+            this.btnDelete = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group2.SuspendLayout();
             this.groupActions.SuspendLayout();
@@ -282,6 +282,12 @@ namespace ExcelForce
             // 
             this.separator4.Name = "separator4";
             // 
+            // btnTest
+            // 
+            this.btnTest.Label = "Test Button";
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnTest_Click);
+            // 
             // btnDelete
             // 
             this.btnDelete.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -290,12 +296,6 @@ namespace ExcelForce
             this.btnDelete.Label = "Delete";
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShowImage = true;
-            // 
-            // btnTest
-            // 
-            this.btnTest.Label = "Test Button";
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnTest_Click);
             // 
             // ExcelForce
             // 

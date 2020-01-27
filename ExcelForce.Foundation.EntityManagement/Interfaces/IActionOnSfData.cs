@@ -5,6 +5,6 @@ namespace ExcelForce.Foundation.EntityManagement.Interfaces
 {
     public interface IActionOnSfData
     {
-        bool ActionOnSfExtractData(SfExtractDataWrapper extractData));
+        bool ActionOnSfExtractData(SfExtractDataWrapper extractData);
     }
 }

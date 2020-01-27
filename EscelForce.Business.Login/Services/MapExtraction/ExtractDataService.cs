@@ -5,6 +5,7 @@ using ExcelForce.Foundation.Authentication.Models;
 using ExcelForce.Foundation.CoreServices.Logger.Interfaces;
 using ExcelForce.Foundation.CoreServices.Models;
 using ExcelForce.Foundation.CoreServices.Repository;
+using ExcelForce.Foundation.EntityManagement.Interfaces;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.Persistence.Persitence;
@@ -24,9 +25,13 @@ namespace ExcelForce.Business.Services.MapExtraction
 
         private readonly ISfQueryService _sfQueryService;
 
+        private readonly IActionOnSfData _actionsOnSfData;
+
         public ExtractDataService(IExcelForceRepository<ExtractMap, string> excelForceRepository,
             IPersistenceContainer persistenceContainer,
-            ILoggerManager loggerManager, ISfQueryService sfQueryService)
+            ILoggerManager loggerManager,
+            ISfQueryService sfQueryService,
+            IActionOnSfData sfDataActions)
         {
             _excelForceRepository = excelForceRepository;
 
@@ -35,6 +40,8 @@ namespace ExcelForce.Business.Services.MapExtraction
             _persistenceContainer = persistenceContainer;
 
             _sfQueryService = sfQueryService;
+
+            _actionsOnSfData = sfDataActions;
         }
 
         public ServiceResponseModel<ReadableMapExtract> GetEtxractMapViewerFormModel()
@@ -78,7 +85,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
             try
             {
-                _persistenceContainer.Set<string>(BusinessConstants.ExtractDataKey, null);
+                _persistenceContainer.Clear(BusinessConstants.ExtractDataKey);
 
                 extractMaps = new ExtractMapSelectionFormModel
                 {
@@ -118,13 +125,17 @@ namespace ExcelForce.Business.Services.MapExtraction
                 Model = response
             };
         }
-        public void GetDataFromExtractMap() {
+        public ServiceResponseModel<bool> GetDataFromExtractMap()
+        {
 
             List<string> errorList = null;
-            
+
+            bool response = false;
+
             try
             {
                 var savedMapName = _persistenceContainer.Get<string>(BusinessConstants.ExtractDataKey);
+
                 var loginResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
 
                 var extractMaps = _excelForceRepository.GetRecords();
@@ -136,17 +147,28 @@ namespace ExcelForce.Business.Services.MapExtraction
                     throw new InvalidOperationException("No matching map records found");
                 }
 
-                 var query = _sfQueryService.GetStringifiedQuery(matchingMap);
+                var query = _sfQueryService.GetStringifiedQuery(matchingMap);
 
-                var extractDataResponse = _sfQueryService.ExtractData(query, loginResponse?.AccessToken, loginResponse?.InstanceUrl);
+
+                var extractDataResponse = _sfQueryService.ExtractData(
+                    query, loginResponse?.AccessToken, loginResponse?.InstanceUrl);
+
+                _actionsOnSfData.ActionOnSfExtractData(extractDataResponse);
+
+                response = true;
             }
             catch (Exception ex)
             {
                 LogException(ex, "An error occurred while loading the Map viewer form ", errorList);
             }
 
-           
+            return new ServiceResponseModel<bool>
+            {
+                Messages = errorList,
+                Model = response
+            };
         }
+
         private void LogException(Exception ex, string errorMessage, IList<string> errorList)
         {
             errorList.Add("An error occurred while fetching field details");

@@ -13,8 +13,7 @@ namespace ExcelForce.Infrastructure.ExcelGeneration
         {
             try
             {
-                //TODO:(RItwik):: Add logic for converting extractDataWrapper here
-                var objectList = new Dictionary<string, DataTable>();
+                var objectList = extractData?.GetObjects();
 
                 foreach (var objectItem in objectList)
                 {

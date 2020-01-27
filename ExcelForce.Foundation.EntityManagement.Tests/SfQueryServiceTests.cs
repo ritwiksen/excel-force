@@ -1,7 +1,10 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
+﻿using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.EntityManagement.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Collections.Generic;
 
 namespace ExcelForce.Foundation.EntityManagement.Tests
@@ -9,9 +12,13 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
     [TestClass]
     public class SfQueryServiceTests
     {
+        private  Mock<IServiceCallWrapper<SfExtractDataWrapper, ApiError>> _mockLoginServiceCallWrapper;
+
         [TestMethod]
         public void GetStringifiedQuery_WhenQueryRequestHasOnlyParent_ReturnsStringQueryWithOnlyParentWithoutSearchAndSort()
         {
+            _mockLoginServiceCallWrapper = new Mock<IServiceCallWrapper<SfExtractDataWrapper, ApiError>>();
+
             var request = new ExtractMap
             {
                 Name = "Test Name",
@@ -39,7 +46,7 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
                 }
             };
 
-            var service = new SfQueryService();
+            var service = new SfQueryService(_mockLoginServiceCallWrapper.Object);
 
             var response = service.GetStringifiedQuery(request);
 
@@ -49,6 +56,8 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
         [TestMethod]
         public void GetStringifiedQuery_WhenQueryRequestHasOnlyParent_ReturnsStringQueryWithOnlyParent()
         {
+            _mockLoginServiceCallWrapper = new Mock<IServiceCallWrapper<SfExtractDataWrapper, ApiError>>();
+
             var request = new ExtractMap
             {
                 Name = "Test Name",
@@ -78,7 +87,7 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
                 }
             };
 
-            var service = new SfQueryService();
+            var service = new SfQueryService(_mockLoginServiceCallWrapper.Object);
 
             var response = service.GetStringifiedQuery(request);
 
@@ -88,6 +97,8 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
         [TestMethod]
         public void GetStringifiedQuery_WhenQueryRequestHasChildren_ReturnsStringQuery()
         {
+            _mockLoginServiceCallWrapper = new Mock<IServiceCallWrapper<SfExtractDataWrapper, ApiError>>();
+
             var request = new ExtractMap
             {
                 Name = "Test Name",
@@ -150,7 +161,7 @@ namespace ExcelForce.Foundation.EntityManagement.Tests
                 }
             };
 
-            var service = new SfQueryService();
+            var service = new SfQueryService(_mockLoginServiceCallWrapper.Object);
 
             var response = service.GetStringifiedQuery(request);
 

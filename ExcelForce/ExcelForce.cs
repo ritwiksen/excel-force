@@ -17,6 +17,7 @@ using Microsoft.Office.Tools.Excel;
 using System.Threading.Tasks;
 using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.Update;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 
 namespace ExcelForce
 {
@@ -425,39 +426,102 @@ namespace ExcelForce
 
         private void btnTest_Click(object sender, RibbonControlEventArgs e)
         {
-
-            Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-            worksheet.Name = "sheetName2";
-
-            Worksheet worksheet1 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-            worksheet1.Name = "sheetName1";
-
-            var sheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Item["sheetName2"]);
-
-            var parent = new List<Dictionary<string, string>>();
-
-            for (int i = 0; i < 1000; i++)
+            var test = new SfExtractDataWrapper
             {
-                parent.Add(new Dictionary<string, string>
+                ObjectName = "Account",
+                Data = new List<SfExtractDataModel>
                 {
-                    { "key1","key"},
-                    { "key2","key2"},
-                      { "key3","key"},
-                    { "key4","key2"},
-                      { "key6","key"},
-                    { "key5","key2"},
-                      { "key7","key"},
-                    { "key8","key2"},
-                      { "key9","key"},
-                    { "key10","key2"},
-                      { "key11","key"},
-                    { "key12","key2"}
-                });
-            }
+                    new SfExtractDataModel{
+                        Id="123",
+                        Data = new Dictionary<string, object>{
+                            { "Name","Name1"},
+                            { "Address","Address1"},
+                            { "Contacts",new SfExtractDataWrapper{
+                                ObjectName="Contacts",
+                                Data= new List<SfExtractDataModel>{
+                                    new SfExtractDataModel{
+                                        Id="con1",
+                                        Data = new Dictionary<string, object>{
+                                            { "Name","Con1"},
+                                            { "Address","COnAdd1"}
+                                        }
+                                    },
+                                     new SfExtractDataModel{
+                                        Id="con2",
+                                        Data = new Dictionary<string, object>{
+                                            { "Name","Con2"},
+                                            { "Address","COnAdd2"}
+                                        }
+                                    }
+                                }
+                            } }
+                        }
+                    },
+                    new SfExtractDataModel{
+                        Id="456",
+                          Data = new Dictionary<string, object>{
+                            { "Name","Name2"},
+                            { "Address","Address2"},
+                            { "Contacts",new SfExtractDataWrapper{
+                                ObjectName="Contacts",
+                                Data= new List<SfExtractDataModel>{
+                                    new SfExtractDataModel{
+                                        Id="con3",
+                                        Data = new Dictionary<string, object>{
+                                            { "Name","Con3"},
+                                            { "Address","COnAdd3"}
+                                        }
+                                    },
+                                     new SfExtractDataModel{
+                                        Id="con2",
+                                        Data = new Dictionary<string, object>{
+                                            { "Name","Con4"},
+                                            { "Address","COnAdd4"}
+                                        }
+                                     }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
 
-            PopulateWorksheet(worksheet, parent);
+            var response = test.GetObjects();
+
+
+            //Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            //worksheet.Name = "sheetName2";
+
+            //Worksheet worksheet1 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
+
+            //worksheet1.Name = "sheetName1";
+
+            //var sheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Item["sheetName2"]);
+
+            //var parent = new List<Dictionary<string, string>>();
+
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    parent.Add(new Dictionary<string, string>
+            //    {
+            //        { "key1","key"},
+            //        { "key2","key2"},
+            //          { "key3","key"},
+            //        { "key4","key2"},
+            //          { "key6","key"},
+            //        { "key5","key2"},
+            //          { "key7","key"},
+            //        { "key8","key2"},
+            //          { "key9","key"},
+            //        { "key10","key2"},
+            //          { "key11","key"},
+            //        { "key12","key2"}
+            //    });
+            //}
+
+            //PopulateWorksheet(worksheet, parent);
 
         }
 
