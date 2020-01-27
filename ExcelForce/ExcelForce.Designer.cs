@@ -85,7 +85,6 @@ namespace ExcelForce
             this.separator3 = this.Factory.CreateRibbonSeparator();
             this.btnUpdate = this.Factory.CreateRibbonButton();
             this.separator4 = this.Factory.CreateRibbonSeparator();
-            this.btnTest = this.Factory.CreateRibbonButton();
             this.btnDelete = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -117,7 +116,6 @@ namespace ExcelForce
             // 
             this.dropDown1.Label = "Entities";
             this.dropDown1.Name = "dropDown1";
-            this.dropDown1.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.DropDown1_SelectionChanged);
             // 
             // dropDown2
             // 
@@ -133,7 +131,6 @@ namespace ExcelForce
             this.dropDown2.Items.Add(ribbonDropDownItemImpl5);
             this.dropDown2.Label = "Operation";
             this.dropDown2.Name = "dropDown2";
-            this.dropDown2.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dropDown2_SelectionChanged);
             // 
             // groupActions
             // 
@@ -150,7 +147,6 @@ namespace ExcelForce
             this.button3.Label = "Populate Data";
             this.button3.Name = "button3";
             this.button3.ShowImage = true;
-            this.button3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -251,7 +247,6 @@ namespace ExcelForce
             this.groupCRUD.Items.Add(this.separator3);
             this.groupCRUD.Items.Add(this.btnUpdate);
             this.groupCRUD.Items.Add(this.separator4);
-            this.groupCRUD.Items.Add(this.btnTest);
             this.groupCRUD.Items.Add(this.btnDelete);
             this.groupCRUD.Label = "DML Operations (CRUD)";
             this.groupCRUD.Name = "groupCRUD";
@@ -281,12 +276,6 @@ namespace ExcelForce
             // separator4
             // 
             this.separator4.Name = "separator4";
-            // 
-            // btnTest
-            // 
-            this.btnTest.Label = "Test Button";
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnTest_Click);
             // 
             // btnDelete
             // 
@@ -343,7 +332,6 @@ namespace ExcelForce
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpdate;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnDelete;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnTest;
     }
 
     partial class ThisRibbonCollection

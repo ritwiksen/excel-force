@@ -13,11 +13,7 @@ using ExcelForce.Business.Interfaces;
 using ExcelForce.Models;
 using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.ExtractData;
-using Microsoft.Office.Tools.Excel;
-using System.Threading.Tasks;
-using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.Update;
-using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 
 namespace ExcelForce
 {
@@ -33,18 +29,6 @@ namespace ExcelForce
         private ExcelForce _ribbonBase;
 
         private readonly IExcelForceServiceFactory _excelForceServiceFactory;
-
-        private void DropDown1_SelectionChanged(object sender, RibbonControlEventArgs e)
-        {
-        }
-
-
-        private void dropDown2_SelectionChanged(object sender, RibbonControlEventArgs e)
-        {
-
-
-
-        }
 
         public HttpResponseMessage Query(string reqUrl)
         {
@@ -244,41 +228,6 @@ namespace ExcelForce
 
         }
 
-        private void templateList_SelectionChanged(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, RibbonControlEventArgs e)
-        {
-            HttpClient LogoutCall = new HttpClient();
-            String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
-            var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
-            request.Headers.Add("Authorization", "Bearer " + authToken);
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            request.Headers.Add("X-PrettyPrint", "1");
-            var response = LogoutCall.SendAsync(request).Result;
-            if (response.IsSuccessStatusCode)
-            {
-
-                dropDown1.SelectedItemIndex = -1;
-                dropDown1.Items.Clear();
-                objectSelected = "";
-                operationSelected = "";
-                MessageBox.Show("Logged out successfully");
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong");
-            }
-
-        }
-
-        private void button3_Click(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
         private void btnLogin_Click(object sender, RibbonControlEventArgs e)
         {
             if (_excelForceServiceFactory.GetRibbonBaseService().LoadConnectionProfilePopup())
@@ -312,33 +261,7 @@ namespace ExcelForce
                 _ribbonBase.btnInsert.Enabled = false;
                 _ribbonBase.btnUpdate.Enabled = false;
                 _ribbonBase.btnDelete.Enabled = false;
-            }
-            /* HttpClient LogoutCall = new HttpClient();
-             String restCallURL = ServiceURL + "/services/oauth2/revoke?token=" + authToken;
-             var request = new HttpRequestMessage(HttpMethod.Get, restCallURL);
-             request.Headers.Add("Authorization", "Bearer " + authToken);
-             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-             request.Headers.Add("X-PrettyPrint", "1");
-             var response = LogoutCall.SendAsync(request).Result;
-             if (response.IsSuccessStatusCode)
-             {
-
-                 dropDown1.SelectedItemIndex = -1;
-                 dropDown1.Items.Clear();
-                 objectSelected = "";
-                 operationSelected = "";
-                 MessageBox.Show("Logged out successfully");
-             }
-             else
-             {
-                 MessageBox.Show("Something went wrong");
-             }
-
-             btnLogin.Visible = true;
-             btnLogout.Visible = false;
-             btnCreateExtractionMap.Enabled = false;
-             button7.Enabled = false;
-             button8.Enabled = false;*/
+            }         
         }
 
         private void button8_Click(object sender, RibbonControlEventArgs e)
@@ -424,120 +347,6 @@ namespace ExcelForce
             }
         }
 
-        private void btnTest_Click(object sender, RibbonControlEventArgs e)
-        {
-            var test = new SfExtractDataWrapper
-            {
-                ObjectName = "Account",
-                Data = new List<SfExtractDataModel>
-                {
-                    new SfExtractDataModel{
-                        Id="123",
-                        Data = new Dictionary<string, object>{
-                            { "Name","Name1"},
-                            { "Address","Address1"},
-                            { "Contacts",new SfExtractDataWrapper{
-                                ObjectName="Contacts",
-                                Data= new List<SfExtractDataModel>{
-                                    new SfExtractDataModel{
-                                        Id="con1",
-                                        Data = new Dictionary<string, object>{
-                                            { "Name","Con1"},
-                                            { "Address","COnAdd1"}
-                                        }
-                                    },
-                                     new SfExtractDataModel{
-                                        Id="con2",
-                                        Data = new Dictionary<string, object>{
-                                            { "Name","Con2"},
-                                            { "Address","COnAdd2"}
-                                        }
-                                    }
-                                }
-                            } }
-                        }
-                    },
-                    new SfExtractDataModel{
-                        Id="456",
-                          Data = new Dictionary<string, object>{
-                            { "Name","Name2"},
-                            { "Address","Address2"},
-                            { "Contacts",new SfExtractDataWrapper{
-                                ObjectName="Contacts",
-                                Data= new List<SfExtractDataModel>{
-                                    new SfExtractDataModel{
-                                        Id="con3",
-                                        Data = new Dictionary<string, object>{
-                                            { "Name","Con3"},
-                                            { "Address","COnAdd3"}
-                                        }
-                                    },
-                                     new SfExtractDataModel{
-                                        Id="con2",
-                                        Data = new Dictionary<string, object>{
-                                            { "Name","Con4"},
-                                            { "Address","COnAdd4"}
-                                        }
-                                     }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            var response = test.GetObjects();
-
-
-            //Worksheet worksheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-            //worksheet.Name = "sheetName2";
-
-            //Worksheet worksheet1 = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Add());
-
-            //worksheet1.Name = "sheetName1";
-
-            //var sheet = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.Worksheets.Item["sheetName2"]);
-
-            //var parent = new List<Dictionary<string, string>>();
-
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    parent.Add(new Dictionary<string, string>
-            //    {
-            //        { "key1","key"},
-            //        { "key2","key2"},
-            //          { "key3","key"},
-            //        { "key4","key2"},
-            //          { "key6","key"},
-            //        { "key5","key2"},
-            //          { "key7","key"},
-            //        { "key8","key2"},
-            //          { "key9","key"},
-            //        { "key10","key2"},
-            //          { "key11","key"},
-            //        { "key12","key2"}
-            //    });
-            //}
-
-            //PopulateWorksheet(worksheet, parent);
-
-        }
-
-        private static bool PopulateWorksheet(Worksheet worksheet, List<Dictionary<string, string>> parent)
-        {
-            for (int i = 0; i < parent.Count; i++)
-            {
-                for (var j = 0; j < parent[i].Count; j++)
-                {
-                    var dictionaryItem = parent[i];
-                    worksheet.Cells[i + 1, j + 1] = parent[i].ElementAt(j).Value;
-                }
-            }
-
-            return true;
-        }
         private void btnUpdateExtractionMap_Click(object sender, RibbonControlEventArgs e)
         {
             var updateExtractionMapService = _excelForceServiceFactory.GetUpdateExtractionMapService();
