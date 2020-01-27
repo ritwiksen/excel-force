@@ -250,6 +250,7 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\DependencyInjection\UnityRegistration.cs" />
+    <Compile Include="Infrastructure\ExcelGeneration\ExcelDataGenerator.cs" />
     <Compile Include="Infrastructure\FormResources\FormGenerator.cs" />
     <Compile Include="Models\Reusables.cs" />
     <Compile Include="Models\SfFieldDataGrid.cs" />
@@ -374,9 +375,7 @@
       <Name>ExcelForce.Foundation.ProfileManagement</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\ExcelGeneration\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

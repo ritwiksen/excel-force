@@ -17,14 +17,15 @@ using ExcelForce.Foundation.CoreServices.Serialization;
 using ExcelForce.Foundation.CoreServices.Serialization.Interfaces;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper;
 using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Interfaces;
 using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.Api.SfObject;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Foundation.EntityManagement.Repository;
 using ExcelForce.Foundation.EntityManagement.Services;
 using ExcelForce.Foundation.ProfileManagement;
 using ExcelForce.Foundation.ProfileManagement.Models;
+using ExcelForce.Infrastructure.ExcelGeneration;
 using Unity;
 
 namespace ExcelForce.Infrastructure.DependencyInjection
@@ -43,7 +44,16 @@ namespace ExcelForce.Infrastructure.DependencyInjection
 
             container = RegisterBusinessDependencies(container);
 
+            container = RegisterPresentationDepndencies(container);          
+        }
+
+        private static IUnityContainer RegisterPresentationDepndencies(IUnityContainer container)
+        {
             container.RegisterType<IExcelForceServiceFactory, ExcelForceServiceFactory>();
+
+            container.RegisterType<IActionOnSfData, ExcelDataGenerator>();
+
+            return container;
         }
 
         public static T GetInstance<T>() where T : class

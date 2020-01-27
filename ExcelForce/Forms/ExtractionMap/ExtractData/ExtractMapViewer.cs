@@ -28,8 +28,16 @@ namespace ExcelForce.Forms.ExtractionMap.ExtractData
             var extractDataService
                  = Reusables.Instance.ExcelForceServiceFactory?.GetExtractDataService();
 
-            extractDataService.GetDataFromExtractMap();
-           
+            var response = extractDataService.GetDataFromExtractMap();
+
+            if (response?.IsValid() ?? false)
+            {
+                Close();
+            }
+            else
+            {
+                //TODO:: Handle error response;
+            }
         }
 
         private void LoadTreeView()
