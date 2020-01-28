@@ -63,8 +63,13 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
             var matchRecord = records
                 ?.Where(x => string.Equals(x.Name, key, StringComparison.InvariantCultureIgnoreCase))
                 ?.FirstOrDefault();
+                
+             var recordIndex= records.IndexOf(matchRecord);
+             
+             if(recordIndex<0)
+                return false;
 
-            matchRecord = model;
+            records[recordIndex]=model;
 
             return WriteContent(records);
         }
