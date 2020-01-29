@@ -126,9 +126,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
         private void parentObjectUpdate_Click(object sender, EventArgs e)
         {
-            var serviceFactory = Reusables.Instance.ExcelForceServiceFactory;
-
-            var updateExtractionService = serviceFactory.GetUpdateExtractionMapService();
+            var updateExtractionService = Reusables.Instance.ExcelForceServiceFactory.GetUpdateExtractionMapService();
 
           
             var result = updateExtractionService

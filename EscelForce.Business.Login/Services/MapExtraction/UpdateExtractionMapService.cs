@@ -79,7 +79,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                     {
                         IsPrimary = isPrimary,
                         ApiName = selectedObjectName,
-                        Name = SfObject.GetObjectNameFromDisplayName(objectName)
+                        Name = SfObject.GetObjectNameFromDisplayName(objectName),
+                        FilterExpressions=_updateMapService.GetObjectNameByMapName(query.Name)?.Model.FilterExpressions,
+                        SortExpressions = _updateMapService.GetObjectNameByMapName(query.Name)?.Model.SortExpressions,
                     });
                 }
 
@@ -310,7 +312,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var query = _readableExtractMapService.GetContentFromQuery(queryObject);
 
-                var addRecordResult = _updateMapRepository.AddRecord(new ExtractMap
+                var addRecordResult = _updateMapRepository.UpdateRecord(model.MapName,new ExtractMap
                 {
                     Query = query,
                     Name = model.MapName
@@ -353,7 +355,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     {
                         ObjectNames = objects.Where(x => !(existingObjectName?.Contains(x) ?? false)),
                         selectedObjectName = currentObject != null
-                            ? updateObject.Name ?? string.Empty
+                            ? updateObject?.Name ?? string.Empty
                             : string.Empty
                     });
             }
@@ -399,7 +401,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                       SortExpression = currentObjectData.SortExpressions,
                       ShowAddChildSection = queryObject.GetChildren()?.Count < 2,
                       Children = children?.ToList(),
-                      ShowMapNameSection = ShowMapSectionOnStart()
+                      ShowMapNameSection = ShowMapSectionOnStart(),
+                      MapName=queryObject.Name
                   });
             }
             catch (Exception ex)

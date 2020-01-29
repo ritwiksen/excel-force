@@ -42,9 +42,10 @@ namespace ExcelForce.Forms.Common
             searchConditionTextBox.Text = model?.SearchExpression ?? string.Empty;
 
             sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
-
-            btnNext.Text = model.ShowAddChildSection ? "Next" : "Create";
-
+            label2.Text = "Update Extraction Map";
+            btnNext.Text = model.ShowAddChildSection ? "Next" : "Update";
+            txtMapName.Text = model?.MapName ?? string.Empty;
+            txtMapName.Enabled = false;
             ShowMapSection(model.ShowMapNameSection);
 
             ShowAddChildSection(model.ShowAddChildSection);
@@ -69,7 +70,7 @@ namespace ExcelForce.Forms.Common
 
         private void PerformActionsOnFinalSubmit()
         {
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+           
 
             var model = new SearchSortExtractionModel
             {
@@ -77,13 +78,27 @@ namespace ExcelForce.Forms.Common
                 SortExpression = sortConditionTextBox.Text,
                 MapName = txtMapName.Text
             };
-
-            var response = service.SubmitParameterSelectionScreen(model);
-
-            if (response.IsValid())
+            if (_isUpdate)
             {
-                Close();
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+                var response = service.SubmitParameterSelectionScreen(model);
+
+                if (response.IsValid())
+                {
+                    Close();
+                }
             }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+                var response = service.SubmitParameterSelectionScreen(model);
+
+                if (response.IsValid())
+                {
+                    Close();
+                }
+            }
+            
             //TODO:(Ritwik):: Show error
         }
 
@@ -142,7 +157,7 @@ namespace ExcelForce.Forms.Common
 
             ShowMapSection(true);
 
-            btnNext.Text = "Save";
+            btnNext.Text =_isUpdate?"Update" :"Save";
 
             Height = 750;
 
@@ -154,23 +169,43 @@ namespace ExcelForce.Forms.Common
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var response = service.LoadActionsOnFieldList();
-
-            if (!response.IsValid())
+            if (_isUpdate)
             {
-                //TODO:: do actions for error
+                var updateExtractionService = Reusables.Instance.ExcelForceServiceFactory.GetUpdateExtractionMapService();
+
+                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
+
+                if (fieldListResponse.IsValid())
+                {
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                          fieldListResponse.Model.ObjectName,
+                          fieldListResponse?.Model.AvailableFields,
+                          fieldListResponse?.Model.SfFields, true);
+                    Close();
+                    extractionMapFieldsForm.Show();
+                }
             }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                         response.Model.ObjectName,
-                         response?.Model.AvailableFields,
-                         response?.Model.SfFields);
+                var response = service.LoadActionsOnFieldList();
 
-            Close();
+                if (!response.IsValid())
+                {
+                    //TODO:: do actions for error
+                }
 
-            extractionMapFieldsForm.Show();
+                var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                             response.Model.ObjectName,
+                             response?.Model.AvailableFields,
+                             response?.Model.SfFields);
+
+                Close();
+
+                extractionMapFieldsForm.Show();
+            }
         }
 
         private void ShowChildrenSection(bool show)

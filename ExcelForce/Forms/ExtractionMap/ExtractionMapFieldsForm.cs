@@ -47,7 +47,6 @@ namespace ExcelForce.Forms.ExtractionMap
             _allFields = allFields;
             _isUpdate = isUpdate;
             label2.Text = "Update Extraction Map";
-            gridFieldList.ClearSelection();
             AssignDataSourceToDataGrid();
         }
         private void btnNext_Click(object sender, EventArgs e)
@@ -77,7 +76,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
                     if (searchSortFormResponse.IsValid())
                     {
-                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model,true);
 
                         searchSortForm.Show();
                     }

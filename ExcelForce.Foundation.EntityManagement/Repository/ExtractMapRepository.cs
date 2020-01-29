@@ -60,13 +60,20 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
         {
             var records = GetRecords();
 
-            var matchRecord = records
+            var recordsList = records.ToList();
+
+            var matchRecord = recordsList
                 ?.Where(x => string.Equals(x.Name, key, StringComparison.InvariantCultureIgnoreCase))
                 ?.FirstOrDefault();
 
-            matchRecord = model;
+            
+            var recordIndex = recordsList.IndexOf(matchRecord);
+            if (recordIndex < 0)
+                return false;
 
-            return WriteContent(records);
+            recordsList[recordIndex] = model;
+
+            return WriteContent(recordsList);
         }
 
         private bool WriteContent(IEnumerable<ExtractMap> records)
