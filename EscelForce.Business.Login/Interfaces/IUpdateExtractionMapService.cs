@@ -25,6 +25,8 @@ namespace ExcelForce.Business.Interfaces
 
         ServiceResponseModel<SearchSortExtractionModel> LoadSearchSortScreen();
 
+        ServiceResponseModel<SearchSortExtractionModel> LoadChildSearchSortScreen(string child);
+
         ServiceResponseModel<FieldSelectionModel> SubmitForNewChild(SearchSortExtractionModel model);
 
         ServiceResponseModel<bool> AreChildrenAvailable();

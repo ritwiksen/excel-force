@@ -99,6 +99,10 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                     SelectedChild = Convert.ToString(childObjApi[1]),
                 };
 
+                var childObjSp = submitModel.SelectedChild;
+
+                var childObject = childObjSp.Trim();
+
                 var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
 
                 var response = service.SubmitForNewChild(submitModel);
@@ -108,7 +112,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                     var formModel = response?.Model;
 
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                        submitModel.SelectedChild,
+                        childObject,
                         formModel.AvailableFields, 
                         formModel.SfFields,
                         submitModel);

@@ -35,6 +35,8 @@
             this.sortConditionTextBox = new System.Windows.Forms.RichTextBox();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
+            this.lblMapName = new System.Windows.Forms.Label();
+            this.txtMapName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -87,32 +89,57 @@
             // 
             this.btnPrevious.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnPrevious.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnPrevious.Location = new System.Drawing.Point(28, 444);
+            this.btnPrevious.Location = new System.Drawing.Point(28, 543);
             this.btnPrevious.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(215, 58);
             this.btnPrevious.TabIndex = 19;
             this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
             this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(294, 444);
+            this.btnNext.Location = new System.Drawing.Point(294, 543);
             this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(222, 58);
             this.btnNext.TabIndex = 20;
             this.btnNext.Text = "Update";
             this.btnNext.UseVisualStyleBackColor = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // lblMapName
+            // 
+            this.lblMapName.AutoSize = true;
+            this.lblMapName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMapName.Location = new System.Drawing.Point(25, 435);
+            this.lblMapName.Name = "lblMapName";
+            this.lblMapName.Size = new System.Drawing.Size(109, 27);
+            this.lblMapName.TabIndex = 22;
+            this.lblMapName.Text = "Map Name";
+            // 
+            // txtMapName
+            // 
+            this.txtMapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMapName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMapName.Location = new System.Drawing.Point(28, 477);
+            this.txtMapName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtMapName.Name = "txtMapName";
+            this.txtMapName.ReadOnly = true;
+            this.txtMapName.Size = new System.Drawing.Size(488, 34);
+            this.txtMapName.TabIndex = 21;
             // 
             // UpdateChildSortExpressionForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 536);
+            this.ClientSize = new System.Drawing.Size(554, 636);
+            this.Controls.Add(this.lblMapName);
+            this.Controls.Add(this.txtMapName);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.sortConditionTextBox);
@@ -126,7 +153,6 @@
             this.Name = "UpdateChildSortExpressionForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.UpdateSearchSortExpressionForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +167,7 @@
         private System.Windows.Forms.RichTextBox sortConditionTextBox;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Label lblMapName;
+        private System.Windows.Forms.TextBox txtMapName;
     }
 }

@@ -74,7 +74,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
                 if (response.IsValid())
                 {
-                    Close();
+                    
 
                     if (string.IsNullOrEmpty(_updateSearchSortModel.SelectedChild))
                     {
@@ -82,6 +82,8 @@ namespace ExcelForce.Forms.ExtractionMap
 
                         if (searchSortFormResponse.IsValid())
                         {
+                            Close();
+
                             var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model, true);
 
                             searchSortForm.Show();
@@ -93,9 +95,22 @@ namespace ExcelForce.Forms.ExtractionMap
                     }
                     else
                     {
+                        var searchSortFormResponse = updateExtractionMapService.LoadChildSearchSortScreen(txtObjectName.Text);
 
+                        if (searchSortFormResponse.IsValid())
+                        {
+                            Close();
+
+                            var updateSearchSortForm = new UpdateChildSortExpressionForm(searchSortFormResponse?.Model, true);
+
+                            updateSearchSortForm.Show();
+                        }
+                        else
+                        {
+                            //TODO:: Handle error scenario
+                        }
                     }
-                   
+
                 }
                 else
                 {
