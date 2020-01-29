@@ -186,6 +186,10 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
 
             var response = service.DeleteSelectedChild(submitModel.SelectedChild);
+            if (response.IsValid())
+            {
+                Close();
+            }
         }
     }
 }

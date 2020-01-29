@@ -116,7 +116,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     ParentObject=new SfObject()
                 };
 
-                if (!string.IsNullOrEmpty(mapName) && !string.Equals(updateObject.Name.Trim(), mapName.Trim(), StringComparison.InvariantCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(mapName) && !string.Equals(updateObject.Name.Trim(),mapName.Trim(),StringComparison.InvariantCultureIgnoreCase))
                 {
                     var parentObjectResponse = _updateMapService.GetObjectNameByMapName(mapName);
                     var childObjectResponse = _updateMapService.GetChildrenssByName(mapName);
@@ -167,10 +167,10 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var response = ServiceResponseModelFactory.GetReferenceTypeModel<FieldSelectionModel>();
 
-                var isPrimary = sfQuery?.Objects.FirstOrDefault(x => x.Name == currentObject)?.IsPrimary;
+                var isPrimary= sfQuery?.Objects.FirstOrDefault(x => x.Name == currentObject)?.IsPrimary;
 
+               
                 var availableFields = isPrimary != null && (bool)isPrimary ? _updateMapService.GetFieldsByMapParentObjectName(sfQuery?.Name)?.ToList() : _updateMapService.GetChildrenssByName(sfQuery.Name).Model.ToList().FirstOrDefault(x => x.Equals(currentObject))?.Fields.ToList();
-
                 response.Model = new FieldSelectionModel
                 {
                     SfFields = _updateMapService.GetFieldsByName(currentObject)?.ToList(),
@@ -405,51 +405,6 @@ namespace ExcelForce.Business.Services.MapExtraction
                       Children = children?.ToList(),
                       ShowMapNameSection = ShowMapSectionOnStart(),
                       MapName=queryObject.Name
-                  });
-            }
-            catch (Exception ex)
-            {
-                var errorList = new List<string>();
-
-                LogException(ex, "An error occurred while getting children details", errorList);
-
-                return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
-                    errorList?.ToArray());
-            }
-        }
-
-        public ServiceResponseModel<SearchSortExtractionModel> LoadChildSearchSortScreen(String child)
-        {
-            try
-            {
-                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
-
-                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
-
-                var authResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
-
-                var currentObjectData = queryObject?.Objects?.FirstOrDefault(x => x.Name == child);
-
-                /*var children = _sfObjectService.GetChildrenForObject(
-                    authResponse?.InstanceUrl,
-                    authResponse?.AccessToken,
-                    queryObject?.GetParentObject()?.Name);
-
-                var excludedNames = queryObject?.Objects?.Select(x => x.Name)?.ToList();
-
-                children = queryObject.GetChildren() != null
-                    ? children?.Where(x => !excludedNames.Contains(x.Name))
-                              ?.OrderBy(x => x.Name)
-                    : children;*/
-
-                return ServiceResponseModelFactory.GetModel(
-                  new SearchSortExtractionModel
-                  {
-                      SearchExpression = currentObjectData.FilterExpressions,
-                      SortExpression = currentObjectData.SortExpressions,
-                      ShowMapNameSection = ShowMapSectionOnStart(),
-                      MapName = queryObject.Name,
-                      SelectedChild = child
                   });
             }
             catch (Exception ex)
