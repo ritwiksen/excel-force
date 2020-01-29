@@ -162,6 +162,30 @@ namespace ExcelForce.Business.Services.MapExtraction
             }
         }
 
+        public ServiceResponseModel<IEnumerable<SfChildRelationship>> GetChildRelationships(string objectName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(objectName))
+                    throw new ArgumentNullException(nameof(objectName));
+
+                var authResponse =
+                  _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
+
+                var values =
+                    _attributeService.GetChildRelationships(objectName, authResponse?.AccessToken, authResponse?.InstanceUrl);
+
+                return ServiceResponseModelFactory.GetModel(
+                    values?.OrderBy(x => x.ObjectName).AsEnumerable());
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+
+                return ServiceResponseModelFactory
+                     .GetNullModelForReferenceType<IEnumerable<SfChildRelationship>>("An error occurred while fetching object names");
+            }
+        }
         public ServiceResponseModel<IEnumerable<string>> GetObjectNames()
         {
             throw new NotImplementedException();
