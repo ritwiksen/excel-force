@@ -418,6 +418,49 @@ namespace ExcelForce.Business.Services.MapExtraction
             }
         }
 
+        public ServiceResponseModel<SearchSortExtractionModel> LoadChildSearchSortScreen(String child)
+        {
+            try
+            {
+                var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
+
+                var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
+
+                var authResponse = _persistenceContainer.Get<AuthenticationResponse>(BusinessConstants.AuthResponse);
+
+                var currentObjectData = queryObject?.Objects?.FirstOrDefault(x => x.Name == child);
+
+                /*var children = _sfObjectService.GetChildrenForObject(
+                    authResponse?.InstanceUrl,
+                    authResponse?.AccessToken,
+                    queryObject?.GetParentObject()?.Name);
+
+                var excludedNames = queryObject?.Objects?.Select(x => x.Name)?.ToList();
+
+                children = queryObject.GetChildren() != null
+                    ? children?.Where(x => !excludedNames.Contains(x.Name))
+                              ?.OrderBy(x => x.Name)
+                    : children;*/
+
+                return ServiceResponseModelFactory.GetModel(
+                  new SearchSortExtractionModel
+                  {
+                      SearchExpression = currentObjectData.FilterExpressions,
+                      SortExpression = currentObjectData.SortExpressions,
+                      ShowMapNameSection = ShowMapSectionOnStart()
+                  });
+            }
+            catch (Exception ex)
+            {
+                var errorList = new List<string>();
+
+                LogException(ex, "An error occurred while getting children details", errorList);
+
+                return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
+                    errorList?.ToArray());
+            }
+        }
+
         public ServiceResponseModel<FieldSelectionModel> SubmitForNewChild(SearchSortExtractionModel model)
         {
             try
