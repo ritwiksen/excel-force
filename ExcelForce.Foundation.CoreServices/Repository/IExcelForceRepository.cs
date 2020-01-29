@@ -32,5 +32,12 @@ namespace ExcelForce.Foundation.CoreServices.Repository
         /// <param name="key"></param>
         /// <returns></returns>
         bool DeleteRecord(S key);
+
+        /// <summary>
+        /// Deletes a record from the collection with the help of an identifier
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool DeleteRecordByMapNameAndKey(S Key,S key);
     }
 }

@@ -1,5 +1,7 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
-using ExcelForce.Foundation.EntityManagement.Models.UpdateMap;
+﻿using ExcelForce.Business.Constants;
+using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 {
     public partial class UpdateExtractionMapFieldsForm : Form
     {
-        private UpdateMap _updateMap;
+        private SfQuery _sfQuery;
 
        
 
@@ -18,19 +20,24 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             InitializeComponent();
         }
 
-        public UpdateExtractionMapFieldsForm(UpdateMap updateMap) : this()
+        public UpdateExtractionMapFieldsForm(SfQuery sfQuery) : this()
         {
-            _updateMap = updateMap;
-            updateSelectMap2.Text = updateMap.Name;
-            parentObjectName.Text = updateMap.ParentObject.ApiName;
-            childObject1.Text = updateMap.ChildObjects!=null && updateMap.ChildObjects.Count() > 0  ? updateMap.ChildObjects.First().DisplayName():null;
-            childObject2.Text = updateMap.ChildObjects != null  && updateMap.ChildObjects.Count()>1 ? updateMap.ChildObjects?.Last()?.DisplayName():null;
-            if (updateMap.ChildObjects != null) {
-                if (updateMap.ChildObjects.Count() == 0)
+            _sfQuery = sfQuery;
+            updateSelectMap2.Text = sfQuery.Name;
+            parentObjectName.Text = sfQuery.ParentObject.ApiName;
+            childObject1.Text = sfQuery.Objects!=null && sfQuery.Objects.Where(s=>!s.ApiName.Equals(sfQuery.ParentObject.ApiName)).Count() > 0  ? sfQuery.Objects.First().DisplayName():null;
+            childObject2.Text = sfQuery.Objects != null  && sfQuery.Objects.Where(s => !s.ApiName.Equals(sfQuery.ParentObject.ApiName)).Count()>1 ? sfQuery.Objects?.Last()?.DisplayName():null;
+            if (sfQuery.Objects != null) {
+                if (sfQuery.Objects.Where(s => !s.ApiName.Equals(sfQuery.ParentObject.ApiName)).Count() == 0)
                 {
                     childObject1.Hide();
                     childObject2.Hide();
-                }else if(updateMap.ChildObjects.Count() == 1)
+                    childDelete.Hide();
+                    childEdit.Hide();
+                    childObjectLabel.Hide();
+
+                }
+                else if(sfQuery.Objects.Where(s => !s.ApiName.Equals(sfQuery.ParentObject.ApiName)).Count() == 1)
                 {
                     childObject2.Hide();
                 }
@@ -57,10 +64,132 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void childObjectUpdate_Click(object sender, EventArgs e)
         {
-            var extractionMapFieldsForm = new ExtractionMapFieldsForm();
-            extractionMapFieldsForm.Show();
+
+            if (childObject1.Checked && childObject2.Checked)
+            {
+                MessageBox.Show("You cannot edit both the objects at a time!", "Error!",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            }
+            else if (!childObject1.Checked && !childObject2.Checked)
+            {
+                MessageBox.Show("Please Select atleast one Child Object to edit!", "Error!",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            }
+            else
+            {
+                var childObj = "";
+
+                if (childObject1.Checked)
+                {
+                    childObj = Convert.ToString(childObject1.Text);
+                }
+                if (childObject2.Checked)
+                {
+                    childObj = Convert.ToString(childObject2.Text);
+                }
+
+                string[] childObjApi = childObj.Split('|');
+
+                var submitModel = new SearchSortExtractionModel
+                {
+                    SelectedChild = Convert.ToString(childObjApi[1]),
+                };
+
+                var childObjSp = submitModel.SelectedChild;
+
+                var childObject = childObjSp.Trim();
+
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+                var response = service.SubmitForNewChild(submitModel);
+
+                if (response.IsValid())
+                {
+                    var formModel = response?.Model;
+
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                        childObject,
+                        formModel.AvailableFields, 
+                        formModel.SfFields,
+                        submitModel);
+
+                    Close();
+
+                    extractionMapFieldsForm.Show();
+                }
+                else
+                {
+                    //TODO:(Show error message);
+                }
+            }
+        }
+
+        private void parentObjectUpdate_Click(object sender, EventArgs e)
+        {
+            var updateExtractionService = Reusables.Instance.ExcelForceServiceFactory.GetUpdateExtractionMapService();
+
+          
+            var result = updateExtractionService
+                .SubmitOnObjectSelection(parentObjectName.Text);
+
+            if (result.IsValid() && result.Model)
+            {
+                Close();
+
+                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
+
+                if (fieldListResponse.IsValid())
+                {
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                          fieldListResponse.Model.ObjectName,
+                          fieldListResponse?.Model.AvailableFields,
+                          fieldListResponse?.Model.SfFields, new SearchSortExtractionModel { });
+
+                    extractionMapFieldsForm.Show();
+                }
+                else
+                {
+                    //TODO:(Show error message);
+                }
+            }
+            else
+            {
+                //TODO:(Show error message);
+            }
+
+        }
+
+        private void childDelete_Click(object sender, EventArgs e)
+        {
+            var childObj = "";
+
+            if (childObject1.Checked)
+            {
+                childObj = Convert.ToString(childObject1.Text);
+            }
+            if (childObject2.Checked)
+            {
+                childObj = Convert.ToString(childObject2.Text);
+            }
+
+            string[] childObjApi = childObj.Split('|');
+
+            var submitModel = new SearchSortExtractionModel
+            {
+                SelectedChild = Convert.ToString(childObjApi[1]).Trim(),
+            };
+
+            var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+            var response = service.DeleteSelectedChild(submitModel.SelectedChild);
+            if (response.IsValid())
+            {
+                Close();
+            }
         }
     }
 }

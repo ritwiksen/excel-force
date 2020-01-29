@@ -14,7 +14,7 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
 
         private readonly IContentStreamManager _contentStreamManager;
 
-        private const string _filePath = "C:\\Users\\risen\\Documents\\Data\\ExcelForce\\ExtractMaps.txt";
+        private const string _filePath = "C:\\DD\\ExcelForce\\ExtractMaps.txt";
 
 
         public ExtractMapRepository(IContentSerializationManager contentSerializationManager,
@@ -60,18 +60,20 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
         {
             var records = GetRecords();
 
-            var matchRecord = records
+            var recordsList = records.ToList();
+
+            var matchRecord = recordsList
                 ?.Where(x => string.Equals(x.Name, key, StringComparison.InvariantCultureIgnoreCase))
                 ?.FirstOrDefault();
-                
-             var recordIndex= records.IndexOf(matchRecord);
-             
-             if(recordIndex<0)
+
+            
+            var recordIndex = recordsList.IndexOf(matchRecord);
+            if (recordIndex < 0)
                 return false;
 
-            records[recordIndex]=model;
+            recordsList[recordIndex] = model;
 
-            return WriteContent(records);
+            return WriteContent(recordsList);
         }
 
         private bool WriteContent(IEnumerable<ExtractMap> records)
@@ -81,6 +83,15 @@ namespace ExcelForce.Foundation.EntityManagement.Repository
             _contentStreamManager.CreateContentIfAbsent(_filePath);
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
+        }
+
+        public bool DeleteRecordByMapNameAndKey(string mapName, string key)
+        {
+            var record = GetRecords()?.Where(x=>string.Equals(mapName,x.Name, StringComparison.InvariantCultureIgnoreCase)).ToList().FirstOrDefault();
+
+            record.Query.Children.Remove(record.Query.Children.Where(x => x.ApiName.Equals(key)).First());
+
+            return UpdateRecord(mapName, record);
         }
     }
 }

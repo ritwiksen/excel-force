@@ -30,13 +30,12 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnNext = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.parentObjectName = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.childObjectLabel = new System.Windows.Forms.Label();
+            this.childDelete = new System.Windows.Forms.Button();
+            this.childEdit = new System.Windows.Forms.Button();
             this.childObject2 = new System.Windows.Forms.CheckBox();
             this.childObject1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,18 +63,6 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Selected Map";
             // 
-            // btnNext
-            // 
-            this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(300, 476);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(222, 58);
-            this.btnNext.TabIndex = 11;
-            this.btnNext.Text = "Next";
-            this.btnNext.UseVisualStyleBackColor = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -102,37 +89,39 @@
             this.button2.TabIndex = 18;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.parentObjectUpdate_Click);
             // 
-            // label3
+            // childObjectLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 231);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 27);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Child Object";
+            this.childObjectLabel.AutoSize = true;
+            this.childObjectLabel.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.childObjectLabel.Location = new System.Drawing.Point(23, 231);
+            this.childObjectLabel.Name = "childObjectLabel";
+            this.childObjectLabel.Size = new System.Drawing.Size(118, 27);
+            this.childObjectLabel.TabIndex = 19;
+            this.childObjectLabel.Text = "Child Object";
             // 
-            // button4
+            // childDelete
             // 
-            this.button4.Location = new System.Drawing.Point(373, 218);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(67, 25);
-            this.button4.TabIndex = 24;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = true;
+            this.childDelete.Location = new System.Drawing.Point(373, 218);
+            this.childDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.childDelete.Name = "childDelete";
+            this.childDelete.Size = new System.Drawing.Size(67, 25);
+            this.childDelete.TabIndex = 24;
+            this.childDelete.Text = "Delete";
+            this.childDelete.UseVisualStyleBackColor = true;
+            this.childDelete.Click += new System.EventHandler(this.childDelete_Click);
             // 
-            // button3
+            // childEdit
             // 
-            this.button3.Location = new System.Drawing.Point(455, 218);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(67, 25);
-            this.button3.TabIndex = 23;
-            this.button3.Text = "Edit";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.childEdit.Location = new System.Drawing.Point(455, 218);
+            this.childEdit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.childEdit.Name = "childEdit";
+            this.childEdit.Size = new System.Drawing.Size(67, 25);
+            this.childEdit.TabIndex = 23;
+            this.childEdit.Text = "Edit";
+            this.childEdit.UseVisualStyleBackColor = true;
+            this.childEdit.Click += new System.EventHandler(this.childObjectUpdate_Click);
             // 
             // childObject2
             // 
@@ -182,13 +171,12 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.childObject2);
             this.Controls.Add(this.childObject1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.childDelete);
+            this.Controls.Add(this.childEdit);
+            this.Controls.Add(this.childObjectLabel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.parentObjectName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -209,13 +197,12 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox parentObjectName;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label childObjectLabel;
+        private System.Windows.Forms.Button childDelete;
+        private System.Windows.Forms.Button childEdit;
         private System.Windows.Forms.CheckBox childObject2;
         private System.Windows.Forms.CheckBox childObject1;
         private System.Windows.Forms.Button button1;

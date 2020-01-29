@@ -1,4 +1,6 @@
-﻿using ExcelForce.Forms.Common;
+﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.Common;
+using ExcelForce.Forms.ExtractionMap.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -15,6 +17,10 @@ namespace ExcelForce.Forms.ExtractionMap
 
         private IList<SfField> _allFields;
 
+        Boolean _isUpdate = false;
+
+        SearchSortExtractionModel _updateSearchSortModel;
+
         public ExtractionMapFieldsForm()
         {
             InitializeComponent();
@@ -29,37 +35,82 @@ namespace ExcelForce.Forms.ExtractionMap
             _availableFields = availableFields;
 
             _allFields = allFields;
-
+            label2.Text = "Create Extraction Map";
             AssignDataSourceToDataGrid();
         }
 
+        public ExtractionMapFieldsForm(string selectedObject,
+          IList<SfField> availableFields,
+          IList<SfField> allFields, SearchSortExtractionModel updateSearchSortModel) : this()
+        {
+            txtObjectName.Text = selectedObject;
 
+            _availableFields = availableFields;
+
+            _allFields = allFields;
+            _isUpdate = true;
+            _updateSearchSortModel = updateSearchSortModel;
+            label2.Text = "Update Extraction Map";
+            AssignDataSourceToDataGrid();
+        }
         private void btnNext_Click(object sender, EventArgs e)
         {
-            var createExtractionMapService
-                = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
-            var submittedFields = GetCheckedFields();
-
-            var listOfFieldNames = _allFields?.Where(
-                x => submittedFields.Any(
-                    y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
-                    ?.ToList();
-
-            var response = createExtractionMapService.SubmitFieldSelection(
-                txtObjectName.Text, listOfFieldNames);
-
-            if (response.IsValid())
+            if (_isUpdate)
             {
-                Close();
+                
+                var updateExtractionMapService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+                
+               
+                var submittedFields = GetCheckedFields();
 
-                var searchSortFormResponse = createExtractionMapService.LoadSearchSortScreen();
+                var listOfFieldNames = _allFields?.Where(
+                    x => submittedFields.Any(
+                        y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
+                        ?.ToList();
 
-                if (searchSortFormResponse.IsValid())
+                var response = updateExtractionMapService.SubmitFieldSelection(
+                    txtObjectName.Text, listOfFieldNames);
+
+                if (response.IsValid())
                 {
-                    var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+                    
 
-                    searchSortForm.Show();
+                    if (string.IsNullOrEmpty(_updateSearchSortModel.SelectedChild))
+                    {
+                        var searchSortFormResponse = updateExtractionMapService.LoadSearchSortScreen();
+
+                        if (searchSortFormResponse.IsValid())
+                        {
+                            Close();
+
+                            var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model, true);
+
+                            searchSortForm.Show();
+                        }
+                        else
+                        {
+                            //TODO:(Ritwik):: Handle error scenario
+                        }
+                    }
+                    else
+                    {
+                        var searchSortFormResponse = updateExtractionMapService.LoadChildSearchSortScreen(txtObjectName.Text);
+
+                        if (searchSortFormResponse.IsValid())
+                        {
+                            Close();
+
+                            var updateSearchSortForm = new UpdateChildSortExpressionForm(searchSortFormResponse?.Model, true);
+
+                            updateSearchSortForm.Show();
+                        }
+                        else
+                        {
+                            //TODO:: Handle error scenario
+                        }
+                    }
+
                 }
                 else
                 {
@@ -68,8 +119,42 @@ namespace ExcelForce.Forms.ExtractionMap
             }
             else
             {
-                //TODO:(Ritwik):: Handle error scenario
+                var createExtractionMapService
+                = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+
+                var submittedFields = GetCheckedFields();
+
+                var listOfFieldNames = _allFields?.Where(
+                    x => submittedFields.Any(
+                        y => string.Equals(y, x.DisplayName(), StringComparison.InvariantCultureIgnoreCase)))
+                        ?.ToList();
+
+                var response = createExtractionMapService.SubmitFieldSelection(
+                    txtObjectName.Text, listOfFieldNames);
+
+                if (response.IsValid())
+                {
+                    Close();
+
+                    var searchSortFormResponse = createExtractionMapService.LoadSearchSortScreen();
+
+                    if (searchSortFormResponse.IsValid())
+                    {
+                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model);
+
+                        searchSortForm.Show();
+                    }
+                    else
+                    {
+                        //TODO:(Ritwik):: Handle error scenario
+                    }
+                }
+                else
+                {
+                    //TODO:(Ritwik):: Handle error scenario
+                }
             }
+            
         }
 
         private IList<string> GetCheckedFields()
@@ -132,10 +217,18 @@ namespace ExcelForce.Forms.ExtractionMap
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             var mapService = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
+            var updateExtractionMapService= Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
             var areChildObjectsAvailable = mapService.AreChildrenAvailable();
 
-            if (areChildObjectsAvailable?.Model ?? false)
+            if (_isUpdate)
+            {
+                Close();
+                var response = updateExtractionMapService.SubmitOnMapSelection(null);
+                var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(response?.Model);
+                updateExtractionMapFieldsForm.Show();
+            }
+
+            else if (areChildObjectsAvailable?.Model ?? false)
             {
                 var previousActionResponse = mapService.SubmitPreviousFieldSelection();
 
@@ -206,6 +299,11 @@ namespace ExcelForce.Forms.ExtractionMap
                     column.Width = 50;
                 }
             }
+        }
+
+        private void ExtractionMapFieldsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

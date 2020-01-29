@@ -65,6 +65,20 @@ namespace ExcelForce.Business.Services.MapExtraction
                 ?.OrderBy(x => x.DisplayName());
         }
 
+        public IEnumerable<SfField> GetFieldsByMapParentObjectName(string name)
+        {
+            try
+            {
+                return _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Parent?.Fields;
+
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+                
+            }
+            return null;
+        }
         public ServiceResponseModel<IEnumerable<SfObject>> GetChildrenssByName(string name)
         {
             try
@@ -72,11 +86,11 @@ namespace ExcelForce.Business.Services.MapExtraction
                 var persistentMapNames =
                       _persistenceContainer.Get<IEnumerable<SfObject>>(BusinessConstants.ChildList);
 
-                if (persistentMapNames != null)
-                    return ServiceResponseModelFactory.GetModel(persistentMapNames);
+                //if (persistentMapNames != null)
+                  //  return ServiceResponseModelFactory.GetModel(persistentMapNames);
 
 
-                var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label});
+                var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label,FilterExpressions=x.SearchFilter,SortExpressions=x.SortFilter,Fields=x.Fields});
                 
                 _persistenceContainer?.Set(
                     BusinessConstants.ChildList, childObjectNames);
@@ -123,18 +137,15 @@ namespace ExcelForce.Business.Services.MapExtraction
         {
             try
             {
-                var updatedObject =
-                      _persistenceContainer.Get<SfObject>(BusinessConstants.UpdatedObject);
-
-                if (updatedObject != null)
-                    return ServiceResponseModelFactory.GetModel(updatedObject);
+                
 
                 var response = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(mapName));
-                updatedObject = new SfObject
+                var updatedObject = new SfObject
                 {
                     ApiName = response.Query?.Parent?.ApiName,
-                    Name= response.Query?.Parent?.Label
-
+                    Name= response.Query?.Parent?.Label,
+                    FilterExpressions= response.Query?.Parent?.SearchFilter,
+                    SortExpressions= response.Query?.Parent?.SortFilter
                 };
 
                 _persistenceContainer?.Set(

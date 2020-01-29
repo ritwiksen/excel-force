@@ -79,6 +79,10 @@ namespace ExcelForce.Foundation.ProfileManagement
 
             return _contentStreamManager.WriteContent(_filePath, serializedContent);
         }
-       
+
+        public bool DeleteRecordByMapNameAndKey(string Key, string key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
