@@ -111,24 +111,49 @@ namespace ExcelForce.Forms.Common
                 SortExpression = sortConditionTextBox.Text
             };
 
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
-            var response = service.SubmitForNewChild(submitModel);
-
-            if (response.IsValid())
+            if (_isUpdate)
             {
-                //TODO:(Ritwik):: Show error
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+                var response = service.SubmitForNewChild(submitModel);
+
+                if (response.IsValid())
+                {
+                    //TODO:(Ritwik):: Show error
+                }
+
+                var formModel = response?.Model;
+
+                var fieldSelectionForm = new ExtractionMapFieldsForm(
+                    formModel.ObjectName,
+                    formModel.AvailableFields, formModel.SfFields,new SearchSortExtractionModel { });
+
+                Close();
+
+                fieldSelectionForm.Show();
             }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var formModel = response?.Model;
+                var response = service.SubmitForNewChild(submitModel);
 
-            var fieldSelectionForm = new ExtractionMapFieldsForm(
-                formModel.ObjectName,
-                formModel.AvailableFields, formModel.SfFields);
+                if (response.IsValid())
+                {
+                    //TODO:(Ritwik):: Show error
+                }
 
-            Close();
+                var formModel = response?.Model;
 
-            fieldSelectionForm.Show();
+                var fieldSelectionForm = new ExtractionMapFieldsForm(
+                    formModel.ObjectName,
+                    formModel.AvailableFields, formModel.SfFields);
+
+                Close();
+
+                fieldSelectionForm.Show();
+            }
+           
 
         }
 

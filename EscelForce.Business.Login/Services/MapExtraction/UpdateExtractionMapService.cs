@@ -116,7 +116,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                     ParentObject=new SfObject()
                 };
 
-                if (!string.IsNullOrEmpty(mapName) && !string.Equals(updateObject.Name,mapName))
+                if (!string.IsNullOrEmpty(mapName) && !string.Equals(updateObject.Name.Trim(),mapName.Trim(),StringComparison.InvariantCultureIgnoreCase))
                 {
                     var parentObjectResponse = _updateMapService.GetObjectNameByMapName(mapName);
                     var childObjectResponse = _updateMapService.GetChildrenssByName(mapName);
@@ -167,8 +167,10 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var response = ServiceResponseModelFactory.GetReferenceTypeModel<FieldSelectionModel>();
 
-                var availableFields = _updateMapService.GetFieldsByMapParentObjectName(sfQuery?.Name)?.ToList();
-                
+                var isPrimary= sfQuery?.Objects.FirstOrDefault(x => x.Name == currentObject)?.IsPrimary;
+
+               
+                var availableFields = isPrimary != null && (bool)isPrimary ? _updateMapService.GetFieldsByMapParentObjectName(sfQuery?.Name)?.ToList() : _updateMapService.GetChildrenssByName(sfQuery.Name).Model.ToList().FirstOrDefault(x => x.Equals(currentObject))?.Fields.ToList();
                 response.Model = new FieldSelectionModel
                 {
                     SfFields = _updateMapService.GetFieldsByName(currentObject)?.ToList(),
@@ -524,7 +526,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var addRecordResult = _updateMapRepository.DeleteRecordByMapNameAndKey(queryObject.Name,childObjectName);
 
-                queryObject.Objects = _updateMapService.GetChildrenssByName(queryObject.ParentObject.Name).Model?.ToList();
+                queryObject.Objects = _updateMapService.GetChildrenssByName(queryObject.Name).Model?.ToList();
                 _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, queryObject);
 
                 return ServiceResponseModelFactory.GetModel(true, null);
