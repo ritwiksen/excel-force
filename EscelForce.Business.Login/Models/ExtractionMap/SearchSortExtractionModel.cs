@@ -13,6 +13,8 @@ namespace ExcelForce.Business.Models.ExtractionMap
 
         public IList<SfObject> Children { get; set; }
 
+        public IList<SfChildRelationship> ChildRelationships { get; set; }
+
         public string SelectedChild { get; set; }
 
         public bool ShowAddChildSection { get; set; }
@@ -20,5 +22,7 @@ namespace ExcelForce.Business.Models.ExtractionMap
         public string MapName { get; set; }
 
         public bool ShowMapNameSection { get; set; }
+
+        public string SelectedChildRelationshipName { get; set; }
     }
 }

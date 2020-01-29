@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using System.Collections.Generic;
 
 namespace ExcelForce.Business.Models.ExtractionMap
 {
@@ -12,7 +13,7 @@ namespace ExcelForce.Business.Models.ExtractionMap
 
         public bool AddChild { get; set; }
 
-        public List<string> ChildList { get; set; }
+        public List<SfChildRelationship> ChildList { get; set; }
 
         public string SelectedChild { get; set; }
     }

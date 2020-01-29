@@ -54,7 +54,7 @@
     <Compile Include="Interfaces\ServiceInterfaces\ISfQueryService.cs" />
     <Compile Include="Models\Api\SfObject\SfApiField.cs" />
     <Compile Include="Models\Api\SfObject\SfApiObject.cs" />
-    <Compile Include="Models\Api\SfObject\SfChild.cs" />
+    <Compile Include="Models\Api\SfObject\SfApiChild.cs" />
     <Compile Include="Models\Api\SfObject\SfFieldApiRequest.cs" />
     <Compile Include="Models\Api\SfObject\SfFieldApiResponse.cs" />
     <Compile Include="Models\Api\SfObject\SfObjectApiRequest.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Models\ExtractMap\ReadableObject.cs" />
     <Compile Include="Models\ExtractMap\SfExtractDataModel.cs" />
     <Compile Include="Models\ExtractMap\SfExtractDataWrapper.cs" />
+    <Compile Include="Models\SfEntities\SfChildRelationship.cs" />
     <Compile Include="Models\SfEntities\SfField.cs" />
     <Compile Include="Models\SfEntities\SfObject.cs" />
     <Compile Include="Models\SfEntities\SfQuery.cs" />

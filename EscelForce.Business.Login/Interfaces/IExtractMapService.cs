@@ -9,5 +9,7 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<IEnumerable<SfObject>> GetObjects();
 
         IEnumerable<SfField> GetFieldsByName(string name);
+
+        ServiceResponseModel<IEnumerable<SfChildRelationship>> GetChildRelationships(string objectName);
     }
 }

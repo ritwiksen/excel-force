@@ -1,5 +1,4 @@
-﻿using ExcelForce.Foundation.EntityManagement.Models.Api.SfObject;
-using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+﻿using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using System.Collections.Generic;
 
 namespace ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces
