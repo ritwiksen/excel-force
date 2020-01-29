@@ -14,6 +14,7 @@ namespace ExcelForce.Forms.Common
     {
         private readonly IList<SfChildRelationship> sfChildRelationships;
 
+        Boolean _isUpdate = false;
         public SearchSortExpressionForm()
         {
             InitializeComponent();
@@ -44,6 +45,27 @@ namespace ExcelForce.Forms.Common
                 ?.RelationshipFields;
         }
 
+        public SearchSortExpressionForm(SearchSortExtractionModel model, Boolean isUpdate)
+        {
+            InitializeComponent();
+
+            searchConditionTextBox.Text = model?.SearchExpression ?? string.Empty;
+
+            sortConditionTextBox.Text = model?.SortExpression ?? string.Empty;
+            label2.Text = "Update Extraction Map";
+            btnNext.Text = model.ShowAddChildSection ? "Next" : "Update";
+            txtMapName.Text = model?.MapName ?? string.Empty;
+            txtMapName.Enabled = false;
+            ShowMapSection(model.ShowMapNameSection);
+
+            ShowAddChildSection(model.ShowAddChildSection);
+
+            ShowChildrenSection(false);
+
+            listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
+            _isUpdate = isUpdate;
+        }
+
         private void btnNext_Click(object sender, EventArgs e)
         {
             if (radioButtonYes.Checked)
@@ -58,7 +80,7 @@ namespace ExcelForce.Forms.Common
 
         private void PerformActionsOnFinalSubmit()
         {
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+            
 
             var model = new SearchSortExtractionModel
             {
@@ -67,11 +89,25 @@ namespace ExcelForce.Forms.Common
                 MapName = txtMapName.Text                
             };
 
-            var response = service.SubmitParameterSelectionScreen(model);
-
-            if (response.IsValid())
+            if (_isUpdate)
             {
-                Close();
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+                var response = service.SubmitParameterSelectionScreen(model);
+
+                if (response.IsValid())
+                {
+                    Close();
+                }
+            }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
+                var response = service.SubmitParameterSelectionScreen(model);
+
+                if (response.IsValid())
+                {
+                    Close();
+                }
             }
             //TODO:(Ritwik):: Show error
         }
@@ -86,25 +122,48 @@ namespace ExcelForce.Forms.Common
                 SelectedChildRelationshipName = Convert.ToString(listRelationshipName.SelectedItem)
             };
 
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
-            var response = service.SubmitForNewChild(submitModel);
-
-            if (response.IsValid())
+            if (_isUpdate)
             {
-                //TODO:(Ritwik):: Show error
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+
+                var response = service.SubmitForNewChild(submitModel);
+
+                if (response.IsValid())
+                {
+                    //TODO:(Ritwik):: Show error
+                }
+
+                var formModel = response?.Model;
+
+                var fieldSelectionForm = new ExtractionMapFieldsForm(
+                    formModel.ObjectName,
+                    formModel.AvailableFields, formModel.SfFields, new SearchSortExtractionModel { });
+
+                Close();
+
+                fieldSelectionForm.Show();
             }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var formModel = response?.Model;
+                var response = service.SubmitForNewChild(submitModel);
 
-            var fieldSelectionForm = new ExtractionMapFieldsForm(
-                formModel.ObjectName,
-                formModel.AvailableFields, formModel.SfFields);
+                if (response.IsValid())
+                {
+                    //TODO:(Ritwik):: Show error
+                }
 
-            Close();
+                var formModel = response?.Model;
 
-            fieldSelectionForm.Show();
+                var fieldSelectionForm = new ExtractionMapFieldsForm(
+                    formModel.ObjectName,
+                    formModel.AvailableFields, formModel.SfFields);
 
+                Close();
+
+                fieldSelectionForm.Show();
+            }
         }
 
         private void radioButtonYes_CheckedChanged(object sender, EventArgs e)
@@ -132,7 +191,7 @@ namespace ExcelForce.Forms.Common
 
             ShowMapSection(true);
 
-            btnNext.Text = "Save";
+            btnNext.Text = _isUpdate ? "Update" : "Save";
 
             Height = 750;
 
@@ -144,23 +203,43 @@ namespace ExcelForce.Forms.Common
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-
-            var response = service.LoadActionsOnFieldList();
-
-            if (!response.IsValid())
+            if (_isUpdate)
             {
-                //TODO:: do actions for error
+                var updateExtractionService = Reusables.Instance.ExcelForceServiceFactory.GetUpdateExtractionMapService();
+
+                var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
+
+
+                if (fieldListResponse.IsValid())
+                {
+                    var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                          fieldListResponse.Model.ObjectName,
+                          fieldListResponse?.Model.AvailableFields,
+                          fieldListResponse?.Model.SfFields, new SearchSortExtractionModel { });
+                    Close();
+                    extractionMapFieldsForm.Show();
+                }
             }
+            else
+            {
+                var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
-            var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                         response.Model.ObjectName,
-                         response?.Model.AvailableFields,
-                         response?.Model.SfFields);
+                var response = service.LoadActionsOnFieldList();
 
-            Close();
+                if (!response.IsValid())
+                {
+                    //TODO:: do actions for error
+                }
 
-            extractionMapFieldsForm.Show();
+                var extractionMapFieldsForm = new ExtractionMapFieldsForm(
+                             response.Model.ObjectName,
+                             response?.Model.AvailableFields,
+                             response?.Model.SfFields);
+
+                Close();
+
+                extractionMapFieldsForm.Show();
+            }
         }
 
         private void ShowChildrenSection(bool show)

@@ -17,7 +17,8 @@ namespace ExcelForce.Business.Interfaces
         IEnumerable<SfField> GetFieldsByName(string name);
         IEnumerable<SfField> GetFieldsByMapParentObjectName(string name);
 
-        
+        ServiceResponseModel<IEnumerable<SfChildRelationship>> GetChildRelationships(string objectName);
+
 
     }
 }
