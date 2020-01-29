@@ -64,7 +64,7 @@ namespace ExcelForce.Forms.Common
             {
                 SearchExpression = searchConditionTextBox.Text,
                 SortExpression = sortConditionTextBox.Text,
-                MapName = txtMapName.Text
+                MapName = txtMapName.Text                
             };
 
             var response = service.SubmitParameterSelectionScreen(model);
@@ -82,8 +82,9 @@ namespace ExcelForce.Forms.Common
             {
                 SelectedChild = Convert.ToString(listChildObject.SelectedItem),
                 SearchExpression = searchConditionTextBox.Text,
-                SortExpression = sortConditionTextBox.Text
-        };
+                SortExpression = sortConditionTextBox.Text,
+                SelectedChildRelationshipName = Convert.ToString(listRelationshipName.SelectedItem)
+            };
 
             var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
 
@@ -204,5 +205,14 @@ namespace ExcelForce.Forms.Common
                ?.RelationshipFields;
         }
 
+        private void lblRelationshipName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listRelationshipName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace ExcelForce.Foundation.EntityManagement.Models.Api.SfObject
         [JsonProperty("childSObject")]
         public string Name { get; set; }
 
-        [JsonProperty("field")]
+        [JsonProperty("relationshipName")]
         public string RelationshipField { get; set; }
     }
 }

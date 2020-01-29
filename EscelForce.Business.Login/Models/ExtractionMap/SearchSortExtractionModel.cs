@@ -22,5 +22,7 @@ namespace ExcelForce.Business.Models.ExtractionMap
         public string MapName { get; set; }
 
         public bool ShowMapNameSection { get; set; }
+
+        public string SelectedChildRelationshipName { get; set; }
     }
 }

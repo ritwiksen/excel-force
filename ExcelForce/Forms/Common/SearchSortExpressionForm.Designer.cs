@@ -217,6 +217,7 @@
             this.lblRelationshipName.Size = new System.Drawing.Size(177, 27);
             this.lblRelationshipName.TabIndex = 21;
             this.lblRelationshipName.Text = "Relationship Name";
+            this.lblRelationshipName.Click += new System.EventHandler(this.lblRelationshipName_Click);
             // 
             // listRelationshipName
             // 
@@ -227,6 +228,7 @@
             this.listRelationshipName.Name = "listRelationshipName";
             this.listRelationshipName.Size = new System.Drawing.Size(308, 24);
             this.listRelationshipName.TabIndex = 22;
+            this.listRelationshipName.SelectedIndexChanged += new System.EventHandler(this.listRelationshipName_SelectedIndexChanged);
             // 
             // SearchSortExpressionForm
             // 
