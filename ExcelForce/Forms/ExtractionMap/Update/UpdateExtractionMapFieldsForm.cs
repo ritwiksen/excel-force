@@ -108,10 +108,10 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                     var formModel = response?.Model;
 
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
-                        formModel.ObjectName,
+                        submitModel.SelectedChild,
                         formModel.AvailableFields, 
                         formModel.SfFields,
-                        true);
+                        submitModel);
 
                     Close();
 
@@ -143,7 +143,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
                           fieldListResponse.Model.ObjectName,
                           fieldListResponse?.Model.AvailableFields,
-                          fieldListResponse?.Model.SfFields, true);
+                          fieldListResponse?.Model.SfFields, new SearchSortExtractionModel { });
 
                     extractionMapFieldsForm.Show();
                 }

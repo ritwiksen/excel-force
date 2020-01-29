@@ -1,4 +1,5 @@
-﻿using ExcelForce.Forms.Common;
+﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Forms.Common;
 using ExcelForce.Forms.ExtractionMap.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
@@ -17,6 +18,8 @@ namespace ExcelForce.Forms.ExtractionMap
         private IList<SfField> _allFields;
 
         Boolean _isUpdate = false;
+
+        SearchSortExtractionModel _updateSearchSortModel;
 
         public ExtractionMapFieldsForm()
         {
@@ -38,14 +41,15 @@ namespace ExcelForce.Forms.ExtractionMap
 
         public ExtractionMapFieldsForm(string selectedObject,
           IList<SfField> availableFields,
-          IList<SfField> allFields,Boolean isUpdate) : this()
+          IList<SfField> allFields, SearchSortExtractionModel updateSearchSortModel) : this()
         {
             txtObjectName.Text = selectedObject;
 
             _availableFields = availableFields;
 
             _allFields = allFields;
-            _isUpdate = isUpdate;
+            _isUpdate = true;
+            _updateSearchSortModel = updateSearchSortModel;
             label2.Text = "Update Extraction Map";
             AssignDataSourceToDataGrid();
         }
@@ -72,18 +76,26 @@ namespace ExcelForce.Forms.ExtractionMap
                 {
                     Close();
 
-                    var searchSortFormResponse = updateExtractionMapService.LoadSearchSortScreen();
-
-                    if (searchSortFormResponse.IsValid())
+                    if (string.IsNullOrEmpty(_updateSearchSortModel.SelectedChild))
                     {
-                        var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model,true);
+                        var searchSortFormResponse = updateExtractionMapService.LoadSearchSortScreen();
 
-                        searchSortForm.Show();
+                        if (searchSortFormResponse.IsValid())
+                        {
+                            var searchSortForm = new SearchSortExpressionForm(searchSortFormResponse?.Model, true);
+
+                            searchSortForm.Show();
+                        }
+                        else
+                        {
+                            //TODO:(Ritwik):: Handle error scenario
+                        }
                     }
                     else
                     {
-                        //TODO:(Ritwik):: Handle error scenario
+
                     }
+                   
                 }
                 else
                 {

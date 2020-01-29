@@ -176,12 +176,13 @@ namespace ExcelForce.Forms.Common
 
                 var fieldListResponse = updateExtractionService.LoadActionsOnFieldList();
 
+               
                 if (fieldListResponse.IsValid())
                 {
                     var extractionMapFieldsForm = new ExtractionMapFieldsForm(
                           fieldListResponse.Model.ObjectName,
                           fieldListResponse?.Model.AvailableFields,
-                          fieldListResponse?.Model.SfFields, true);
+                          fieldListResponse?.Model.SfFields, new SearchSortExtractionModel { });
                     Close();
                     extractionMapFieldsForm.Show();
                 }
