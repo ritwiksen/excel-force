@@ -1,6 +1,9 @@
-﻿using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
+﻿using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.CoreServices.ServiceCallWrapper.Interfaces;
+using ExcelForce.Foundation.EntityManagement.Interfaces.ServiceInterfaces;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
+using ExcelForce.Foundation.CoreServices.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,11 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 {
     public class SfQueryService : ISfQueryService
     {
+        private readonly IServiceCallWrapper<SfExtractDataWrapper, ApiError> _loginServiceCallWrapper;
+        public SfQueryService(IServiceCallWrapper<SfExtractDataWrapper, ApiError> loginServiceCallWrapper)
+        {
+            _loginServiceCallWrapper = loginServiceCallWrapper;
+        }
         public string GetStringifiedQuery(ExtractMap query)
         {
             if (query?.Query == null)
@@ -42,8 +50,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
         private string GetQueryForReadableObject(ReadableObject readableQueryObject, bool isParent = false)
         {
             var parentAdditionalContent = isParent ? ",[child]" : string.Empty;
-
-            var selectStatement = $"SELECT {string.Join(",", readableQueryObject?.Fields?.Select(x => x.Name))}{parentAdditionalContent}";
+            var selectStatement = $"SELECT {string.Join(",", readableQueryObject?.Fields?.Select(x => x.ApiName))}{parentAdditionalContent}";
 
             var queryBuilder = new StringBuilder();
 
@@ -52,7 +59,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             if (!string.IsNullOrWhiteSpace(readableQueryObject?.SearchFilter))
                 queryBuilder.Append($" WHERE {readableQueryObject.SearchFilter}");
 
-            if (!string.IsNullOrWhiteSpace(readableQueryObject?.SearchFilter))
+            if (!string.IsNullOrWhiteSpace(readableQueryObject?.SortFilter))
                 queryBuilder.Append($" ORDER BY {readableQueryObject.SortFilter}");
 
             return queryBuilder.ToString();
@@ -129,6 +136,25 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             expressions.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
             return string.Join(",", expressions);
+        }
+        public SfExtractDataWrapper ExtractData(string query, string AccessToken, string InstanceUrl)
+        {
+
+            var url = $"{InstanceUrl}/services/data/v47.0/query?q={query}";
+            var token = $"Bearer {AccessToken}";
+            var requestObject = new ApiRequest()
+            {
+                Headers = new Dictionary<string, string>
+                {
+                    { "Authorization" , token}
+                }
+
+             };
+    var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
+
+            return response?.Model;
+
+
         }
     }
 }

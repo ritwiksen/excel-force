@@ -66,6 +66,10 @@ namespace ExcelForce.Foundation.EntityManagement.Infrastructure.CustomSerializer
                 {
                     listData.Url = x.Value["url"].ToString()?.Trim();
                     type = x.Value["type"].ToString()?.Trim();
+                    string objName = $"{type}/";
+                    string[] seperator = { objName };
+                    string[] returnValues = listData.Url.Split(seperator,2, StringSplitOptions.None);
+                    listData.Id = returnValues[1];
                     continue;
                 }
 

@@ -38,6 +38,26 @@ namespace ExcelForce.Infrastructure.DataPersistence
             }
             catch (Exception ex)
             {
+                //TODO:: Adding logging here
+                return false;
+            }
+        }
+
+        public bool Clear(string key)
+        {
+            try
+            {
+                if (_containerValue == null)
+                    return true;
+
+                if (_containerValue.ContainsKey(key))
+                    _containerValue.Clear();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //TODO:: Adding logging here
                 return false;
             }
         }

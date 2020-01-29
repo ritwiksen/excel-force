@@ -10,5 +10,7 @@ namespace ExcelForce.Foundation.Persistence.Persitence
         T Get<T>(string key);
 
         bool Set<T>(string key, T value);
+
+        bool Clear(string key);
     }
 }

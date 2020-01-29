@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="EntityManagementConstants.cs" />
     <Compile Include="Infrastructure\CustomSerializers\SfDisplayDataSerializer.cs" />
+    <Compile Include="Interfaces\IActionOnSfData.cs" />
     <Compile Include="Interfaces\ISfField.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\IReadableExtractMapService.cs" />
     <Compile Include="Interfaces\ServiceInterfaces\ISfAttributeService.cs" />
