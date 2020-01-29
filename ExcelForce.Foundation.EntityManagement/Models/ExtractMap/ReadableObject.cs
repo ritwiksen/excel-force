@@ -21,5 +21,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.ExtractMap
 
         [JsonProperty("sortFilter")]
         public string SortFilter { get; set; }
+
+        [JsonProperty("relationshipName",NullValueHandling =NullValueHandling.Ignore)]
+        public string RelationshipName { get; set; }
     }
 }

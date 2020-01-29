@@ -29,6 +29,11 @@ namespace ExcelForce.Foundation.EntityManagement.Services
             _getChildrenApiWrapper = getChildrenApiWrapper;
         }
 
+        public IEnumerable<SfChildRelationship> GetChildRelationShips(string objectName)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<SfObject> GetChildrenForObject(string instanceUrl, string bearerToken, string parentObjectName)
         {
             if (string.IsNullOrWhiteSpace(bearerToken))

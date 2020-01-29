@@ -1,5 +1,6 @@
 ﻿using ExcelForce.Foundation.EntityManagement.Interfaces;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities

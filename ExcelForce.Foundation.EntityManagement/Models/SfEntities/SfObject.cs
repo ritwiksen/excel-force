@@ -11,6 +11,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
 
         public IEnumerable<SfField> Fields { get; set; }
 
+        public string RelationshipName { get; set; }
+
         public string FilterExpressions { get; set; }
 
         public string SortExpressions { get; set; }

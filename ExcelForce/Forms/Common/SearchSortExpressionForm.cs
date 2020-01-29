@@ -1,7 +1,9 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,6 +12,8 @@ namespace ExcelForce.Forms.Common
 {
     public partial class SearchSortExpressionForm : Form
     {
+        private readonly IList<SfChildRelationship> sfChildRelationships;
+
         public SearchSortExpressionForm()
         {
             InitializeComponent();
@@ -31,7 +35,13 @@ namespace ExcelForce.Forms.Common
 
             ShowChildrenSection(false);
 
+            sfChildRelationships = model.ChildRelationships;
+
             listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
+
+            listRelationshipName.DataSource = model.ChildRelationships
+                ?.FirstOrDefault(x => x.ObjectName == Convert.ToString(listChildObject.SelectedValue))
+                ?.RelationshipFields;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -54,7 +64,7 @@ namespace ExcelForce.Forms.Common
             {
                 SearchExpression = searchConditionTextBox.Text,
                 SortExpression = sortConditionTextBox.Text,
-                MapName = txtMapName.Text
+                MapName = txtMapName.Text                
             };
 
             var response = service.SubmitParameterSelectionScreen(model);
@@ -72,7 +82,8 @@ namespace ExcelForce.Forms.Common
             {
                 SelectedChild = Convert.ToString(listChildObject.SelectedItem),
                 SearchExpression = searchConditionTextBox.Text,
-                SortExpression = sortConditionTextBox.Text
+                SortExpression = sortConditionTextBox.Text,
+                SelectedChildRelationshipName = Convert.ToString(listRelationshipName.SelectedItem)
             };
 
             var service = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
@@ -98,7 +109,7 @@ namespace ExcelForce.Forms.Common
 
         private void radioButtonYes_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNo.Checked = false;
+            //radioButtonNo.Checked = false;
 
             ShowChildrenSection(true);
 
@@ -115,7 +126,7 @@ namespace ExcelForce.Forms.Common
 
         private void radioButtonNo_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonYes.Checked = false;
+            //radioButtonYes.Checked = false;
 
             ShowChildrenSection(false);
 
@@ -159,6 +170,10 @@ namespace ExcelForce.Forms.Common
             lblChildObject.Visible = show;
 
             listChildObject.Visible = show;
+
+            lblRelationshipName.Visible = show;
+
+            listRelationshipName.Visible = show;
         }
 
         private void ShowMapSection(bool show)
@@ -181,6 +196,23 @@ namespace ExcelForce.Forms.Common
             lblChildObject.Visible = show;
 
             lblAddChild.Visible = show;
+        }
+
+        private void listChildObject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listRelationshipName.DataSource = sfChildRelationships
+               ?.FirstOrDefault(x => x.ObjectName == Convert.ToString(listChildObject.SelectedValue))
+               ?.RelationshipFields;
+        }
+
+        private void lblRelationshipName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listRelationshipName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
