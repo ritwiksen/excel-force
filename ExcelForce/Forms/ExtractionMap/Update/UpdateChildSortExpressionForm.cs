@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;

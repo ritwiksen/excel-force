@@ -459,6 +459,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                   {
                       SearchExpression = currentObjectData.FilterExpressions,
                       SortExpression = currentObjectData.SortExpressions,
+                      SelectedChild=SfObject.GetApiNameFromDisplayName(child),
                       MapName=queryObject.Name
                   });
             }
