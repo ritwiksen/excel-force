@@ -223,10 +223,11 @@ namespace ExcelForce.Business.Services.MapExtraction
             try
             {
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
-
+                var relationShipFieldName = _persistenceContainer.Get<string>(BusinessConstants.SelectedChildRelationshipField);
                 var sfObject = queryObject?.Objects?.First(x => x.Name == objectName);
 
                 sfObject.Fields = fields;
+                sfObject.RelationshipName = relationShipFieldName;
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, queryObject);
 
@@ -396,6 +397,16 @@ namespace ExcelForce.Business.Services.MapExtraction
                               ?.OrderBy(x => x.Name)
                     : children;
 
+                var objects = _updateMapService.GetChildRelationships(queryObject?.GetParentObject()?.Name);
+                if (objects.Messages?.Count > 0)
+                {
+                    return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
+                        objects.Messages?.ToArray());
+                }
+
+                var objectDetails = queryObject?.Objects
+                    ?.First(x => x.Name == currentObject);
+
                 return ServiceResponseModelFactory.GetModel(
                   new SearchSortExtractionModel
                   {
@@ -404,7 +415,8 @@ namespace ExcelForce.Business.Services.MapExtraction
                       ShowAddChildSection = queryObject.GetChildren()?.Count < 2,
                       Children = children?.ToList(),
                       ShowMapNameSection = ShowMapSectionOnStart(),
-                      MapName=queryObject.Name
+                      ChildRelationships = objects?.Model.Where(x => !queryObject.Objects?.Select(y => y.Name)?.Contains(x.ObjectName) ?? false)?.Select(s => s)?.ToList(),
+                      MapName = queryObject.Name
                   });
             }
             catch (Exception ex)
@@ -469,15 +481,17 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 //var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
 
-                var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == model.SelectedChild);
+               // var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == model.SelectedChild);
 
-                //sfObject.FilterExpressions = model.SearchExpression;
+              //  sfObject.FilterExpressions = model?.SearchExpression;
 
-                //sfObject.SortExpressions = model.SortExpression;
+              // sfObject.SortExpressions = model?.SortExpression;
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, queryObject);
 
                 _persistenceContainer.Set(BusinessConstants.CurrentObject, model.SelectedChild);
+
+                _persistenceContainer.Set(BusinessConstants.SelectedChildRelationshipField, model?.SelectedChildRelationshipName);
 
                 var response = SubmitOnObjectSelection(model.SelectedChild);
 

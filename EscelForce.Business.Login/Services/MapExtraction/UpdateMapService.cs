@@ -90,7 +90,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                   //  return ServiceResponseModelFactory.GetModel(persistentMapNames);
 
 
-                var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label,FilterExpressions=x.SearchFilter,SortExpressions=x.SortFilter,Fields=x.Fields});
+                var childObjectNames = _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name)).Query?.Children?.Select(x=>new SfObject {ApiName= x.ApiName, Name=x.Label,FilterExpressions=x.SearchFilter,SortExpressions=x.SortFilter,Fields=x.Fields,RelationshipName=x.RelationshipName});
                 
                 _persistenceContainer?.Set(
                     BusinessConstants.ChildList, childObjectNames);
@@ -110,11 +110,11 @@ namespace ExcelForce.Business.Services.MapExtraction
         {
             try
             {
-                var persistentMapNames =
-                      _persistenceContainer.Get<IEnumerable<string>>(BusinessConstants.MapList);
+                //var persistentMapNames =
+                //      _persistenceContainer.Get<IEnumerable<string>>(BusinessConstants.MapList);
 
-                if (persistentMapNames != null)
-                    return ServiceResponseModelFactory.GetModel(persistentMapNames);
+                //if (persistentMapNames != null)
+                //    return ServiceResponseModelFactory.GetModel(persistentMapNames);
 
 
                 var MapNames = _extractMapRepository.GetRecords().Select(c => c.Name);

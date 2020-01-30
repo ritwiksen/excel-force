@@ -160,7 +160,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             {
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.CreateMapKey);
 
-                var relationShipFieldName = _persistenceContainer.Get<string>("SelectedChildRelationshipField");
+                var relationShipFieldName = _persistenceContainer.Get<string>(BusinessConstants.SelectedChildRelationshipField);
 
                 var sfObject = queryObject?.Objects?.First(x => x.Name == objectName);
 
@@ -385,7 +385,7 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 _persistenceContainer.Set(BusinessConstants.CurrentObject, model.SelectedChild);
 
-                _persistenceContainer.Set("SelectedChildRelationshipField", model?.SelectedChildRelationshipName);
+                _persistenceContainer.Set(BusinessConstants.SelectedChildRelationshipField, model?.SelectedChildRelationshipName);
 
                 var response = SubmitOnObjectSelection(model.SelectedChild);
 

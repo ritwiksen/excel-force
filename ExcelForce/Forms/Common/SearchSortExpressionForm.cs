@@ -62,7 +62,13 @@ namespace ExcelForce.Forms.Common
 
             ShowChildrenSection(false);
 
+            sfChildRelationships = model.ChildRelationships;
+
             listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
+
+            listRelationshipName.DataSource = model.ChildRelationships
+                ?.FirstOrDefault(x => x.ObjectName == Convert.ToString(listChildObject.SelectedValue))
+                ?.RelationshipFields;
             _isUpdate = isUpdate;
         }
 
