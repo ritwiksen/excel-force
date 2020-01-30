@@ -55,7 +55,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                     Name = x.Label,
                     Type = x.Type,
                     Length = x.Length,
-                    IsMandatory=x.IsMandatory
+                    IsMandatory = !x.IsNillable
                 })
                 ?.ToList();
             }
