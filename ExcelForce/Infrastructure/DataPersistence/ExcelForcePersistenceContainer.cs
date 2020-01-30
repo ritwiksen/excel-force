@@ -51,7 +51,7 @@ namespace ExcelForce.Infrastructure.DataPersistence
                     return true;
 
                 if (_containerValue.ContainsKey(key))
-                    _containerValue.Clear();
+                    _containerValue.Remove(key);
 
                 return true;
             }

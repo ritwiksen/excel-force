@@ -54,7 +54,8 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                     ApiName = x.Name,
                     Name = x.Label,
                     Type = x.Type,
-                    Length = x.Length
+                    Length = x.Length,
+                    IsMandatory=x.IsMandatory
                 })
                 ?.ToList();
             }
