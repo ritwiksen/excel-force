@@ -170,7 +170,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 var isPrimary= sfQuery?.Objects.FirstOrDefault(x => x.Name == currentObject)?.IsPrimary;
 
                
-                var availableFields = isPrimary != null && (bool)isPrimary ? _updateMapService.GetFieldsByMapParentObjectName(sfQuery?.Name)?.ToList() : _updateMapService.GetChildrenssByName(sfQuery.Name).Model.ToList().FirstOrDefault(x => x.Equals(currentObject))?.Fields.ToList();
+                var availableFields = isPrimary != null && (bool)isPrimary ? _updateMapService.GetFieldsByMapParentObjectName(sfQuery?.Name)?.ToList() : _updateMapService.GetChildrenssByName(sfQuery.Name)?.Model.ToList().FirstOrDefault(x => string.Equals(x.ApiName,currentObject,StringComparison.InvariantCultureIgnoreCase))?.Fields.ToList();
                 response.Model = new FieldSelectionModel
                 {
                     SfFields = _updateMapService.GetFieldsByName(currentObject)?.ToList(),
@@ -478,14 +478,7 @@ namespace ExcelForce.Business.Services.MapExtraction
             try
             {
                 var queryObject = _persistenceContainer.Get<SfQuery>(BusinessConstants.UpdateMapKey);
-
-                //var currentObject = _persistenceContainer.Get<string>(BusinessConstants.CurrentObject);
-
-               // var sfObject = queryObject?.Objects.FirstOrDefault(x => x.Name == model.SelectedChild);
-
-              //  sfObject.FilterExpressions = model?.SearchExpression;
-
-              // sfObject.SortExpressions = model?.SortExpression;
+               
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, queryObject);
 
