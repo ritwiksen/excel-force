@@ -157,11 +157,10 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                 }
 
              };
-    var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
+
+            var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
 
             return response?.Model;
-
-
         }
     }
 }

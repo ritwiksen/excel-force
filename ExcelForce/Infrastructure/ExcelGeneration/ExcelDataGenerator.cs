@@ -4,6 +4,7 @@ using Microsoft.Office.Tools.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace ExcelForce.Infrastructure.ExcelGeneration
 {
@@ -13,12 +14,22 @@ namespace ExcelForce.Infrastructure.ExcelGeneration
         {
             try
             {
+                var primaryObject = extractData.ObjectName;
+
                 var objectList = extractData?.GetObjects();
 
-                foreach (var objectItem in objectList)
+                if (!(objectList?.Any() ?? false))
+                    return false;
+
+                if (objectList.Keys?.Any(x => x != primaryObject) ?? false)
                 {
-                    PerformTasksOnIndividualSheet(objectItem.Key, objectItem.Value);
+                    foreach (var key in objectList.Keys?.Where(x => x != primaryObject))
+                    {
+                        PerformTasksOnIndividualSheet(key, objectList[key]);
+                    }
                 }
+
+                PerformTasksOnIndividualSheet(primaryObject, objectList[primaryObject]);
 
                 return true;
             }
