@@ -16,5 +16,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.Api.SfObject
 
         [JsonProperty("length", NullValueHandling = NullValueHandling.Ignore)]
         public string Length { get; set; }
+
+        [JsonProperty("nillable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsNillable { get; set; }
     }
 }
