@@ -24,5 +24,7 @@
 
         public const string CurrentMapName = "mapName";
 
+        public const string SelectedChildRelationshipField = "SelectedChildRelationshipField";
+
     }
 }
