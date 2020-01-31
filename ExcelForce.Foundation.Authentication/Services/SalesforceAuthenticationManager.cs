@@ -35,8 +35,8 @@ namespace ExcelForce.Foundation.Authentication.Services
                 {"grant_type",_salesforcePassword},
                 {"client_id",request.ConsumerKey},
                 {"client_secret",request.SecretKey},
-                {"username","nissankulatejaswi@deloitte.com.excelforce"},
-                {"password","Excelforce@12345bubYCTWjdofbg5xBcuXZkkDhR" }
+                {"username",request.Username},
+                {"password",$"{request.Password}{request.SecurityToken}" }
             };
 
             var apiRequest = new AuthenticationApiRequest()

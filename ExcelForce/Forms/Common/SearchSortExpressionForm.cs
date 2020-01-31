@@ -103,6 +103,9 @@ namespace ExcelForce.Forms.Common
                 if (response.IsValid())
                 {
                     Close();
+                    MessageBox.Show("Parent Updated Successfully!", "",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Information);
                 }
             }
             else
@@ -113,6 +116,10 @@ namespace ExcelForce.Forms.Common
                 if (response.IsValid())
                 {
                     Close();
+                    Close();
+                    MessageBox.Show("Map Created Successfully!", "",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
                 }
             }
             //TODO:(Ritwik):: Show error

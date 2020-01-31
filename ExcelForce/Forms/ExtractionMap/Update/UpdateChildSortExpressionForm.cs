@@ -62,10 +62,10 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 if (response.IsValid())
                 {
                     Close();
-                    MessageBox.Show("Map Updated!", "",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                }
+                    MessageBox.Show("Child Updated Successfully!", "",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Information);
+            }
             
         }
 
