@@ -137,6 +137,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 {
                     ApiName = response.Query?.Parent?.ApiName,
                     Name= response.Query?.Parent?.Label,
+                    IsPrimary=true,
                     FilterExpressions= response.Query?.Parent?.SearchFilter,
                     SortExpressions= response.Query?.Parent?.SortFilter
                 };
@@ -182,6 +183,21 @@ namespace ExcelForce.Business.Services.MapExtraction
         public ServiceResponseModel<IEnumerable<string>> GetObjectNames()
         {
             throw new NotImplementedException();
+        }
+
+        public ExtractMap GetExtractMapByName(string name)
+        {
+            try
+            {
+                return _extractMapRepository.GetRecords().FirstOrDefault(s => s.Name.Equals(name));
+
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError(ex.GetExceptionLog());
+
+            }
+            return null;
         }
     }
 }

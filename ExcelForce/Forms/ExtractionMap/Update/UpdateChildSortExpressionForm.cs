@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
+using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
 using System.Collections.Generic;
@@ -35,13 +36,11 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             txtMapName.Enabled = false;
 
             childObj = model.SelectedChild;
-            //ShowMapSection(model.ShowMapNameSection);
 
-            //ShowAddChildSection(model.ShowAddChildSection);
+            updateChildRelationshipName.DataSource = model.ChildRelationships
+               ?.FirstOrDefault(x => string.Equals(x.ObjectName, childObj,StringComparison.InvariantCultureIgnoreCase))
+               ?.RelationshipFields;
 
-            //ShowChildrenSection(false);
-
-            //listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
             _isUpdate = isUpdate;
         }
 
@@ -52,22 +51,22 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 SearchExpression = searchConditionTextBox.Text,
                 SortExpression = sortConditionTextBox.Text,
                 MapName = txtMapName.Text,
-                SelectedChild = childObj
+                SelectedChild = childObj,
+                SelectedChildRelationshipName=updateChildRelationshipName.Text
 
             };
-            if (_isUpdate)
-            {
+            
                 var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
                 var response = service.SubmitParameterSelectionScreen(model);
 
                 if (response.IsValid())
                 {
                     Close();
-                    MessageBox.Show("Map Updated!", "",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                }
+                    MessageBox.Show("Child Updated Successfully!", "",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Information);
             }
+            
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)

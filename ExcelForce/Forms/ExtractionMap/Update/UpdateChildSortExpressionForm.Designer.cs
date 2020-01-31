@@ -37,6 +37,8 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.lblMapName = new System.Windows.Forms.Label();
             this.txtMapName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.updateChildRelationshipName = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label2
@@ -89,7 +91,7 @@
             // 
             this.btnPrevious.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnPrevious.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnPrevious.Location = new System.Drawing.Point(28, 543);
+            this.btnPrevious.Location = new System.Drawing.Point(28, 574);
             this.btnPrevious.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(215, 58);
@@ -102,7 +104,7 @@
             // 
             this.btnNext.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnNext.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNext.Location = new System.Drawing.Point(294, 543);
+            this.btnNext.Location = new System.Drawing.Point(294, 574);
             this.btnNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(222, 58);
@@ -115,7 +117,7 @@
             // 
             this.lblMapName.AutoSize = true;
             this.lblMapName.Font = new System.Drawing.Font("Calibri Light", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMapName.Location = new System.Drawing.Point(25, 435);
+            this.lblMapName.Location = new System.Drawing.Point(26, 471);
             this.lblMapName.Name = "lblMapName";
             this.lblMapName.Size = new System.Drawing.Size(109, 27);
             this.lblMapName.TabIndex = 22;
@@ -125,19 +127,40 @@
             // 
             this.txtMapName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMapName.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMapName.Location = new System.Drawing.Point(28, 477);
+            this.txtMapName.Location = new System.Drawing.Point(30, 514);
             this.txtMapName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMapName.Name = "txtMapName";
             this.txtMapName.ReadOnly = true;
             this.txtMapName.Size = new System.Drawing.Size(488, 34);
             this.txtMapName.TabIndex = 21;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri Light", 11F);
+            this.label1.Location = new System.Drawing.Point(26, 433);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(177, 27);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Relationship Name";
+            // 
+            // updateChildRelationshipName
+            // 
+            this.updateChildRelationshipName.FormattingEnabled = true;
+            this.updateChildRelationshipName.ItemHeight = 20;
+            this.updateChildRelationshipName.Location = new System.Drawing.Point(209, 436);
+            this.updateChildRelationshipName.Name = "updateChildRelationshipName";
+            this.updateChildRelationshipName.Size = new System.Drawing.Size(307, 24);
+            this.updateChildRelationshipName.TabIndex = 24;
+            // 
             // UpdateChildSortExpressionForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 636);
+            this.ClientSize = new System.Drawing.Size(554, 662);
+            this.Controls.Add(this.updateChildRelationshipName);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblMapName);
             this.Controls.Add(this.txtMapName);
             this.Controls.Add(this.btnNext);
@@ -169,5 +192,7 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.TextBox txtMapName;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox updateChildRelationshipName;
     }
 }
