@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -68,16 +69,16 @@ namespace ExcelForce.Foundation.EntityManagement.Infrastructure.CustomSerializer
                     type = x.Value["type"].ToString()?.Trim();
                     string objName = $"{type}/";
                     string[] seperator = { objName };
-                    string[] returnValues = listData.Url.Split(seperator,2, StringSplitOptions.None);
+                    string[] returnValues = listData.Url.Split(seperator, 2, StringSplitOptions.None);
                     listData.Id = returnValues[1];
                     continue;
                 }
 
                 var value = x.Value;
 
-                var result = value.IsValid(GetJsonSchema());
+                var IsEntiytSchema = value.IsValid(GetJsonSchema(EntityManagementConstants.SfEntitySchema));
 
-                if (result)
+                if (IsEntiytSchema)
                 {
                     var complexObject = JObject.Parse(value?.ToString());
 
@@ -90,7 +91,6 @@ namespace ExcelForce.Foundation.EntityManagement.Infrastructure.CustomSerializer
             return Tuple.Create(type, listData);
         }
 
-        private static JsonSchema GetJsonSchema() => JsonSchema.Parse(
-            EntityManagementConstants.SfEntitySchema);
+        private static JsonSchema GetJsonSchema(string schema) => JsonSchema.Parse(schema);
     }
 }

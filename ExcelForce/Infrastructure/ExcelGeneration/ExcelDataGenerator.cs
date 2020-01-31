@@ -10,7 +10,7 @@ namespace ExcelForce.Infrastructure.ExcelGeneration
 {
     public sealed class ExcelDataGenerator : IActionOnSfData
     {
-        public bool ActionOnSfExtractData(SfExtractDataWrapper extractData)
+        public bool ActionOnSfExtractData(SfExtractDataWrapper extractData, IList<ReadableObject> children)
         {
             try
             {
@@ -20,6 +20,19 @@ namespace ExcelForce.Infrastructure.ExcelGeneration
 
                 if (!(objectList?.Any() ?? false))
                     return false;
+
+                if (children?.Any() ?? false)
+                {
+                    foreach (var child in children)
+                    {
+                        if (!objectList.Any(x => x.Key == child.Label))
+                            objectList.Add(child.Label, new DataTable());
+
+                        if (objectList[primaryObject].Columns.Contains(child.RelationshipName))
+                            objectList[primaryObject].Columns.Remove(child.RelationshipName);
+
+                    }
+                }
 
                 if (objectList.Keys?.Any(x => x != primaryObject) ?? false)
                 {
