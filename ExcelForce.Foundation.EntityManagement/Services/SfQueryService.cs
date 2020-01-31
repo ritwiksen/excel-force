@@ -67,7 +67,7 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                 queryBuilder.Append($" WHERE {readableQueryObject.SearchFilter}");
 
             if (!string.IsNullOrWhiteSpace(readableQueryObject?.SortFilter))
-                queryBuilder.Append("{readableQueryObject.SortFilter}");
+                queryBuilder.Append($" {readableQueryObject.SortFilter}");
 
             return queryBuilder.ToString();
         }
