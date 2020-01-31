@@ -227,7 +227,6 @@ namespace ExcelForce.Business.Services.MapExtraction
                 var sfObject = queryObject?.Objects?.First(x => x.Name == objectName);
 
                 sfObject.Fields = fields;
-                sfObject.RelationshipName = relationShipFieldName;
 
                 _persistenceContainer.Set(BusinessConstants.UpdateMapKey, queryObject);
 
@@ -310,16 +309,56 @@ namespace ExcelForce.Business.Services.MapExtraction
                 objectDetails.FilterExpressions = model?.SearchExpression;
 
                 objectDetails.SortExpressions = model?.SortExpression;
+                objectDetails.RelationshipName = model?.SelectedChildRelationshipName;
 
                 queryObject.Name = model?.MapName;
 
-                var query = _readableExtractMapService.GetContentFromQuery(queryObject);
-
-                var addRecordResult = _updateMapRepository.UpdateRecord(model.MapName,new ExtractMap
+                if (string.IsNullOrEmpty(model.SelectedChild))
                 {
-                    Query = query,
-                    Name = model.MapName
-                });
+                    var query = _readableExtractMapService.GetContentFromQuery(queryObject);
+
+                    var addRecordResult = _updateMapRepository.UpdateRecord(model.MapName, new ExtractMap
+                    {
+                        Query = query,
+                        Name = model.MapName
+                    });
+                }
+                else
+                {
+                    var extractMap = _updateMapService.GetExtractMapByName(model.MapName);
+
+                    var childrenList = extractMap?.Query?.Children;
+                    var matchRecord = childrenList?.Where(x => string.Equals(x.ApiName, model.SelectedChild, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                    var recordIndex = childrenList.IndexOf(matchRecord);
+                    if (recordIndex < 0)
+                        return null;
+
+                    var updateChild = new ReadableObject
+                    {
+                        ApiName = objectDetails.ApiName,
+
+                        Label = objectDetails.Name,
+
+                        SearchFilter = objectDetails.FilterExpressions,
+
+                        SortFilter = objectDetails.SortExpressions,
+
+                        Fields = objectDetails.Fields?.ToList(),
+
+                        RelationshipName = objectDetails.RelationshipName
+                    };
+
+                    childrenList[recordIndex] = updateChild;
+
+                    extractMap.Query.Children = childrenList;
+
+                    var addRecordResult = _updateMapRepository.UpdateRecord(model.MapName, new ExtractMap
+                    {
+                        Query = extractMap.Query,
+                        Name = model.MapName
+                    });
+                }
+               
 
                 _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
 
@@ -442,17 +481,13 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 var currentObjectData = queryObject?.Objects?.FirstOrDefault(x => x.Name == child);
 
-                /*var children = _sfObjectService.GetChildrenForObject(
-                    authResponse?.InstanceUrl,
-                    authResponse?.AccessToken,
-                    queryObject?.GetParentObject()?.Name);
+                var objects = _updateMapService.GetChildRelationships(queryObject?.ParentObject?.ApiName);
+                if (objects.Messages?.Count > 0)
+                {
+                    return ServiceResponseModelFactory.GetNullModelForReferenceType<SearchSortExtractionModel>(
+                        objects.Messages?.ToArray());
+                }
 
-                var excludedNames = queryObject?.Objects?.Select(x => x.Name)?.ToList();
-
-                children = queryObject.GetChildren() != null
-                    ? children?.Where(x => !excludedNames.Contains(x.Name))
-                              ?.OrderBy(x => x.Name)
-                    : children;*/
 
                 return ServiceResponseModelFactory.GetModel(
                   new SearchSortExtractionModel
@@ -460,7 +495,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                       SearchExpression = currentObjectData.FilterExpressions,
                       SortExpression = currentObjectData.SortExpressions,
                       SelectedChild=SfObject.GetApiNameFromDisplayName(child),
-                      MapName=queryObject.Name
+                      SelectedChildRelationshipName=currentObjectData.RelationshipName,
+                      ChildRelationships = objects?.Model.Select(s => s)?.ToList(),
+                      MapName =queryObject.Name
                   });
             }
             catch (Exception ex)

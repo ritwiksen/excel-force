@@ -36,13 +36,11 @@ namespace ExcelForce.Forms.ExtractionMap.Update
             txtMapName.Enabled = false;
 
             childObj = model.SelectedChild;
-            //ShowMapSection(model.ShowMapNameSection);
 
-            //ShowAddChildSection(model.ShowAddChildSection);
+            updateChildRelationshipName.DataSource = model.ChildRelationships
+               ?.FirstOrDefault(x => string.Equals(x.ObjectName, childObj,StringComparison.InvariantCultureIgnoreCase))
+               ?.RelationshipFields;
 
-            //ShowChildrenSection(false);
-
-            //listChildObject.DataSource = model.Children?.Select(x => x.Name)?.ToList();
             _isUpdate = isUpdate;
         }
 
@@ -53,11 +51,11 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 SearchExpression = searchConditionTextBox.Text,
                 SortExpression = sortConditionTextBox.Text,
                 MapName = txtMapName.Text,
-                SelectedChild = childObj
+                SelectedChild = childObj,
+                SelectedChildRelationshipName=updateChildRelationshipName.Text
 
             };
-            if (_isUpdate)
-            {
+            
                 var service = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
                 var response = service.SubmitParameterSelectionScreen(model);
 
@@ -68,7 +66,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
                 }
-            }
+            
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)

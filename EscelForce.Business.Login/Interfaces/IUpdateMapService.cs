@@ -1,4 +1,5 @@
 ﻿using ExcelForce.Foundation.CoreServices.Models;
+using ExcelForce.Foundation.EntityManagement.Models.ExtractMap;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using System.Collections.Generic;
 
@@ -19,6 +20,7 @@ namespace ExcelForce.Business.Interfaces
 
         ServiceResponseModel<IEnumerable<SfChildRelationship>> GetChildRelationships(string objectName);
 
+        ExtractMap GetExtractMapByName(string name);
 
     }
 }
