@@ -4,21 +4,45 @@ using Microsoft.Office.Tools.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace ExcelForce.Infrastructure.ExcelGeneration
 {
     public sealed class ExcelDataGenerator : IActionOnSfData
     {
-        public bool ActionOnSfExtractData(SfExtractDataWrapper extractData)
+        public bool ActionOnSfExtractData(SfExtractDataWrapper extractData, IList<ReadableObject> children)
         {
             try
             {
+                var primaryObject = extractData.ObjectName;
+
                 var objectList = extractData?.GetObjects();
 
-                foreach (var objectItem in objectList)
+                if (!(objectList?.Any() ?? false))
+                    return false;
+
+                if (children?.Any() ?? false)
                 {
-                    PerformTasksOnIndividualSheet(objectItem.Key, objectItem.Value);
+                    foreach (var child in children)
+                    {
+                        if (!objectList.Any(x => x.Key == child.Label))
+                            objectList.Add(child.Label, new DataTable());
+
+                        if (objectList[primaryObject].Columns.Contains(child.RelationshipName))
+                            objectList[primaryObject].Columns.Remove(child.RelationshipName);
+
+                    }
                 }
+
+                if (objectList.Keys?.Any(x => x != primaryObject) ?? false)
+                {
+                    foreach (var key in objectList.Keys?.Where(x => x != primaryObject))
+                    {
+                        PerformTasksOnIndividualSheet(key, objectList[key]);
+                    }
+                }
+
+                PerformTasksOnIndividualSheet(primaryObject, objectList[primaryObject]);
 
                 return true;
             }

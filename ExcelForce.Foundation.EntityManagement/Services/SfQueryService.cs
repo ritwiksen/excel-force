@@ -54,13 +54,20 @@ namespace ExcelForce.Foundation.EntityManagement.Services
 
             var queryBuilder = new StringBuilder();
 
-            queryBuilder.Append($"{selectStatement} FROM {readableQueryObject.Label}");
+
+            if (string.IsNullOrWhiteSpace(readableQueryObject.RelationshipName))
+            {
+                queryBuilder.Append($"{selectStatement} FROM {readableQueryObject.Label}");
+            }
+            else {
+                queryBuilder.Append($"{selectStatement} FROM {readableQueryObject.RelationshipName}");
+            }
 
             if (!string.IsNullOrWhiteSpace(readableQueryObject?.SearchFilter))
                 queryBuilder.Append($" WHERE {readableQueryObject.SearchFilter}");
 
             if (!string.IsNullOrWhiteSpace(readableQueryObject?.SortFilter))
-                queryBuilder.Append($" ORDER BY {readableQueryObject.SortFilter}");
+                queryBuilder.Append($" {readableQueryObject.SortFilter}");
 
             return queryBuilder.ToString();
         }
@@ -150,11 +157,10 @@ namespace ExcelForce.Foundation.EntityManagement.Services
                 }
 
              };
-    var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
+
+            var response = _loginServiceCallWrapper.Get(url, requestObject)?.Result;
 
             return response?.Model;
-
-
         }
     }
 }

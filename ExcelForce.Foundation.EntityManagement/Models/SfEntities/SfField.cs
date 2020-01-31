@@ -23,6 +23,8 @@ namespace ExcelForce.Foundation.EntityManagement.Models.SfEntities
         [JsonProperty("type")]
         public string Type { get; set; }
 
+        public bool IsMandatory { get; set; }
+
         public string DisplayName() => GetDisplayName(Name, ApiName);
 
         public static string GetDisplayName(string name, string apiName) => $"{name} ({apiName})";

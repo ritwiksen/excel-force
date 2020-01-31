@@ -57,11 +57,11 @@ namespace ExcelForce.Forms.ExtractionMap
         {
             if (_isUpdate)
             {
-                
+
                 var updateExtractionMapService
                 = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
-                
-               
+
+
                 var submittedFields = GetCheckedFields();
 
                 var listOfFieldNames = _allFields?.Where(
@@ -74,7 +74,7 @@ namespace ExcelForce.Forms.ExtractionMap
 
                 if (response.IsValid())
                 {
-                    
+
 
                     if (string.IsNullOrEmpty(_updateSearchSortModel.SelectedChild))
                     {
@@ -154,7 +154,7 @@ namespace ExcelForce.Forms.ExtractionMap
                     //TODO:(Ritwik):: Handle error scenario
                 }
             }
-            
+
         }
 
         private IList<string> GetCheckedFields()
@@ -206,10 +206,13 @@ namespace ExcelForce.Forms.ExtractionMap
                     ApiName = x.ApiName,
                     Name = x.Name,
                     Type = x.Type,
-                    Length = x.Length
+                    Length = x.Length,
+                    IsMandatory = x.IsMandatory
                 }));
 
             gridFieldList.DataSource = list;
+
+            gridFieldList.Columns["IsMandatory"].Visible = false;
 
             gridFieldList.Update();
         }
@@ -217,7 +220,7 @@ namespace ExcelForce.Forms.ExtractionMap
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             var mapService = Reusables.Instance.ExcelForceServiceFactory?.GetCreateExtractMapService();
-            var updateExtractionMapService= Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
+            var updateExtractionMapService = Reusables.Instance.ExcelForceServiceFactory?.GetUpdateExtractionMapService();
             var areChildObjectsAvailable = mapService.AreChildrenAvailable();
 
             if (_isUpdate)
@@ -304,6 +307,14 @@ namespace ExcelForce.Forms.ExtractionMap
         private void ExtractionMapFieldsForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void gridFieldList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            if ((bool)gridFieldList.Rows[e.RowIndex].Cells["IsMandatory"].Value == true)
+            {
+                gridFieldList.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(DefaultFont, FontStyle.Bold);
+            }
         }
     }
 }

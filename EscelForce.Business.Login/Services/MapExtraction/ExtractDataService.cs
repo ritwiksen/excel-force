@@ -153,7 +153,9 @@ namespace ExcelForce.Business.Services.MapExtraction
                 var extractDataResponse = _sfQueryService.ExtractData(
                     query, loginResponse?.AccessToken, loginResponse?.InstanceUrl);
 
-                _actionsOnSfData.ActionOnSfExtractData(extractDataResponse);
+                _actionsOnSfData.ActionOnSfExtractData(
+                    extractDataResponse, 
+                    matchingMap.Query?.Children?.Select(x=>x)?.ToList());
 
                 response = true;
             }
