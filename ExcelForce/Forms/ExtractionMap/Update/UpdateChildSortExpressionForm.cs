@@ -61,10 +61,21 @@ namespace ExcelForce.Forms.ExtractionMap.Update
 
                 if (response.IsValid())
                 {
-                    Close();
-                    MessageBox.Show("Child Updated Successfully!", "",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Information);
+                  Close();
+                var confirmResult = MessageBox.Show("Child object updated succesfully. Do you have futher updates in the Map ?",
+                                     "",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    var returnResponse = service.SubmitOnMapSelection(null);
+                    var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(returnResponse?.Model);
+                    updateExtractionMapFieldsForm.Show();
+                }
+                else
+                {
+                    service.clear();                   
+                }
+                
             }
             
         }

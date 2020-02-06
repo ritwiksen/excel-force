@@ -1,5 +1,6 @@
 ﻿using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap;
+using ExcelForce.Forms.ExtractionMap.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
 using ExcelForce.Models;
 using System;
@@ -103,9 +104,21 @@ namespace ExcelForce.Forms.Common
                 if (response.IsValid())
                 {
                     Close();
-                    MessageBox.Show("Parent Updated Successfully!", "",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Information);
+                    var confirmResult = MessageBox.Show("Parent object updated succesfully. Do you have futher updates in the Map ?",
+                                     "",
+                                     MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        var returnResponse = service.SubmitOnMapSelection(null);
+                        var updateExtractionMapFieldsForm = new UpdateExtractionMapFieldsForm(returnResponse?.Model);
+                        updateExtractionMapFieldsForm.Show();
+                    }
+                    else
+                    {
+                        service.clear();
+
+                    }
+                    
                 }
             }
             else
@@ -115,7 +128,6 @@ namespace ExcelForce.Forms.Common
 
                 if (response.IsValid())
                 {
-                    Close();
                     Close();
                     MessageBox.Show("Map Created Successfully!", "",
                                 MessageBoxButtons.OK,
@@ -292,9 +304,7 @@ namespace ExcelForce.Forms.Common
 
         private void listChildObject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listRelationshipName.DataSource = sfChildRelationships
-               ?.FirstOrDefault(x => x.ObjectName == Convert.ToString(listChildObject.SelectedValue))
-               ?.RelationshipFields;
+           
         }
 
         private void lblRelationshipName_Click(object sender, EventArgs e)
@@ -305,6 +315,13 @@ namespace ExcelForce.Forms.Common
         private void listRelationshipName_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listChildObject_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            listRelationshipName.DataSource = sfChildRelationships
+              ?.FirstOrDefault(x => x.ObjectName == Convert.ToString(listChildObject.SelectedValue))
+              ?.RelationshipFields;
         }
     }
 }

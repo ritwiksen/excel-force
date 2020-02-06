@@ -38,7 +38,7 @@
             this.lblMapName = new System.Windows.Forms.Label();
             this.txtMapName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.updateChildRelationshipName = new System.Windows.Forms.ListBox();
+            this.updateChildRelationshipName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -147,10 +147,9 @@
             // updateChildRelationshipName
             // 
             this.updateChildRelationshipName.FormattingEnabled = true;
-            this.updateChildRelationshipName.ItemHeight = 20;
-            this.updateChildRelationshipName.Location = new System.Drawing.Point(209, 436);
+            this.updateChildRelationshipName.Location = new System.Drawing.Point(227, 435);
             this.updateChildRelationshipName.Name = "updateChildRelationshipName";
-            this.updateChildRelationshipName.Size = new System.Drawing.Size(307, 24);
+            this.updateChildRelationshipName.Size = new System.Drawing.Size(289, 28);
             this.updateChildRelationshipName.TabIndex = 24;
             // 
             // UpdateChildSortExpressionForm
@@ -193,6 +192,6 @@
         private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.TextBox txtMapName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox updateChildRelationshipName;
+        private System.Windows.Forms.ComboBox updateChildRelationshipName;
     }
 }
