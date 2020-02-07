@@ -26,5 +26,8 @@
 
         public const string SelectedChildRelationshipField = "SelectedChildRelationshipField";
 
+        public const string ParentObjUpdateConfirm = "Parent object updated succesfully. Do you have futher updates in the Map ?";
+
+        public const string ChildObjUpdateConfirm = "Child object updated succesfully. Do you have futher updates in the Map ?";
     }
 }

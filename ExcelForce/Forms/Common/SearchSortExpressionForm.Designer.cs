@@ -37,14 +37,14 @@
             this.radioButtonYes = new System.Windows.Forms.RadioButton();
             this.radioButtonNo = new System.Windows.Forms.RadioButton();
             this.lblRelationshipDetails = new System.Windows.Forms.Label();
-            this.listChildObject = new System.Windows.Forms.ListBox();
             this.lblChildObject = new System.Windows.Forms.Label();
             this.txtMapName = new System.Windows.Forms.TextBox();
             this.lblMapName = new System.Windows.Forms.Label();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.lblRelationshipName = new System.Windows.Forms.Label();
-            this.listRelationshipName = new System.Windows.Forms.ListBox();
+            this.listChildObject = new System.Windows.Forms.ComboBox();
+            this.listRelationshipName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -141,17 +141,6 @@
             this.lblRelationshipDetails.TabIndex = 14;
             this.lblRelationshipDetails.Text = "Relationship Details";
             // 
-            // listChildObject
-            // 
-            this.listChildObject.FormattingEnabled = true;
-            this.listChildObject.ItemHeight = 20;
-            this.listChildObject.Location = new System.Drawing.Point(212, 561);
-            this.listChildObject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listChildObject.Name = "listChildObject";
-            this.listChildObject.Size = new System.Drawing.Size(308, 24);
-            this.listChildObject.TabIndex = 15;
-            this.listChildObject.SelectedIndexChanged += new System.EventHandler(this.listChildObject_SelectedIndexChanged);
-            // 
             // lblChildObject
             // 
             this.lblChildObject.AutoSize = true;
@@ -219,16 +208,22 @@
             this.lblRelationshipName.Text = "Relationship Name";
             this.lblRelationshipName.Click += new System.EventHandler(this.lblRelationshipName_Click);
             // 
+            // listChildObject
+            // 
+            this.listChildObject.FormattingEnabled = true;
+            this.listChildObject.Location = new System.Drawing.Point(213, 560);
+            this.listChildObject.Name = "listChildObject";
+            this.listChildObject.Size = new System.Drawing.Size(303, 28);
+            this.listChildObject.TabIndex = 23;
+            this.listChildObject.SelectedIndexChanged += new System.EventHandler(this.listChildObject_SelectedIndexChanged_1);
+            // 
             // listRelationshipName
             // 
             this.listRelationshipName.FormattingEnabled = true;
-            this.listRelationshipName.ItemHeight = 20;
-            this.listRelationshipName.Location = new System.Drawing.Point(213, 622);
-            this.listRelationshipName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listRelationshipName.Location = new System.Drawing.Point(213, 621);
             this.listRelationshipName.Name = "listRelationshipName";
-            this.listRelationshipName.Size = new System.Drawing.Size(308, 24);
-            this.listRelationshipName.TabIndex = 22;
-            this.listRelationshipName.SelectedIndexChanged += new System.EventHandler(this.listRelationshipName_SelectedIndexChanged);
+            this.listRelationshipName.Size = new System.Drawing.Size(303, 28);
+            this.listRelationshipName.TabIndex = 24;
             // 
             // SearchSortExpressionForm
             // 
@@ -237,13 +232,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 853);
             this.Controls.Add(this.listRelationshipName);
+            this.Controls.Add(this.listChildObject);
             this.Controls.Add(this.lblRelationshipName);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.lblMapName);
             this.Controls.Add(this.txtMapName);
             this.Controls.Add(this.lblChildObject);
-            this.Controls.Add(this.listChildObject);
             this.Controls.Add(this.lblRelationshipDetails);
             this.Controls.Add(this.radioButtonNo);
             this.Controls.Add(this.radioButtonYes);
@@ -276,13 +271,13 @@
         private System.Windows.Forms.RadioButton radioButtonYes;
         private System.Windows.Forms.RadioButton radioButtonNo;
         private System.Windows.Forms.Label lblRelationshipDetails;
-        private System.Windows.Forms.ListBox listChildObject;
         private System.Windows.Forms.Label lblChildObject;
         private System.Windows.Forms.TextBox txtMapName;
         private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label lblRelationshipName;
-        private System.Windows.Forms.ListBox listRelationshipName;
+        private System.Windows.Forms.ComboBox listChildObject;
+        private System.Windows.Forms.ComboBox listRelationshipName;
     }
 }

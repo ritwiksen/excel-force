@@ -82,6 +82,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                         Name = SfObject.GetObjectNameFromDisplayName(objectName),
                         FilterExpressions=_updateMapService.GetObjectNameByMapName(query.Name)?.Model.FilterExpressions,
                         SortExpressions = _updateMapService.GetObjectNameByMapName(query.Name)?.Model.SortExpressions,
+                        RelationshipName= _persistenceContainer.Get<string>(BusinessConstants.SelectedChildRelationshipField)
                     });
                 }
 
@@ -309,12 +310,13 @@ namespace ExcelForce.Business.Services.MapExtraction
                 objectDetails.FilterExpressions = model?.SearchExpression;
 
                 objectDetails.SortExpressions = model?.SortExpression;
-                objectDetails.RelationshipName = model?.SelectedChildRelationshipName;
+               
 
                 queryObject.Name = model?.MapName;
 
                 if (string.IsNullOrEmpty(model.SelectedChild))
                 {
+                    objectDetails.RelationshipName = _persistenceContainer.Get<string>(BusinessConstants.SelectedChildRelationshipField);
                     var query = _readableExtractMapService.GetContentFromQuery(queryObject);
 
                     var addRecordResult = _updateMapRepository.UpdateRecord(model.MapName, new ExtractMap
@@ -325,6 +327,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 }
                 else
                 {
+                    objectDetails.RelationshipName = model?.SelectedChildRelationshipName;
                     var extractMap = _updateMapService.GetExtractMapByName(model.MapName);
 
                     var childrenList = extractMap?.Query?.Children;
@@ -360,9 +363,7 @@ namespace ExcelForce.Business.Services.MapExtraction
                 }
                
 
-                _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
-
-                _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, null);
+               
 
                 return ServiceResponseModelFactory.GetModel(true, null);
             }
@@ -627,6 +628,15 @@ namespace ExcelForce.Business.Services.MapExtraction
 
                 return ServiceResponseModelFactory.GetNullModelForValueType<bool>(errorList?.ToArray());
             }
+        }
+
+        public ServiceResponseModel<bool> clear()
+        {
+            _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
+
+            _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, null);
+
+            return ServiceResponseModelFactory.GetModel(true, null);
         }
     }
 }
