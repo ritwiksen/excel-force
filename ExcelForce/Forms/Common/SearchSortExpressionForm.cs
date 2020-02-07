@@ -1,4 +1,5 @@
-﻿using ExcelForce.Business.Models.ExtractionMap;
+﻿using ExcelForce.Business.Constants;
+using ExcelForce.Business.Models.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap;
 using ExcelForce.Forms.ExtractionMap.Update;
 using ExcelForce.Foundation.EntityManagement.Models.SfEntities;
@@ -104,7 +105,7 @@ namespace ExcelForce.Forms.Common
                 if (response.IsValid())
                 {
                     Close();
-                    var confirmResult = MessageBox.Show("Parent object updated succesfully. Do you have futher updates in the Map ?",
+                    var confirmResult = MessageBox.Show(BusinessConstants.ParentObjUpdateConfirm,
                                      string.Empty,
                                      MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
