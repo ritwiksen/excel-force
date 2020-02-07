@@ -34,6 +34,6 @@ namespace ExcelForce.Business.Interfaces
         ServiceResponseModel<bool> SubmitPreviousFieldSelection();
 
         ServiceResponseModel<bool> DeleteSelectedChild(string childName);
-        void clear();
+        ServiceResponseModel<bool> clear();
     }
 }

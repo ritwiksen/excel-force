@@ -63,7 +63,7 @@ namespace ExcelForce.Forms.ExtractionMap.Update
                 {
                   Close();
                 var confirmResult = MessageBox.Show("Child object updated succesfully. Do you have futher updates in the Map ?",
-                                     "",
+                                     string.Empty,
                                      MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {

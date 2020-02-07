@@ -105,7 +105,7 @@ namespace ExcelForce.Forms.Common
                 {
                     Close();
                     var confirmResult = MessageBox.Show("Parent object updated succesfully. Do you have futher updates in the Map ?",
-                                     "",
+                                     string.Empty,
                                      MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
                     {

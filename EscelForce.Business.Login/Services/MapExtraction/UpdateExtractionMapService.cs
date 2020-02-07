@@ -630,11 +630,13 @@ namespace ExcelForce.Business.Services.MapExtraction
             }
         }
 
-        public void clear()
+        public ServiceResponseModel<bool> clear()
         {
             _persistenceContainer.Set<string>(BusinessConstants.CurrentObject, null);
 
             _persistenceContainer.Set<SfQuery>(BusinessConstants.UpdateMapKey, null);
+
+            return ServiceResponseModelFactory.GetModel(true, null);
         }
     }
 }
